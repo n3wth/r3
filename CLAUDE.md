@@ -26,9 +26,11 @@ r3/
 3. Use the unified release workflow via GitHub Actions
 4. Never commit directly to npm - use the release workflow
 
-## Release Process
+## Deployment
 
-Use GitHub Actions workflow only:
+### npm Package (GitHub Actions)
+
+Use GitHub Actions workflow only - never `npm publish` locally:
 
 ```bash
 # Trigger via GitHub CLI
@@ -38,6 +40,27 @@ gh workflow run release.yml -f version=patch|minor|major
 npm run release:patch
 npm run release:minor
 npm run release:major
+```
+
+The `.github/workflows/release.yml` bumps version, runs tests, and publishes to npm.
+
+### Documentation Website (Vercel)
+
+The docs site at https://r3.newth.ai deploys automatically from the `main` branch via Vercel.
+
+- **Framework:** Next.js (in `website/` directory)
+- **Build command:** `cd website && npm run build`
+- **Install command:** `cd website && npm install`
+- **Auto-deploy:** Every push to `main` triggers deployment
+- **Preview:** PRs get preview deployments
+
+Configuration is in `vercel.json` at the project root.
+
+### Dependencies
+
+The website uses `@n3wth/ui` for shared design components. Update with:
+```bash
+cd website && npm install @n3wth/ui@latest
 ```
 
 ## Code Style
