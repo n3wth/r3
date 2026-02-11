@@ -1,13 +1,12 @@
 @import "tailwindcss";
+@import "@n3wth/ui/styles";
 @import "../styles/animations.css";
 
 @layer base {
   :root {
-    --color-primary: #3b82f6;
-    --color-primary-hover: #2563eb;
-    --color-accent: #06b6d4;
-    --color-purple: #8b5cf6;
-    --color-pink: #ec4899;
+    /* Override accent for r3 brand - subtle purple tint */
+    --color-accent: #a78bfa;
+    --color-accent-soft: rgba(167, 139, 250, 0.15);
   }
 
   html {
@@ -15,55 +14,41 @@
   }
 
   body {
-    font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-      sans-serif;
+    font-family: var(--font-sans, 'Geist Sans', system-ui, sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #0a0a0a;
-    color: #ffffff;
+    background: var(--color-bg, #000000);
+    color: var(--color-white, #ffffff);
     overflow-x: hidden;
     min-height: 100vh;
   }
 
   code {
-    font-family:
-      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
-      "Courier New", monospace;
+    font-family: var(--font-mono, 'Geist Mono', ui-monospace, monospace);
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-white);
   }
 }
 
+/* Custom animations for r3 */
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-  }
-  25% {
-    transform: translateY(-10px) translateX(5px);
-  }
-  50% {
-    transform: translateY(5px) translateX(-5px);
-  }
-  75% {
-    transform: translateY(-5px) translateX(10px);
-  }
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(5px) translateX(-5px); }
+  75% { transform: translateY(-5px) translateX(10px); }
 }
 
 @keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.15;
-    transform: scale(1.02);
-  }
+  0%, 100% { opacity: 0.1; transform: scale(1); }
+  50% { opacity: 0.15; transform: scale(1.02); }
 }
 
 @keyframes morph {
-  0%,
-  100% {
+  0%, 100% {
     border-radius: 50%;
     transform: scale(1) rotate(0deg);
   }
@@ -78,51 +63,25 @@
 }
 
 @keyframes slide-up {
-  from {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes aurora {
-  0%,
-  100% {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.3;
-  }
-  50% {
-    transform: translateY(-100%);
-    opacity: 0.3;
-  }
-  80% {
-    opacity: 0.3;
-  }
+  0%, 100% { transform: translateY(100%); opacity: 0; }
+  20% { opacity: 0.3; }
+  50% { transform: translateY(-100%); opacity: 0.3; }
+  80% { opacity: 0.3; }
 }
 
 @keyframes gradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .animate-spin-slow {
@@ -142,37 +101,28 @@
   background-size: 300% 300%;
 }
 
+/* Glass effect using design tokens */
+.glass-effect {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+}
+
 /* Parallax layers for depth */
 .parallax-back {
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.parallax-mid {
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.parallax-front {
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Apply parallax on scroll */
-.parallax-back {
   transform: translate(-50%, -50%) translateY(calc(var(--scroll-y, 0) * -5px))
     scale(calc(1 - var(--scroll-y, 0) * 0.02));
 }
 
 .parallax-mid {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: translate(-50%, -50%) translateY(calc(var(--scroll-y, 0) * -10px))
     scale(calc(1 - var(--scroll-y, 0) * 0.03));
 }
 
 .parallax-front {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: translate(-50%, -50%) translateY(calc(var(--scroll-y, 0) * -15px))
     scale(calc(1 - var(--scroll-y, 0) * 0.04));
-}
-
-.glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }

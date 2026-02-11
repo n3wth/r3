@@ -1,10 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const n3wthPreset = require("@n3wth/ui/tailwind");
+
 module.exports = {
+  presets: [n3wthPreset],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./content/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@n3wth/ui/dist/**/*.js",
   ],
   theme: {
     extend: {
@@ -13,6 +17,7 @@ module.exports = {
         "gradient-x": "gradient-x 3s ease infinite",
         "gradient-y": "gradient-y 3s ease infinite",
         "gradient-xy": "gradient-xy 3s ease infinite",
+        aurora: "aurora 20s ease-in-out infinite",
       },
       keyframes: {
         shimmer: {
@@ -48,6 +53,12 @@ module.exports = {
             "background-size": "200% 200%",
             "background-position": "right center",
           },
+        },
+        aurora: {
+          "0%, 100%": { transform: "translateY(100%)", opacity: "0" },
+          "20%": { opacity: "0.3" },
+          "50%": { transform: "translateY(-100%)", opacity: "0.3" },
+          "80%": { opacity: "0.3" },
         },
       },
     },

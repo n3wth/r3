@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Check,
   Zap,
   Shield,
   ArrowRight,
@@ -13,27 +12,22 @@ import {
   Cpu,
   Layers,
   Gauge,
-  Copy,
-  Sun,
-  RefreshCw,
-  Plus,
-  X,
 } from "lucide-react";
 import Link from "next/link";
 import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
+import {
+  Button,
+  Section,
+  SectionHeader,
+  Card,
+  CommandBox,
+} from "@n3wth/ui";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Grid";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
-import { SpotlightCard } from "@/components/Spotlight";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
-import {
-  TextReveal,
-  GradientText,
-  TypewriterText,
-} from "@/components/TextReveal";
-import { FloatingDots } from "@/components/FloatingDots";
 import { MemoryVisualization } from "@/components/MemoryVisualization";
 import { MemoryComparison } from "@/components/MemoryComparison";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -43,51 +37,14 @@ const TerminalDemo = lazy(() =>
     default: module.TerminalDemo,
   })),
 );
-const RainbowButton = lazy(() =>
-  import("@/components/magicui/rainbow-button").then((module) => ({
-    default: module.RainbowButton,
-  })),
-);
-const ShimmerButton = lazy(() =>
-  import("@/components/magicui/shimmer-button").then((module) => ({
-    default: module.ShimmerButton,
-  })),
-);
 const Meteors = lazy(() =>
   import("@/components/magicui/meteors").then((module) => ({
     default: module.Meteors,
   })),
 );
-const Particles = lazy(() =>
-  import("@/components/magicui/particles").then((module) => ({
-    default: module.Particles,
-  })),
-);
-const Background3D = lazy(() =>
-  import("@/components/Background3D").then((module) => ({
-    default: module.Background3D,
-  })),
-);
-const BorderBeam = lazy(() =>
-  import("@/components/magicui/border-beam").then((module) => ({
-    default: module.BorderBeam,
-  })),
-);
-const ShineBorder = lazy(() =>
-  import("@/components/magicui/shine-border").then((module) => ({
-    default: module.ShineBorder,
-  })),
-);
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("node");
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const codeExamples = {
     node: `import { Recall } from 'r3';
@@ -145,14 +102,14 @@ client.memories.add(
 
       {/* Main content wrapper */}
       <main className="flex-1">
-        {/* Hero - Clean and minimal with enhanced effects */}
-        <div className="relative min-h-[60vh] sm:min-h-[75vh] flex items-center justify-center overflow-visible -mt-20 pt-32 sm:pt-36 md:pt-40">
+        {/* Hero - Mobile-first optimization */}
+        <div className="relative min-h-[50vh] sm:min-h-[60vh] md:min-h-[75vh] flex items-center justify-center overflow-hidden -mt-20 pt-20 sm:pt-24 md:pt-32 lg:pt-40">
           {/* Memory visualization - hidden on mobile for cleaner experience */}
           <div className="hidden sm:block absolute inset-0">
             <MemoryVisualization />
           </div>
 
-          {/* Enhanced animated gradient background with depth */}
+          {/* Enhanced animated gradient background - simplified on mobile */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-black to-blue-900/10" />
             <div
@@ -160,19 +117,19 @@ client.memories.add(
               style={{ animationDuration: "8s" }}
             />
             <div
-              className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(100,150,255,0.08),transparent_50%)] animate-pulse"
+              className="hidden sm:block absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(100,150,255,0.08),transparent_50%)] animate-pulse"
               style={{ animationDuration: "10s", animationDelay: "1s" }}
             />
-            {/* New aurora-like gradient */}
+            {/* Aurora gradient - simpler on mobile */}
             <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/[0.03] to-transparent transform translate-y-full animate-aurora" />
           </div>
 
-          <div className="relative z-10 mx-auto max-w-6xl px-6 text-center">
+          <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 text-center">
             <div className="mx-auto max-w-4xl">
-              {/* Professional value prop badge - simplified for mobile */}
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/[0.03] backdrop-blur-sm px-3 py-1.5 text-xs font-medium border border-white/[0.08]">
-                <span className="text-white sm:hidden">
-                  Persistent AI Memory
+              {/* Professional value prop badge - mobile-optimized */}
+              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-white/[0.03] backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.08]">
+                <span className="text-white sm:hidden whitespace-nowrap">
+                  AI Memory
                 </span>
                 <span className="hidden sm:inline-flex sm:items-center sm:gap-3">
                   <span className="text-purple-300">Lightning-fast cache</span>
@@ -183,7 +140,7 @@ client.memories.add(
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight mb-8 leading-[1.15]">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal tracking-tight mb-4 sm:mb-6 md:mb-8 leading-tight sm:leading-[1.15]">
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -207,10 +164,9 @@ client.memories.add(
               </h1>
 
               {/* Mobile-first subtitle */}
-              <p className="mx-auto max-w-2xl text-base sm:text-base lg:text-lg text-white/90 mb-8 sm:mb-10 font-light leading-relaxed px-4 sm:px-0">
+              <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 md:mb-10 font-light leading-relaxed px-0">
                 <span className="sm:hidden">
-                  Context that persists across every AI conversation. Works with
-                  Claude, GPT, and Gemini.
+                  Context that persists across every AI conversation. Works with Claude, GPT, and Gemini.
                 </span>
                 <span className="hidden sm:inline">
                   r3 combines{" "}
@@ -221,41 +177,32 @@ client.memories.add(
                   <span className="text-white font-medium">
                     semantic memory storage
                   </span>{" "}
-                  to create continuity across every conversation. Compatible
-                  with all major AI assistants. Deploy in seconds, configure
-                  nothing.
+                  to create continuity across every conversation. Compatible with all major AI assistants. Deploy in seconds, configure nothing.
                 </span>
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  onClick={() => copyToClipboard("npx r3")}
-                  className="group relative inline-flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg bg-white text-black transition-all cursor-pointer overflow-hidden hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
-                >
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                  {/* Glow effect */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 to-blue-400 rounded-lg opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
+              {/* CTAs - mobile-optimized full width on small screens */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <CommandBox
+                  command="npx r3"
+                  variant="primary"
+                  showCopyButton
+                  className="w-full sm:w-auto"
+                />
 
-                  <code className="font-mono relative">npx r3</code>
-                  {copied ? (
-                    <Check className="h-4 w-4 text-green-600 relative" />
-                  ) : (
-                    <Copy className="h-4 w-4 text-gray-600 group-hover:text-black transition-colors relative" />
-                  )}
-                </button>
-
-                <Link
-                  href="/docs/quickstart"
-                  className="inline-flex items-center gap-1 px-6 py-3 text-sm font-medium text-gray-300 hover:text-white transition-colors"
-                >
-                  View Documentation
-                  <ArrowRight className="h-4 w-4" />
+                <Link href="/docs/quickstart" className="w-full sm:w-auto">
+                  <Button
+                    variant="ghost"
+                    rightIcon={<ArrowRight className="h-4 w-4" />}
+                    className="w-full sm:w-auto justify-center sm:justify-start"
+                  >
+                    View Documentation
+                  </Button>
                 </Link>
               </div>
 
-              {/* Stats - Enhanced with animations */}
-              <div className="mt-16 sm:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 max-w-3xl mx-auto">
+              {/* Stats - Mobile optimized with selective hiding */}
+              <div className="mt-10 sm:mt-16 md:mt-20 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-3xl mx-auto">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -266,10 +213,10 @@ client.memories.add(
                   }}
                   className="text-center"
                 >
-                  <div className="text-xl sm:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
                     <AnimatedCounter to={5} suffix="ms" duration={1.5} />
                   </div>
-                  <div className="text-xs sm:text-sm text-white/60">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
                     Response time
                   </div>
                 </motion.div>
@@ -284,10 +231,10 @@ client.memories.add(
                   }}
                   className="text-center"
                 >
-                  <div className="text-xl sm:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
                     ∞
                   </div>
-                  <div className="text-xs sm:text-sm text-white/60">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
                     Memory retention
                   </div>
                 </motion.div>
@@ -300,12 +247,12 @@ client.memories.add(
                     delay: 0.6,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="text-center sm:block hidden"
+                  className="text-center sm:col-span-1 col-span-1"
                 >
-                  <div className="text-xl sm:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
                     <AnimatedCounter to={100} suffix="%" duration={1.5} />
                   </div>
-                  <div className="text-xs sm:text-sm text-white/60">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
                     Privacy-first
                   </div>
                 </motion.div>
@@ -318,13 +265,13 @@ client.memories.add(
                     delay: 0.7,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="text-center sm:block hidden"
+                  className="text-center col-span-1"
                 >
-                  <div className="text-xl sm:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
                     <AnimatedCounter to={0} duration={1.5} />
                   </div>
-                  <div className="text-xs sm:text-sm text-white/60">
-                    Configuration
+                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
+                    Config
                   </div>
                 </motion.div>
               </div>
@@ -336,18 +283,16 @@ client.memories.add(
         <MemoryComparison />
 
         {/* Interactive Terminal Demo */}
-        <section className="py-32 border-t border-white/5 relative overflow-hidden">
+        <Section spacing="lg" className="border-t border-white/5 relative overflow-hidden">
           <Meteors number={20} />
           <Container size="lg">
             <div className="max-w-4xl mx-auto relative z-10">
-              <div className="mb-12 text-center">
-                <h2 className="text-3xl sm:text-4xl font-normal text-white mb-4">
-                  See it in action
-                </h2>
-                <p className="text-gray-400">
-                  Real examples with Gemini CLI and Claude Code
-                </p>
-              </div>
+              <SectionHeader
+                title="See it in action"
+                description="Real examples with Gemini CLI and Claude Code"
+                align="center"
+                className="mb-12"
+              />
               <Suspense
                 fallback={
                   <div className="bg-gray-900 rounded-lg p-6 animate-pulse h-64" />
@@ -357,20 +302,18 @@ client.memories.add(
               </Suspense>
             </div>
           </Container>
-        </section>
+        </Section>
 
         {/* Code Example - Clean tabs */}
-        <section className="py-32 border-t border-white/5">
+        <Section spacing="lg" className="border-t border-white/5">
           <Container size="lg">
             <div className="max-w-4xl mx-auto">
-              <div className="mb-12 text-center">
-                <h2 className="text-3xl sm:text-4xl font-normal text-white mb-4">
-                  Simple integration
-                </h2>
-                <p className="text-gray-400">
-                  Native SDKs with full TypeScript support
-                </p>
-              </div>
+              <SectionHeader
+                title="Simple integration"
+                description="Native SDKs with full TypeScript support"
+                align="center"
+                className="mb-12"
+              />
 
               <div className="relative">
                 <div className="border-b border-white/10 bg-black/40 rounded-t-xl">
@@ -407,19 +350,17 @@ client.memories.add(
               </div>
             </div>
           </Container>
-        </section>
+        </Section>
 
         {/* Features - Stunning Bento Grid */}
-        <section className="py-32 border-t border-white/5 relative">
+        <Section spacing="lg" className="border-t border-white/5 relative">
           <Container size="lg">
-            <div className="mb-12 text-center">
-              <h2 className="text-3xl sm:text-4xl font-normal text-white mb-4">
-                Open source memory layer
-              </h2>
-              <p className="text-gray-400">
-                Every feature addresses a real pain point from daily AI coding
-              </p>
-            </div>
+            <SectionHeader
+              title="Open source memory layer"
+              description="Every feature addresses a real pain point from daily AI coding"
+              align="center"
+              className="mb-12"
+            />
 
             <BentoGrid>
               <BentoCard
@@ -511,15 +452,15 @@ client.memories.add(
               />
             </BentoGrid>
           </Container>
-        </section>
+        </Section>
 
         {/* Bottom CTA section */}
-        <section className="py-32 border-t border-white/5">
+        <Section spacing="lg" className="border-t border-white/5">
           <Container size="sm">
             <div className="flex justify-center">
-              <div className="relative group max-w-2xl w-full">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 rounded-2xl blur-xl" />
-                <div className="relative bg-black/60 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <Card variant="glass" padding="lg" className="max-w-2xl w-full relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative">
                   <p className="text-center text-lg text-gray-300 mb-6">
                     Redis caching. Mem0 persistence. Zero configuration.
                     <br />
@@ -528,23 +469,17 @@ client.memories.add(
                     </span>
                   </p>
                   <div className="flex justify-center">
-                    <button
-                      onClick={() => copyToClipboard("npx r3")}
-                      className="group inline-flex items-center gap-2 px-6 py-3 text-base font-medium rounded-lg bg-white text-black transition-all hover:scale-105"
-                    >
-                      <code className="font-mono">npx r3</code>
-                      {copied ? (
-                        <Check className="h-4 w-4 text-green-600" />
-                      ) : (
-                        <Copy className="h-4 w-4 text-gray-600" />
-                      )}
-                    </button>
+                    <CommandBox
+                      command="npx r3"
+                      variant="primary"
+                      showCopyButton
+                    />
                   </div>
                 </div>
-              </div>
+              </Card>
             </div>
           </Container>
-        </section>
+        </Section>
       </main>
 
       <Footer />

@@ -83,7 +83,7 @@ export class VectraMemory {
 
     try {
       const queryVector = await this.generateEmbedding(query);
-      const results = await this.index.queryItems(queryVector, limit * 2); // Get more to filter by user
+      const results = await this.index.queryItems(queryVector, query, limit * 2); // Get more to filter by user
 
       let filteredResults = results;
       if (userId) {
