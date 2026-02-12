@@ -20,13 +20,23 @@ const sections: FooterSection[] = [
   },
 ];
 
+const sites = [
+  { name: "n3wth", href: "https://n3wth.com" },
+  { name: "n3wth/skills", href: "https://skills.n3wth.com" },
+  { name: "n3wth/ui", href: "https://ui.n3wth.com" },
+  { name: "n3wth/r3", href: "https://r3.newth.ai" },
+  { name: "n3wth/garden", href: "https://garden.n3wth.com" },
+];
+
 export function Footer() {
   return (
     <N3wthFooter
       logo={<span className="text-lg font-semibold">r3</span>}
       description="Persistent memory for AI assistants via MCP"
       sections={sections}
-      copyright={`© ${new Date().getFullYear()} Oliver Newth`}
+      sites={sites}
+      currentSite="n3wth/r3"
+      copyright={`\u00A9 ${new Date().getFullYear()} Oliver Newth`}
     />
   );
 }

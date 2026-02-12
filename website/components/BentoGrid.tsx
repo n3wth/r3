@@ -44,9 +44,9 @@ export function BentoCard({
   return (
     <motion.div
       className={cn(
-        "group relative overflow-hidden rounded-3xl border border-white/5 p-6 md:p-8",
-        "bg-gray-900/50 backdrop-blur-xl transition-all duration-500",
-        "hover:border-white/10",
+        "group relative overflow-hidden rounded-2xl border border-white/[0.08] p-6 md:p-8",
+        "bg-white/[0.03] transition-all duration-300",
+        "hover:border-white/15 hover:bg-white/[0.05]",
         span,
         className,
       )}
@@ -55,38 +55,26 @@ export function BentoCard({
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.3 }}
     >
-      {/* Color gradient that appears on hover */}
-      <div
-        className={cn(
-          "absolute inset-0 rounded-3xl bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100",
-          gradient,
-        )}
-      />
-
       {/* Content */}
       <div className="relative z-10">
         {icon && (
-          <div className="mb-4 inline-flex rounded-xl bg-white/5 p-3 transition-all duration-500 group-hover:bg-white/10">
+          <div className="mb-4 inline-flex rounded-lg bg-white/[0.06] p-2.5">
             {icon}
           </div>
         )}
 
-        <h3 className="mb-2 text-lg font-semibold text-white break-words md:text-xl">
+        <h3 className="mb-2 text-base font-medium text-white break-words md:text-lg">
           {title}
         </h3>
 
         {description && (
-          <p className="mb-4 text-sm text-gray-400 break-words md:text-base">
+          <p className="text-sm text-gray-400 break-words leading-relaxed">
             {description}
           </p>
         )}
 
         {children}
       </div>
-
-      {/* Hover effect corner glow - only appears on hover */}
-      <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-gradient-to-r from-blue-500/30 to-purple-500/30 blur-3xl opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:right-0 group-hover:top-0" />
-      <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-gradient-to-r from-pink-500/30 to-orange-500/30 blur-3xl opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:bottom-0 group-hover:left-0" />
     </motion.div>
   );
 }

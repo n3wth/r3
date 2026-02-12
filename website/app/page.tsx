@@ -2,16 +2,12 @@
 
 import {
   Zap,
-  Shield,
   ArrowRight,
   Code,
-  Database,
   Lock,
   Globe,
-  Sparkles,
   Cpu,
   Layers,
-  Gauge,
 } from "lucide-react";
 import Link from "next/link";
 import { useState, lazy, Suspense } from "react";
@@ -20,7 +16,6 @@ import {
   Button,
   Section,
   SectionHeader,
-  Card,
   CommandBox,
 } from "@n3wth/ui";
 import { Navigation } from "@/components/Navigation";
@@ -31,6 +26,7 @@ import { BentoGrid, BentoCard } from "@/components/BentoGrid";
 import { MemoryVisualization } from "@/components/MemoryVisualization";
 import { MemoryComparison } from "@/components/MemoryComparison";
 import { CodeBlock } from "@/components/CodeBlock";
+import { ScrollReveal } from "@/components/ScrollReveal";
 // Lazy load heavy components
 const TerminalDemo = lazy(() =>
   import("@/components/TerminalDemo").then((module) => ({
@@ -106,19 +102,10 @@ const context = await recall.search({
             <MemoryVisualization />
           </div>
 
-          {/* Enhanced animated gradient background - simplified on mobile */}
+          {/* Gradient background */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-black to-blue-900/10" />
-            <div
-              className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,100,255,0.08),transparent_50%)] animate-pulse"
-              style={{ animationDuration: "8s" }}
-            />
-            <div
-              className="hidden sm:block absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(100,150,255,0.08),transparent_50%)] animate-pulse"
-              style={{ animationDuration: "10s", animationDelay: "1s" }}
-            />
-            {/* Aurora gradient - simpler on mobile */}
-            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/[0.03] to-transparent transform translate-y-full animate-aurora" />
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-950/20 via-black to-black" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,100,255,0.12),transparent_60%)]" />
           </div>
 
           <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 text-center">
@@ -278,10 +265,10 @@ const context = await recall.search({
         <MemoryComparison />
 
         {/* Interactive Terminal Demo */}
-        <Section spacing="lg" className="border-t border-white/5 relative overflow-hidden">
+        <Section spacing="lg" className="border-t border-white/[0.06] relative overflow-hidden">
           <Meteors number={20} />
           <Container size="lg">
-            <div className="max-w-4xl mx-auto relative z-10">
+            <ScrollReveal className="max-w-4xl mx-auto relative z-10">
               <SectionHeader
                 title="See it in action"
                 description="Watch r3 remember context across sessions in Gemini CLI and Claude Code"
@@ -295,14 +282,14 @@ const context = await recall.search({
               >
                 <TerminalDemo />
               </Suspense>
-            </div>
+            </ScrollReveal>
           </Container>
         </Section>
 
         {/* Code Example - Clean tabs */}
-        <Section spacing="lg" className="border-t border-white/5">
+        <Section spacing="lg" className="border-t border-white/[0.06]">
           <Container size="lg">
-            <div className="max-w-4xl mx-auto">
+            <ScrollReveal className="max-w-4xl mx-auto">
               <SectionHeader
                 title="Simple integration"
                 description="Add r3 to your MCP config or import the SDK directly"
@@ -311,7 +298,7 @@ const context = await recall.search({
               />
 
               <div className="relative">
-                <div className="border-b border-white/10 bg-black/40 rounded-t-xl">
+                <div className="border-b border-white/[0.08] bg-white/[0.02] rounded-t-xl">
                   <nav className="flex" aria-label="Tabs">
                     {Object.keys(codeExamples).map((lang) => (
                       <button
@@ -321,8 +308,8 @@ const context = await recall.search({
                         flex-1 px-4 py-3 text-sm font-medium capitalize transition-all
                         ${
                           activeTab === lang
-                            ? "text-white bg-white/5 border-b-2 border-white"
-                            : "text-gray-400 hover:text-gray-300"
+                            ? "text-white border-b-2 border-white/80"
+                            : "text-gray-500 hover:text-gray-300"
                         }
                       `}
                       >
@@ -345,13 +332,14 @@ const context = await recall.search({
                   {codeExamples[activeTab as keyof typeof codeExamples]}
                 </CodeBlock>
               </div>
-            </div>
+            </ScrollReveal>
           </Container>
         </Section>
 
-        {/* Features - Stunning Bento Grid */}
-        <Section spacing="lg" className="border-t border-white/5 relative">
+        {/* Features - Bento Grid */}
+        <Section spacing="lg" className="border-t border-white/[0.06] relative">
           <Container size="lg">
+            <ScrollReveal>
             <SectionHeader
               title="Open source memory layer"
               description="Local-first. Embedded Redis, vector search, and knowledge graphs with zero external services."
@@ -361,120 +349,72 @@ const context = await recall.search({
 
             <BentoGrid>
               <BentoCard
-                title="AI Intelligence Engine"
-                description="Real vector embeddings, entity extraction, and knowledge graphs - all running locally"
-                icon={
-                  <Sparkles className="h-6 w-6 text-gray-400 transition-colors duration-500 group-hover:text-emerald-400" />
-                }
-                gradient="from-emerald-500/20 to-blue-500/20"
-                span="lg:col-span-3"
-              />
-
-              <BentoCard
                 title="Semantic Search"
-                description="Query stored context using natural language. Returns ranked results by cosine similarity."
+                description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
                 icon={
-                  <Cpu className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-cyan-400" />
+                  <Cpu className="h-5 w-5 text-gray-400" />
                 }
-                gradient="from-cyan-900/20 to-blue-900/20"
                 span="lg:col-span-2"
               />
 
               <BentoCard
                 title="Knowledge Graph"
-                description="Automatic entity extraction links memories into a traversable graph of relationships"
+                description="Automatic entity extraction links memories into a traversable graph of relationships."
                 icon={
-                  <Layers className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-purple-400" />
+                  <Layers className="h-5 w-5 text-gray-400" />
                 }
-                gradient="from-purple-900/20 to-indigo-900/20"
               />
 
               <BentoCard
-                title="<10ms Latency"
-                description="Local embedding generation with 384-dim vectors. No API calls for search or storage."
+                title="Sub-10ms responses"
+                description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
                 icon={
-                  <Gauge className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-orange-400" />
+                  <Zap className="h-5 w-5 text-gray-400" />
                 }
-                gradient="from-orange-900/20 to-red-900/20"
               />
 
               <BentoCard
-                title="Redis-powered caching"
-                description="Embedded Redis serves as both cache layer and vector store. Hot memories stay in RAM."
-                icon={
-                  <Zap className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-yellow-400" />
-                }
-                gradient="from-yellow-900/20 to-orange-900/20"
-                span="lg:col-span-2"
-              />
-
-              <BentoCard
-                title="Automatic failover"
-                description="Works offline with local Redis, syncs when online"
-                icon={
-                  <Shield className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-blue-400" />
-                }
-                gradient="from-blue-900/20 to-cyan-900/20"
-              />
-
-              <BentoCard
-                title="Efficient storage"
-                description="Compressed entries with automatic TTL management"
-                icon={<Database className="h-5 w-5 text-purple-400" />}
-                gradient="from-purple-900/20 to-pink-900/20"
-                span="lg:col-span-2"
-              />
-
-              <BentoCard
-                title="MCP protocol compatible"
-                description="Works with Claude Desktop, Gemini CLI, and any MCP client"
-                icon={<Globe className="h-5 w-5 text-green-400" />}
-                gradient="from-green-900/20 to-teal-900/20"
+                title="MCP compatible"
+                description="Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP client out of the box."
+                icon={<Globe className="h-5 w-5 text-gray-400" />}
                 span="lg:col-span-2"
               />
 
               <BentoCard
                 title="TypeScript SDK"
-                description="Typed memory operations, search results, and configuration. Ships its own declarations."
-                icon={<Code className="h-5 w-5 text-indigo-400" />}
-                gradient="from-indigo-900/20 to-blue-900/20"
+                description="Typed memory operations, search results, and configuration. Ships its own type declarations."
+                icon={<Code className="h-5 w-5 text-gray-400" />}
+                span="lg:col-span-2"
               />
 
               <BentoCard
-                title="Local-first architecture"
-                description="Embedded Redis server, no external dependencies"
-                icon={<Lock className="h-5 w-5 text-red-400" />}
-                gradient="from-red-900/20 to-orange-900/20"
-                span="lg:col-span-3"
+                title="Zero dependencies"
+                description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
+                icon={<Lock className="h-5 w-5 text-gray-400" />}
               />
             </BentoGrid>
+            </ScrollReveal>
           </Container>
         </Section>
 
         {/* Bottom CTA section */}
-        <Section spacing="lg" className="border-t border-white/5">
+        <Section spacing="lg" className="border-t border-white/[0.06]">
           <Container size="sm">
-            <div className="flex justify-center">
-              <Card variant="glass" padding="lg" className="max-w-2xl w-full relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative">
-                  <p className="text-center text-lg text-gray-300 mb-6">
-                    Your AI forgets everything between sessions.
-                    <br />
-                    <span className="text-white font-medium">
-                      One command fixes that.
-                    </span>
-                  </p>
-                  <div className="flex justify-center">
-                    <CommandBox
-                      command="npx r3"
-                      variant="primary"
-                      showCopyButton
-                    />
-                  </div>
-                </div>
-              </Card>
-            </div>
+            <ScrollReveal className="text-center">
+              <p className="text-xl sm:text-2xl text-gray-300 mb-2 font-light">
+                Your AI forgets everything between sessions.
+              </p>
+              <p className="text-xl sm:text-2xl text-white font-medium mb-8">
+                One command fixes that.
+              </p>
+              <div className="flex justify-center">
+                <CommandBox
+                  command="npx r3"
+                  variant="primary"
+                  showCopyButton
+                />
+              </div>
+            </ScrollReveal>
           </Container>
         </Section>
       </main>
