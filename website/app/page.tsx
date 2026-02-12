@@ -69,22 +69,19 @@ const context = await recall.search({
   query: 'What framework am I using?',
   userId: 'work'
 });`,
-    python: `from r3 import Recall
+    mcp: `// claude_desktop_config.json
+{
+  "mcpServers": {
+    "r3": {
+      "command": "npx",
+      "args": ["-y", "r3"]
+    }
+  }
+}
 
-# Works with any LLM via MCP protocol
-client = Recall()
-
-# Store project requirements
-client.memories.add(
-    content="API needs rate limiting and OAuth2",
-    metadata={"project": "backend"}
-)
-
-# Store meeting notes
-client.memories.add(
-    content="Team standup is 9am PST on Tuesdays",
-    metadata={"type": "schedule"}
-)`,
+// That's it. Your AI assistant now has
+// persistent memory across every session.
+// No API keys, no database setup, no config.`,
     curl: `curl https://api.r3.newth.ai/v1/memories \\
   -H "Authorization: Bearer $MEM0_API_KEY" \\
   -H "Content-Type: application/json" \\
@@ -132,11 +129,9 @@ client.memories.add(
                   AI Memory
                 </span>
                 <span className="hidden sm:inline-flex sm:items-center sm:gap-3">
-                  <span className="text-purple-300">Lightning-fast cache</span>
+                  <span className="text-purple-300">Memory MCP server</span>
                   <span className="text-white/40">×</span>
-                  <span className="text-blue-300">Persistent memory</span>
-                  <span className="text-white/40">×</span>
-                  <span className="text-cyan-300">Universal compatibility</span>
+                  <span className="text-blue-300">Open source</span>
                 </span>
               </div>
 
@@ -169,15 +164,15 @@ client.memories.add(
                   Context that persists across every AI conversation. Works with Claude, GPT, and Gemini.
                 </span>
                 <span className="hidden sm:inline">
-                  r3 combines{" "}
+                  Your AI assistant remembers what you talked about last session.{" "}
                   <span className="text-white font-medium">
-                    sub-millisecond caching
+                    Redis caching
                   </span>{" "}
-                  with{" "}
+                  and{" "}
                   <span className="text-white font-medium">
-                    semantic memory storage
+                    vector search
                   </span>{" "}
-                  to create continuity across every conversation. Compatible with all major AI assistants. Deploy in seconds, configure nothing.
+                  keep context fast and relevant. Works with Claude, GPT, and Gemini via MCP.
                 </span>
               </p>
 
@@ -232,10 +227,10 @@ client.memories.add(
                   className="text-center"
                 >
                   <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
-                    ∞
+                    <AnimatedCounter to={384} duration={1.5} />
                   </div>
                   <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
-                    Memory retention
+                    Dimensions per vector
                   </div>
                 </motion.div>
 
@@ -250,10 +245,10 @@ client.memories.add(
                   className="text-center sm:col-span-1 col-span-1"
                 >
                   <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
-                    <AnimatedCounter to={100} suffix="%" duration={1.5} />
+                    <AnimatedCounter to={0} duration={1.5} />
                   </div>
                   <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
-                    Privacy-first
+                    Cloud dependencies
                   </div>
                 </motion.div>
 
@@ -268,10 +263,10 @@ client.memories.add(
                   className="text-center col-span-1"
                 >
                   <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
-                    <AnimatedCounter to={0} duration={1.5} />
+                    <AnimatedCounter to={1} duration={1.5} />
                   </div>
                   <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
-                    Config
+                    Command to install
                   </div>
                 </motion.div>
               </div>
@@ -289,7 +284,7 @@ client.memories.add(
             <div className="max-w-4xl mx-auto relative z-10">
               <SectionHeader
                 title="See it in action"
-                description="Real examples with Gemini CLI and Claude Code"
+                description="Watch r3 remember context across sessions in Gemini CLI and Claude Code"
                 align="center"
                 className="mb-12"
               />
@@ -310,7 +305,7 @@ client.memories.add(
             <div className="max-w-4xl mx-auto">
               <SectionHeader
                 title="Simple integration"
-                description="Native SDKs with full TypeScript support"
+                description="Add r3 to your MCP config or import the SDK directly"
                 align="center"
                 className="mb-12"
               />
@@ -331,7 +326,7 @@ client.memories.add(
                         }
                       `}
                       >
-                        {lang === "node" ? "Node.js" : lang}
+                        {lang === "node" ? "Node.js" : lang === "mcp" ? "MCP Config" : lang}
                       </button>
                     ))}
                   </nav>
@@ -342,7 +337,9 @@ client.memories.add(
                       ? "javascript"
                       : activeTab === "curl"
                         ? "bash"
-                        : activeTab
+                        : activeTab === "mcp"
+                          ? "json"
+                          : activeTab
                   }
                 >
                   {codeExamples[activeTab as keyof typeof codeExamples]}
@@ -357,7 +354,7 @@ client.memories.add(
           <Container size="lg">
             <SectionHeader
               title="Open source memory layer"
-              description="Every feature addresses a real pain point from daily AI coding"
+              description="Local-first. Embedded Redis, vector search, and knowledge graphs with zero external services."
               align="center"
               className="mb-12"
             />
@@ -375,7 +372,7 @@ client.memories.add(
 
               <BentoCard
                 title="Semantic Search"
-                description="Find memories by meaning, not just keywords"
+                description="Query stored context using natural language. Returns ranked results by cosine similarity."
                 icon={
                   <Cpu className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-cyan-400" />
                 }
@@ -385,7 +382,7 @@ client.memories.add(
 
               <BentoCard
                 title="Knowledge Graph"
-                description="Build connections between people, projects, and technologies"
+                description="Automatic entity extraction links memories into a traversable graph of relationships"
                 icon={
                   <Layers className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-purple-400" />
                 }
@@ -394,7 +391,7 @@ client.memories.add(
 
               <BentoCard
                 title="<10ms Latency"
-                description="Lightning fast local processing with optimized embeddings"
+                description="Local embedding generation with 384-dim vectors. No API calls for search or storage."
                 icon={
                   <Gauge className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-orange-400" />
                 }
@@ -403,7 +400,7 @@ client.memories.add(
 
               <BentoCard
                 title="Redis-powered caching"
-                description="In-memory data store for sub-millisecond response times"
+                description="Embedded Redis serves as both cache layer and vector store. Hot memories stay in RAM."
                 icon={
                   <Zap className="h-5 w-5 text-gray-400 transition-colors duration-500 group-hover:text-yellow-400" />
                 }
@@ -438,7 +435,7 @@ client.memories.add(
 
               <BentoCard
                 title="TypeScript SDK"
-                description="Full type definitions with IntelliSense support"
+                description="Typed memory operations, search results, and configuration. Ships its own declarations."
                 icon={<Code className="h-5 w-5 text-indigo-400" />}
                 gradient="from-indigo-900/20 to-blue-900/20"
               />
@@ -462,10 +459,10 @@ client.memories.add(
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
                   <p className="text-center text-lg text-gray-300 mb-6">
-                    Redis caching. Mem0 persistence. Zero configuration.
+                    Your AI forgets everything between sessions.
                     <br />
                     <span className="text-white font-medium">
-                      Start building context-aware AI applications.
+                      One command fixes that.
                     </span>
                   </p>
                   <div className="flex justify-center">

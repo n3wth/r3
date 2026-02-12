@@ -24,7 +24,7 @@ export function Footer() {
   return (
     <N3wthFooter
       logo={<span className="text-lg font-semibold">r3</span>}
-      description="Intelligent memory MCP for AI apps"
+      description="Persistent memory for AI assistants via MCP"
       sections={sections}
       copyright={`© ${new Date().getFullYear()} Oliver Newth`}
     />

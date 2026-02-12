@@ -17,6 +17,7 @@ export function Navigation() {
       items={navItems}
       theme="dark"
       fixed
+      hideOnScroll
     />
   );
 }

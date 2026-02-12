@@ -25,16 +25,16 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "r3 - Intelligent Memory API | Sub-5ms Response Times (by n3wth)",
+  title: "r3 - Persistent Memory for AI Assistants",
   description:
-    "Hybrid memory system combining Redis caching with cloud persistence. Sub-5ms response times with 99.9% uptime SLA. Build context-aware AI applications with intelligent memory.",
+    "Open source MCP server that gives AI assistants persistent memory. Redis caching, vector search, and knowledge graphs -- all local, zero configuration.",
   keywords: [
-    "memory API",
-    "Redis cache",
+    "MCP server",
     "AI memory",
-    "context API",
-    "hybrid storage",
-    "low latency",
+    "Redis cache",
+    "vector search",
+    "Claude memory",
+    "persistent context",
   ],
   authors: [{ name: "n3wth" }],
   creator: "n3wth",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "r3 - Intelligent Memory API (by n3wth)",
+    title: "r3 - Persistent Memory for AI Assistants",
     description:
-      "Hybrid memory system combining Redis caching with cloud persistence. Sub-5ms response times with 99.9% uptime SLA.",
+      "Open source MCP server with Redis caching, vector search, and knowledge graphs. Runs locally, zero configuration.",
     url: "https://r3.newth.ai",
     siteName: "r3",
     images: [
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         url: "https://r3.newth.ai/og-image.png",
         width: 1280,
         height: 720,
-        alt: "r3 - Intelligent Memory API",
+        alt: "r3 - Persistent Memory for AI Assistants",
       },
     ],
     locale: "en_US",
@@ -62,9 +62,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "r3 - Intelligent Memory API (by n3wth)",
+    title: "r3 - Persistent Memory for AI Assistants",
     description:
-      "Sub-5ms response times with 99.9% uptime SLA. Hybrid memory system for AI applications.",
+      "Open source MCP server with Redis caching and vector search. Gives AI assistants persistent memory across sessions.",
     images: ["https://r3.newth.ai/og-image.png"],
     creator: "@n3wth",
   },
@@ -78,9 +78,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    google: "your-google-verification-code", // Replace with actual code
   },
 };
 

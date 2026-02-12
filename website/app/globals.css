@@ -2,6 +2,8 @@
 @import "@n3wth/ui/styles";
 @import "../styles/animations.css";
 
+@source "../node_modules/@n3wth/ui/dist";
+
 @layer base {
   :root {
     /* Override accent for r3 brand - subtle purple tint */
