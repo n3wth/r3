@@ -79,7 +79,7 @@
     "ink-text-input": "^6.0.0",
     "marked": "^15.0.4",
     "marked-terminal": "^7.2.1",
-    "meow": "^13.2.0",
+    "meow": "^14.0.0",
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "redis": "^5.8.2",
