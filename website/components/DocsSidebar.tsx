@@ -30,13 +30,13 @@ export function DocsSidebar() {
     <nav className="space-y-6">
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--color-grey-400)]" />
         <input
           type="text"
           placeholder="Search docs..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
+          className="w-full pl-10 pr-3 py-2 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
         />
       </div>
 
@@ -52,7 +52,7 @@ export function DocsSidebar() {
             <div key={section.title}>
               <button
                 onClick={() => toggleSection(section.title)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                className="flex items-center justify-between w-full px-2 py-1.5 text-sm font-medium text-[var(--color-grey-400)] hover:text-white transition-colors"
               >
                 <span>{section.title}</span>
                 <ChevronRight
@@ -76,7 +76,7 @@ export function DocsSidebar() {
                           ${
                             isActive
                               ? "bg-white/10 text-white font-medium"
-                              : "text-gray-400 hover:text-white hover:bg-white/5"
+                              : "text-[var(--color-grey-400)] hover:text-white hover:bg-[var(--glass-bg)]"
                           }
                         `}
                       >
@@ -108,11 +108,11 @@ export function DocsSidebar() {
       </div>
 
       {/* Quick Links */}
-      <div className="pt-6 border-t border-white/10">
+      <div className="pt-6 border-t border-[var(--glass-border)]">
         <div className="space-y-2">
           <Link
             href="https://github.com/n3wth/r3"
-            className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--color-grey-400)] hover:text-white transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >

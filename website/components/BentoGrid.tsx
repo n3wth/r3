@@ -68,7 +68,7 @@ export function BentoCard({
         </h3>
 
         {description && (
-          <p className="text-sm text-gray-400 break-words leading-relaxed">
+          <p className="text-sm text-[var(--color-grey-400)] break-words leading-relaxed">
             {description}
           </p>
         )}

@@ -51,7 +51,7 @@ export function Section({
 
   return (
     <section className={`py-24 ${bgClass} ${className}`}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">{children}</div>
+      <div className="mx-auto max-w-7xl px-6 md:px-10">{children}</div>
     </section>
   );
 }
@@ -75,7 +75,7 @@ export function Container({
   }[size];
 
   return (
-    <div className={`mx-auto ${sizeClass} px-6 lg:px-8 ${className}`}>
+    <div className={`mx-auto ${sizeClass} px-6 md:px-10 ${className}`}>
       {children}
     </div>
   );
