@@ -1,5 +1,6 @@
 import createMDX from "@next/mdx";
 import { withAxiom } from "next-axiom";
+import { withPostHogConfig } from "@posthog/nextjs-config";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -66,4 +67,12 @@ const nextConfig = {
 
 const withMDX = createMDX({});
 
-export default withAxiom(withMDX(nextConfig));
+export default withPostHogConfig(withAxiom(withMDX(nextConfig)), {
+  personalApiKey: process.env.POSTHOG_PERSONAL_API_KEY,
+  projectId: "223560",
+  host: "https://us.i.posthog.com",
+  sourcemaps: {
+    enabled: !!process.env.POSTHOG_PERSONAL_API_KEY,
+    deleteAfterUpload: true,
+  },
+});
