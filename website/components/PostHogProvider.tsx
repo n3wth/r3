@@ -11,6 +11,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       person_profiles: "identified_only",
       capture_pageview: true,
       capture_pageleave: true,
+      capture_performance: { web_vitals: true },
     });
   }, []);
 

@@ -1,4 +1,5 @@
 import createMDX from "@next/mdx";
+import { withAxiom } from "next-axiom";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -65,4 +66,4 @@ const nextConfig = {
 
 const withMDX = createMDX({});
 
-export default withMDX(nextConfig);
+export default withAxiom(withMDX(nextConfig));

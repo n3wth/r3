@@ -56,6 +56,13 @@ The docs site at https://r3.newth.ai deploys automatically from the `main` branc
 
 Configuration is in `vercel.json` at the project root.
 
+### Telemetry
+
+Web Vitals (LCP, CLS, INP, FCP, TTFB) are collected via [Axiom](https://app.axiom.co) (`next-axiom`) and PostHog (`capture_performance`). Data flows to the `vercel` dataset in Axiom. Monitors alert on poor LCP (>4s), CLS (>0.25), and INP (>500ms). Only production deployments send data.
+
+- Axiom dashboard: https://app.axiom.co
+- PostHog web vitals: https://us.posthog.com (Web Analytics > Web Vitals)
+
 ### Dependencies
 
 The website uses `@n3wth/ui` for shared design components. Update with:
