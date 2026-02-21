@@ -70,7 +70,6 @@ const withMDX = createMDX({});
 export default withPostHogConfig(withAxiom(withMDX(nextConfig)), {
   personalApiKey: process.env.POSTHOG_PERSONAL_API_KEY,
   projectId: "223560",
-  host: "https://us.i.posthog.com",
   sourcemaps: {
     enabled: !!process.env.POSTHOG_PERSONAL_API_KEY,
     deleteAfterUpload: true,
