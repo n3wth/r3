@@ -82,7 +82,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <AxiomWebVitals />
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -125,7 +129,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        className="antialiased min-h-screen"
         suppressHydrationWarning
       >
         <PostHogProvider>

@@ -28,6 +28,8 @@ interface BentoCardProps {
   icon?: ReactNode;
   className?: string;
   children?: ReactNode;
+  /** Deprecated: accepted for compatibility, no longer rendered (flat design). */
+  gradient?: string;
   span?: string;
 }
 
