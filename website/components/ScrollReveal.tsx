@@ -3,8 +3,12 @@
 import { useRef, useEffect, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CustomEase } from "gsap/CustomEase";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, CustomEase);
+
+/* source of truth: @n3wth/ui/theme --ease */
+const EASE = CustomEase.create("n3wthEase", "0.16,1,0.3,1");
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -39,7 +43,7 @@ export function ScrollReveal({
           y: 0,
           duration,
           delay,
-          ease: "power3.out",
+          ease: EASE,
         });
       },
       once: true,
@@ -86,7 +90,7 @@ export function StaggerReveal({
           y: 0,
           duration: 0.6,
           stagger,
-          ease: "power3.out",
+          ease: EASE,
         });
       },
       once: true,

@@ -14,14 +14,15 @@ export default async function Image() {
       <div
         style={{
           fontSize: 128,
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          /* source of truth: @n3wth/ui/theme */
+          background: "#08090b",
           width: "100%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          color: "white",
+          color: "#f2f3f5",
         }}
       >
         <div

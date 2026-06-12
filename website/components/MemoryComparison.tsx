@@ -73,26 +73,26 @@ export function MemoryComparison() {
     : conversations.without;
 
   return (
-    <section className="py-32 border-t border-white/5 relative overflow-hidden">
+    <section className="py-32 border-t border-rail relative overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-normal text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-normal text-ink mb-4">
             Same conversation, different experience
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-ink-dim max-w-2xl mx-auto">
             Watch how the same project evolves over three days
           </p>
         </div>
 
         {/* Toggle Switch */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1 bg-gray-900/50 rounded-lg border border-white/10">
+          <div className="inline-flex p-1 bg-bg-soft rounded-lg border border-rail">
             <button
               onClick={() => setIsWithMemory(false)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 !isWithMemory
-                  ? "bg-gray-800 text-white"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-bg-raise text-ink"
+                  : "text-ink-dim hover:text-ink"
               }`}
             >
               Without r3
@@ -101,8 +101,8 @@ export function MemoryComparison() {
               onClick={() => setIsWithMemory(true)}
               className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                 isWithMemory
-                  ? "bg-emerald-900/30 text-emerald-400"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-bg-raise text-ink"
+                  : "text-ink-dim hover:text-ink"
               }`}
             >
               With r3
@@ -112,29 +112,29 @@ export function MemoryComparison() {
 
         {/* Chat Interface */}
         <div className="max-w-3xl mx-auto">
-          <div className="bg-gray-900/30 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+          <div className="bg-bg-soft rounded-2xl border border-rail overflow-hidden">
             {/* Header */}
-            <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-rail flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-2 h-2 rounded-full ${isWithMemory ? "bg-emerald-400" : "bg-gray-400"}`}
+                  className={`w-2 h-2 rounded-full ${isWithMemory ? "bg-accent" : "bg-ink-faint"}`}
                 />
-                <span className="text-sm font-medium text-white">
+                <span className="text-sm font-medium text-ink">
                   {currentConversations[currentDay].day}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 {isWithMemory ? (
                   <>
-                    <Brain className="h-4 w-4 text-emerald-400" />
-                    <span className="text-xs text-emerald-400">
+                    <Brain className="h-4 w-4 text-ink" />
+                    <span className="text-xs text-ink">
                       Memory active
                     </span>
                   </>
                 ) : (
                   <>
-                    <RotateCcw className="h-4 w-4 text-gray-400" />
-                    <span className="text-xs text-gray-400">No memory</span>
+                    <RotateCcw className="h-4 w-4 text-ink-dim" />
+                    <span className="text-xs text-ink-dim">No memory</span>
                   </>
                 )}
               </div>
@@ -154,12 +154,12 @@ export function MemoryComparison() {
                   {/* User Message */}
                   <div className="flex justify-end">
                     <div className="max-w-[80%]">
-                      <div className="bg-blue-600/20 border border-blue-500/30 rounded-2xl rounded-tr-sm px-4 py-3">
-                        <p className="text-sm text-gray-200">
+                      <div className="bg-bg-raise border border-rail-strong rounded-2xl rounded-tr-sm px-4 py-3">
+                        <p className="text-sm text-ink">
                           {currentConversations[currentDay].user}
                         </p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1 text-right">
+                      <p className="text-xs text-ink-label mt-1 text-right">
                         You
                       </p>
                     </div>
@@ -168,12 +168,12 @@ export function MemoryComparison() {
                   {/* AI Response */}
                   <div className="flex justify-start">
                     <div className="max-w-[80%]">
-                      <div className="bg-gray-800/50 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3">
-                        <p className="text-sm text-gray-200">
+                      <div className="bg-bg-raise border border-rail rounded-2xl rounded-tl-sm px-4 py-3">
+                        <p className="text-sm text-ink">
                           {currentConversations[currentDay].ai}
                         </p>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">AI Assistant</p>
+                      <p className="text-xs text-ink-label mt-1">AI Assistant</p>
                     </div>
                   </div>
                 </motion.div>
@@ -188,8 +188,8 @@ export function MemoryComparison() {
                     key={i}
                     className={`h-1 rounded-full transition-all duration-300 ${
                       i === currentDay
-                        ? `w-8 ${isWithMemory ? "bg-emerald-400" : "bg-gray-400"}`
-                        : "w-1 bg-gray-600"
+                        ? `w-8 ${isWithMemory ? "bg-accent" : "bg-ink-dim"}`
+                        : "w-1 bg-ink-faint"
                     }`}
                   />
                 ))}
@@ -199,7 +199,7 @@ export function MemoryComparison() {
 
           {/* Bottom Caption */}
           <div className="mt-8 text-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-ink-dim">
               {isWithMemory
                 ? "Context builds naturally over time"
                 : "Every conversation starts from scratch"}

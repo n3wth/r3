@@ -44,7 +44,7 @@ export function AnimatedCounter({
     if (inView) {
       const controls = animate(motionValue, to, {
         duration,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.16, 1, 0.3, 1],
         onUpdate: (latest) => {
           const value =
             decimals > 0

@@ -16,23 +16,23 @@ export async function generateStaticParams() {
 const components = {
   ...MDXComponents,
   h1: ({ children }: any) => (
-    <h1 className="text-4xl font-normal text-white mb-6">{children}</h1>
+    <h1 className="text-4xl font-normal text-ink mb-6">{children}</h1>
   ),
   h2: ({ children }: any) => (
-    <h2 className="text-2xl font-normal text-white mt-12 mb-4">{children}</h2>
+    <h2 className="text-2xl font-normal text-ink mt-12 mb-4">{children}</h2>
   ),
   h3: ({ children }: any) => (
-    <h3 className="text-lg font-medium text-white mt-8 mb-3">{children}</h3>
+    <h3 className="text-lg font-medium text-ink mt-8 mb-3">{children}</h3>
   ),
   p: ({ children }: any) => (
-    <p className="text-gray-400 mb-4 leading-relaxed">{children}</p>
+    <p className="text-ink-dim mb-4 leading-relaxed">{children}</p>
   ),
   ul: ({ children }: any) => (
-    <ul className="text-gray-400 mb-4 space-y-2 list-disc list-inside">
+    <ul className="text-ink-dim mb-4 space-y-2 list-disc list-inside">
       {children}
     </ul>
   ),
-  li: ({ children }: any) => <li className="text-gray-400">{children}</li>,
+  li: ({ children }: any) => <li className="text-ink-dim">{children}</li>,
   a: ({ href, children }: any) => {
     // Handle external links
     if (href?.startsWith("http")) {
@@ -41,7 +41,7 @@ const components = {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-400 hover:text-blue-300 transition-colors"
+          className="text-accent-dim hover:text-accent transition-colors"
         >
           {children}
         </a>
@@ -51,34 +51,34 @@ const components = {
     return (
       <Link
         href={href || "#"}
-        className="text-blue-400 hover:text-blue-300 transition-colors"
+        className="text-accent-dim hover:text-accent transition-colors"
       >
         {children}
       </Link>
     );
   },
   strong: ({ children }: any) => (
-    <strong className="text-white font-medium">{children}</strong>
+    <strong className="text-ink font-medium">{children}</strong>
   ),
   table: ({ children }: any) => (
     <div className="overflow-x-auto mb-6">
-      <table className="min-w-full divide-y divide-white/10">{children}</table>
+      <table className="min-w-full divide-y divide-rail">{children}</table>
     </div>
   ),
   thead: ({ children }: any) => (
-    <thead className="bg-white/[0.02]">{children}</thead>
+    <thead className="bg-bg-soft">{children}</thead>
   ),
   tbody: ({ children }: any) => (
-    <tbody className="divide-y divide-white/10">{children}</tbody>
+    <tbody className="divide-y divide-rail">{children}</tbody>
   ),
   tr: ({ children }: any) => <tr>{children}</tr>,
   th: ({ children }: any) => (
-    <th className="px-4 py-3 text-left text-sm font-medium text-white">
+    <th className="px-4 py-3 text-left text-sm font-medium text-ink">
       {children}
     </th>
   ),
   td: ({ children }: any) => (
-    <td className="px-4 py-3 text-sm text-gray-400">{children}</td>
+    <td className="px-4 py-3 text-sm text-ink-dim">{children}</td>
   ),
 };
 
@@ -118,11 +118,11 @@ export default async function DocPage({
       </article>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between mt-16 pt-8 border-t border-white/10">
+      <div className="flex items-center justify-between mt-16 pt-8 border-t border-rail">
         {prevDoc ? (
           <Link
             href={`/docs/${prevDoc.slug}`}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-ink-dim hover:text-ink transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             {prevDoc.title}
@@ -134,7 +134,7 @@ export default async function DocPage({
         {nextDoc && (
           <Link
             href={`/docs/${nextDoc.slug}`}
-            className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center gap-2 text-ink-dim hover:text-ink transition-colors"
           >
             {nextDoc.title}
             <ArrowRight className="h-4 w-4" />
