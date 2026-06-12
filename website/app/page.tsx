@@ -78,15 +78,6 @@ const context = await recall.search({
 // That's it. Your AI assistant now has
 // persistent memory across every session.
 // No API keys, no database setup, no config.`,
-    curl: `curl https://api.r3.newth.ai/v1/memories \\
-  -H "Authorization: Bearer $MEM0_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "content": "User prefers dark mode UI",
-    "metadata": {
-      "user_id": "user_123"
-    }
-  }'`,
   };
 
   return (
@@ -322,11 +313,9 @@ const context = await recall.search({
                   language={
                     activeTab === "node"
                       ? "javascript"
-                      : activeTab === "curl"
-                        ? "bash"
-                        : activeTab === "mcp"
-                          ? "json"
-                          : activeTab
+                      : activeTab === "mcp"
+                        ? "json"
+                        : activeTab
                   }
                 >
                   {codeExamples[activeTab as keyof typeof codeExamples]}

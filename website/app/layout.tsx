@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   authors: [{ name: "n3wth" }],
   creator: "n3wth",
   publisher: "n3wth",
-  metadataBase: new URL("https://r3.newth.ai"),
+  metadataBase: new URL("https://r3.n3wth.com"),
   alternates: {
     canonical: "/",
   },
@@ -49,11 +49,11 @@ export const metadata: Metadata = {
     title: "r3 - Persistent Memory for AI Assistants",
     description:
       "Open source MCP server with Redis caching, vector search, and knowledge graphs. Runs locally, zero configuration.",
-    url: "https://r3.newth.ai",
+    url: "https://r3.n3wth.com",
     siteName: "r3",
     images: [
       {
-        url: "https://r3.newth.ai/og-image.png",
+        url: "https://r3.n3wth.com/og-image.png",
         width: 1280,
         height: 720,
         alt: "r3 - Persistent Memory for AI Assistants",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "r3 - Persistent Memory for AI Assistants",
     description:
       "Open source MCP server with Redis caching and vector search. Gives AI assistants persistent memory across sessions.",
-    images: ["https://r3.newth.ai/og-image.png"],
+    images: ["https://r3.n3wth.com/og-image.png"],
     creator: "@n3wth",
   },
   robots: {

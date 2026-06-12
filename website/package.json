@@ -25,7 +25,7 @@
     "gsap": "^3.14.2",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.544.0",
-    "next": "15.5.9",
+    "next": "15.5.19",
     "next-axiom": "^1.10.0",
     "next-mdx-remote": "^6.0.0",
     "posthog-js": "^1.352.0",
@@ -42,7 +42,6 @@
     "three": "^0.180.0"
   },
   "devDependencies": {
-    "@posthog/nextjs-config": "^1.8.18",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
