@@ -46,7 +46,7 @@ export function Section({
     white: "bg-white",
     gray: "bg-gray-50",
     gradient: "bg-gradient-to-b from-white to-gray-50",
-    dark: "bg-black",
+    dark: "bg-bg",
   }[background];
 
   return (

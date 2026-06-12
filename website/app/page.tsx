@@ -33,12 +33,6 @@ const TerminalDemo = lazy(() =>
     default: module.TerminalDemo,
   })),
 );
-const Meteors = lazy(() =>
-  import("@/components/magicui/meteors").then((module) => ({
-    default: module.Meteors,
-  })),
-);
-
 export default function Home() {
   const [activeTab, setActiveTab] = useState("node");
 
@@ -81,7 +75,7 @@ const context = await recall.search({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-black">
+    <div className="flex flex-col min-h-screen bg-bg">
       <Navigation />
 
       {/* Main content wrapper */}
@@ -93,23 +87,17 @@ const context = await recall.search({
             <MemoryVisualization />
           </div>
 
-          {/* Gradient background */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-950/20 via-black to-black" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(120,100,255,0.12),transparent_60%)]" />
-          </div>
-
           <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 text-center">
             <div className="mx-auto max-w-4xl">
               {/* Professional value prop badge - mobile-optimized */}
-              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-white/[0.03] backdrop-blur-sm px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium border border-white/[0.08]">
-                <span className="text-white sm:hidden whitespace-nowrap">
+              <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-bg-soft px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium border border-rail">
+                <span className="text-ink sm:hidden whitespace-nowrap">
                   AI Memory
                 </span>
                 <span className="hidden sm:inline-flex sm:items-center sm:gap-3">
-                  <span className="text-purple-300">Memory MCP server</span>
-                  <span className="text-white/40">×</span>
-                  <span className="text-blue-300">Open source</span>
+                  <span className="text-ink">Memory MCP server</span>
+                  <span className="text-ink-faint">×</span>
+                  <span className="text-ink">Open source</span>
                 </span>
               </div>
 
@@ -118,7 +106,7 @@ const context = await recall.search({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-white block"
+                  className="text-ink block"
                 >
                   Give your AI
                 </motion.span>
@@ -130,24 +118,24 @@ const context = await recall.search({
                     delay: 0.2,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="text-white inline-block mt-1"
+                  className="text-ink inline-block mt-1"
                 >
                   permanent memory
                 </motion.span>
               </h1>
 
               {/* Mobile-first subtitle */}
-              <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 md:mb-10 font-light leading-relaxed px-0">
+              <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-ink-dim mb-6 sm:mb-8 md:mb-10 font-light leading-relaxed px-0">
                 <span className="sm:hidden">
                   Context that persists across every AI conversation. Works with Claude, GPT, and Gemini.
                 </span>
                 <span className="hidden sm:inline">
                   Your AI assistant remembers what you talked about last session.{" "}
-                  <span className="text-white font-medium">
+                  <span className="text-ink font-medium">
                     Redis caching
                   </span>{" "}
                   and{" "}
-                  <span className="text-white font-medium">
+                  <span className="text-ink font-medium">
                     vector search
                   </span>{" "}
                   keep context fast and relevant. Works with Claude, GPT, and Gemini via MCP.
@@ -186,10 +174,10 @@ const context = await recall.search({
                   }}
                   className="text-center"
                 >
-                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-ink">
                     <AnimatedCounter to={5} suffix="ms" duration={1.5} />
                   </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-ink-dim mt-1">
                     Response time
                   </div>
                 </motion.div>
@@ -204,10 +192,10 @@ const context = await recall.search({
                   }}
                   className="text-center"
                 >
-                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-ink">
                     <AnimatedCounter to={384} duration={1.5} />
                   </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-ink-dim mt-1">
                     Dimensions per vector
                   </div>
                 </motion.div>
@@ -222,10 +210,10 @@ const context = await recall.search({
                   }}
                   className="text-center sm:col-span-1 col-span-1"
                 >
-                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-ink">
                     <AnimatedCounter to={0} duration={1.5} />
                   </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-ink-dim mt-1">
                     Cloud dependencies
                   </div>
                 </motion.div>
@@ -240,10 +228,10 @@ const context = await recall.search({
                   }}
                   className="text-center col-span-1"
                 >
-                  <div className="text-lg sm:text-xl md:text-2xl font-light text-white">
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-ink">
                     <AnimatedCounter to={1} duration={1.5} />
                   </div>
-                  <div className="text-[10px] sm:text-xs md:text-sm text-white/60 mt-1">
+                  <div className="text-[10px] sm:text-xs md:text-sm text-ink-dim mt-1">
                     Command to install
                   </div>
                 </motion.div>
@@ -256,8 +244,7 @@ const context = await recall.search({
         <MemoryComparison />
 
         {/* Interactive Terminal Demo */}
-        <Section spacing="lg" className="border-t border-white/[0.06] relative overflow-hidden">
-          <Meteors number={20} />
+        <Section spacing="lg" className="border-t border-rail relative overflow-hidden">
           <Container size="lg">
             <ScrollReveal className="max-w-4xl mx-auto relative z-10">
               <SectionHeader
@@ -268,7 +255,7 @@ const context = await recall.search({
               />
               <Suspense
                 fallback={
-                  <div className="bg-gray-900 rounded-lg p-6 animate-pulse h-64" />
+                  <div className="bg-bg-soft rounded-lg p-6 animate-pulse h-64" />
                 }
               >
                 <TerminalDemo />
@@ -278,7 +265,7 @@ const context = await recall.search({
         </Section>
 
         {/* Code Example - Clean tabs */}
-        <Section spacing="lg" className="border-t border-white/[0.06]">
+        <Section spacing="lg" className="border-t border-rail">
           <Container size="lg">
             <ScrollReveal className="max-w-4xl mx-auto">
               <SectionHeader
@@ -289,7 +276,7 @@ const context = await recall.search({
               />
 
               <div className="relative">
-                <div className="border-b border-white/[0.08] bg-white/[0.02] rounded-t-xl">
+                <div className="border-b border-rail bg-bg-soft rounded-t-xl">
                   <nav className="flex" aria-label="Tabs">
                     {Object.keys(codeExamples).map((lang) => (
                       <button
@@ -299,8 +286,8 @@ const context = await recall.search({
                         flex-1 px-4 py-3 text-sm font-medium capitalize transition-all
                         ${
                           activeTab === lang
-                            ? "text-white border-b-2 border-white/80"
-                            : "text-gray-500 hover:text-gray-300"
+                            ? "text-ink border-b-2 border-accent"
+                            : "text-ink-faint hover:text-ink-dim"
                         }
                       `}
                       >
@@ -326,7 +313,7 @@ const context = await recall.search({
         </Section>
 
         {/* Features - Bento Grid */}
-        <Section spacing="lg" className="border-t border-white/[0.06] relative">
+        <Section spacing="lg" className="border-t border-rail relative">
           <Container size="lg">
             <ScrollReveal>
             <SectionHeader
@@ -341,7 +328,7 @@ const context = await recall.search({
                 title="Semantic Search"
                 description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
                 icon={
-                  <Cpu className="h-5 w-5 text-gray-400" />
+                  <Cpu className="h-5 w-5 text-ink-dim" />
                 }
                 span="lg:col-span-2"
               />
@@ -350,7 +337,7 @@ const context = await recall.search({
                 title="Knowledge Graph"
                 description="Automatic entity extraction links memories into a traversable graph of relationships."
                 icon={
-                  <Layers className="h-5 w-5 text-gray-400" />
+                  <Layers className="h-5 w-5 text-ink-dim" />
                 }
               />
 
@@ -358,28 +345,28 @@ const context = await recall.search({
                 title="Sub-10ms responses"
                 description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
                 icon={
-                  <Zap className="h-5 w-5 text-gray-400" />
+                  <Zap className="h-5 w-5 text-ink-dim" />
                 }
               />
 
               <BentoCard
                 title="MCP compatible"
                 description="Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP client out of the box."
-                icon={<Globe className="h-5 w-5 text-gray-400" />}
+                icon={<Globe className="h-5 w-5 text-ink-dim" />}
                 span="lg:col-span-2"
               />
 
               <BentoCard
                 title="TypeScript SDK"
                 description="Typed memory operations, search results, and configuration. Ships its own type declarations."
-                icon={<Code className="h-5 w-5 text-gray-400" />}
+                icon={<Code className="h-5 w-5 text-ink-dim" />}
                 span="lg:col-span-2"
               />
 
               <BentoCard
                 title="Zero dependencies"
                 description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
-                icon={<Lock className="h-5 w-5 text-gray-400" />}
+                icon={<Lock className="h-5 w-5 text-ink-dim" />}
               />
             </BentoGrid>
             </ScrollReveal>
@@ -387,13 +374,13 @@ const context = await recall.search({
         </Section>
 
         {/* Bottom CTA section */}
-        <Section spacing="lg" className="border-t border-white/[0.06]">
+        <Section spacing="lg" className="border-t border-rail">
           <Container size="sm">
             <ScrollReveal className="text-center">
-              <p className="text-xl sm:text-2xl text-gray-300 mb-2 font-light">
+              <p className="text-xl sm:text-2xl text-ink-dim mb-2 font-light">
                 Your AI forgets everything between sessions.
               </p>
-              <p className="text-xl sm:text-2xl text-white font-medium mb-8">
+              <p className="text-xl sm:text-2xl text-ink font-medium mb-8">
                 One command fixes that.
               </p>
               <div className="flex justify-center">

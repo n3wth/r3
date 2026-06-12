@@ -30,13 +30,13 @@ export function DocsSidebar() {
     <nav className="space-y-6">
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--color-grey-400)]" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-dim" />
         <input
           type="text"
           placeholder="Search docs..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-3 py-2 bg-[var(--glass-bg)] border border-[var(--glass-border)] rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent"
+          className="w-full pl-10 pr-3 py-2 bg-bg-soft border border-rail rounded-lg text-sm text-ink placeholder:text-ink-faint focus:outline-none focus:ring-2 focus:ring-rail-strong focus:border-transparent"
         />
       </div>
 
@@ -52,7 +52,7 @@ export function DocsSidebar() {
             <div key={section.title}>
               <button
                 onClick={() => toggleSection(section.title)}
-                className="flex items-center justify-between w-full px-2 py-1.5 text-sm font-medium text-[var(--color-grey-400)] hover:text-white transition-colors"
+                className="flex items-center justify-between w-full px-2 py-1.5 text-sm font-medium text-ink-label hover:text-ink transition-colors"
               >
                 <span>{section.title}</span>
                 <ChevronRight
@@ -75,25 +75,14 @@ export function DocsSidebar() {
                           group flex items-center justify-between px-3 py-1.5 text-sm rounded-lg transition-all
                           ${
                             isActive
-                              ? "bg-white/10 text-white font-medium"
-                              : "text-[var(--color-grey-400)] hover:text-white hover:bg-[var(--glass-bg)]"
+                              ? "bg-bg-raise text-ink font-medium"
+                              : "text-ink-dim hover:text-ink hover:bg-bg-soft"
                           }
                         `}
                       >
                         <span>{item.title}</span>
                         {item.badge && (
-                          <span
-                            className={`
-                            px-1.5 py-0.5 text-xs rounded-full font-medium
-                            ${
-                              item.badge === "New"
-                                ? "bg-green-500/20 text-green-400"
-                                : item.badge === "Pro"
-                                  ? "bg-purple-500/20 text-purple-400"
-                                  : "bg-yellow-500/20 text-yellow-400"
-                            }
-                          `}
-                          >
+                          <span className="px-1.5 py-0.5 text-xs rounded-full font-medium bg-bg-raise border border-rail text-ink-dim">
                             {item.badge}
                           </span>
                         )}
@@ -108,11 +97,11 @@ export function DocsSidebar() {
       </div>
 
       {/* Quick Links */}
-      <div className="pt-6 border-t border-[var(--glass-border)]">
+      <div className="pt-6 border-t border-rail">
         <div className="space-y-2">
           <Link
             href="https://github.com/n3wth/r3"
-            className="flex items-center gap-2 px-3 py-2 text-sm text-[var(--color-grey-400)] hover:text-white transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm text-ink-dim hover:text-ink transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >

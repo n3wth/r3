@@ -76,7 +76,7 @@ export function TableOfContents() {
 
   return (
     <div className="space-y-3">
-      <h4 className="text-sm font-medium text-white">On this page</h4>
+      <h4 className="text-sm font-medium text-ink">On this page</h4>
       <nav className="space-y-1">
         {headings.map((heading) => (
           <a
@@ -87,8 +87,8 @@ export function TableOfContents() {
               ${heading.level === 3 ? "ml-4" : ""}
               ${
                 activeId === heading.id
-                  ? "text-blue-400 font-medium"
-                  : "text-gray-500 hover:text-gray-300"
+                  ? "text-ink font-medium"
+                  : "text-ink-faint hover:text-ink-dim"
               }
             `}
             onClick={(e) => {

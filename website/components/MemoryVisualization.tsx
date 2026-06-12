@@ -37,13 +37,14 @@ interface Particle {
   delay: number;
 }
 
+/* source of truth: @n3wth/ui/theme — monochrome ink scale */
 const memoryTypes = {
-  user: { color: "#8b5cf6", label: "User Context" },
-  project: { color: "#3b82f6", label: "Project Memory" },
-  code: { color: "#06b6d4", label: "Code Patterns" },
-  api: { color: "#10b981", label: "API Keys" },
-  knowledge: { color: "#f59e0b", label: "Knowledge Base" },
-  workflow: { color: "#ec4899", label: "Workflows" },
+  user: { color: "#f2f3f5", label: "User Context" },
+  project: { color: "#d4d6da", label: "Project Memory" },
+  code: { color: "#9aa0a8", label: "Code Patterns" },
+  api: { color: "#f2f3f5", label: "API Keys" },
+  knowledge: { color: "#d4d6da", label: "Knowledge Base" },
+  workflow: { color: "#9aa0a8", label: "Workflows" },
 };
 
 export function MemoryVisualization() {
@@ -185,39 +186,8 @@ export function MemoryVisualization() {
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-blue-900/10" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-cyan-900/5 via-transparent to-pink-900/5" />
-        {/* Outer edge brightness */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-white/[0.02]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,transparent_50%,rgba(139,92,246,0.05)_90%,rgba(139,92,246,0.08)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,transparent_0%,transparent_40%,rgba(59,130,246,0.06)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,transparent_0%,transparent_40%,rgba(6,182,212,0.06)_100%)]" />
-      </div>
-
       {/* Connections */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none">
-        <defs>
-          <linearGradient
-            id="connectionGradient"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
-            <stop offset="0%" stopColor="rgba(139, 92, 246, 0.4)" />
-            <stop offset="50%" stopColor="rgba(59, 130, 246, 0.4)" />
-            <stop offset="100%" stopColor="rgba(6, 182, 212, 0.4)" />
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
         {connections.map((connection) => {
           const sourceNode = nodes.find((n) => n.id === connection.source);
           const targetNode = nodes.find((n) => n.id === connection.target);
@@ -236,16 +206,15 @@ export function MemoryVisualization() {
                 stroke="rgba(255, 255, 255, 0.08)"
                 strokeWidth="0.5"
               />
-              {/* Active glow line */}
+              {/* Active line */}
               {isActive && (
                 <motion.line
                   x1={`${sourceNode.x}%`}
                   y1={`${sourceNode.y}%`}
                   x2={`${targetNode.x}%`}
                   y2={`${targetNode.y}%`}
-                  stroke="url(#connectionGradient)"
+                  stroke="rgba(255, 255, 255, 0.32)"
                   strokeWidth="1.5"
-                  filter="url(#glow)"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.8 }}
                   exit={{ opacity: 0 }}
@@ -259,10 +228,9 @@ export function MemoryVisualization() {
                     r={isActive ? "3" : "2"}
                     fill={
                       isActive
-                        ? "rgba(139, 92, 246, 1)"
-                        : "rgba(139, 92, 246, 0.6)"
+                        ? "rgba(242, 243, 245, 1)"
+                        : "rgba(242, 243, 245, 0.6)"
                     }
-                    filter={isActive ? "url(#glow)" : undefined}
                   >
                     <animateMotion
                       dur="3s"
@@ -287,10 +255,9 @@ export function MemoryVisualization() {
                     r={isActive ? "2" : "1.5"}
                     fill={
                       isActive
-                        ? "rgba(59, 130, 246, 1)"
-                        : "rgba(59, 130, 246, 0.5)"
+                        ? "rgba(212, 214, 218, 1)"
+                        : "rgba(212, 214, 218, 0.5)"
                     }
-                    filter={isActive ? "url(#glow)" : undefined}
                   >
                     <animateMotion
                       dur="3s"
@@ -311,10 +278,9 @@ export function MemoryVisualization() {
                     r={isActive ? "1.5" : "1"}
                     fill={
                       isActive
-                        ? "rgba(6, 182, 212, 1)"
-                        : "rgba(6, 182, 212, 0.4)"
+                        ? "rgba(154, 160, 168, 1)"
+                        : "rgba(154, 160, 168, 0.4)"
                     }
-                    filter={isActive ? "url(#glow)" : undefined}
                   >
                     <animateMotion
                       dur="3s"
@@ -409,8 +375,7 @@ export function MemoryVisualization() {
               <div
                 className="absolute inset-0 rounded-full"
                 style={{
-                  background: `radial-gradient(circle, ${node.color}ee, ${node.color}66)`,
-                  boxShadow: `0 0 ${isHighlighted ? 30 : 10}px ${node.color}44`,
+                  background: `${node.color}${isHighlighted ? "ee" : "aa"}`,
                 }}
               />
 
@@ -467,7 +432,6 @@ export function MemoryVisualization() {
             backgroundColor: `rgba(255, 255, 255, ${particle.opacity})`,
             left: `${particle.left}%`,
             top: `${particle.top}%`,
-            filter: "blur(0.5px)",
           }}
           animate={{
             y: -200,
@@ -482,18 +446,6 @@ export function MemoryVisualization() {
           }}
         />
       ))}
-
-      {/* Central glow effect */}
-      <div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{
-          width: "60%",
-          height: "60%",
-          background:
-            "radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
-      />
     </div>
   );
 }

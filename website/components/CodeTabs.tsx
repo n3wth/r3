@@ -37,7 +37,7 @@ export function CodeTabs({ tabs, children }: CodeTabsProps) {
   }
 
   if (!tabs || tabs.length === 0) {
-    return <div className="text-gray-500">No code tabs available</div>;
+    return <div className="text-ink-faint">No code tabs available</div>;
   }
 
   const copyToClipboard = () => {
@@ -47,9 +47,9 @@ export function CodeTabs({ tabs, children }: CodeTabsProps) {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border border-white/10 bg-white/[0.01]">
+    <div className="rounded-lg overflow-hidden border border-rail bg-bg-soft">
       {/* Tab Headers */}
-      <div className="flex items-center justify-between border-b border-white/10">
+      <div className="flex items-center justify-between border-b border-rail">
         <div className="flex">
           {tabs.map((tab, index) => (
             <button
@@ -57,8 +57,8 @@ export function CodeTabs({ tabs, children }: CodeTabsProps) {
               onClick={() => setActiveTab(index)}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
                 activeTab === index
-                  ? "text-white bg-white/5 border-b-2 border-blue-400"
-                  : "text-gray-400 hover:text-white"
+                  ? "text-ink bg-bg-raise border-b-2 border-accent"
+                  : "text-ink-dim hover:text-ink"
               }`}
             >
               {tab.label}
@@ -67,7 +67,7 @@ export function CodeTabs({ tabs, children }: CodeTabsProps) {
         </div>
         <button
           onClick={copyToClipboard}
-          className="flex items-center gap-1 px-3 py-2 text-xs text-gray-500 hover:text-white transition-colors"
+          className="flex items-center gap-1 px-3 py-2 text-xs text-ink-label hover:text-ink transition-colors"
         >
           {copied ? (
             <>
@@ -85,7 +85,7 @@ export function CodeTabs({ tabs, children }: CodeTabsProps) {
 
       {/* Code Content */}
       <pre className="p-4 overflow-x-auto">
-        <code className="text-sm text-gray-300 font-mono">
+        <code className="text-sm text-ink font-mono">
           {tabs[activeTab].code}
         </code>
       </pre>

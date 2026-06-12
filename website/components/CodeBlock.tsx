@@ -40,24 +40,24 @@ export function CodeBlock({ children, className, language }: CodeBlockProps) {
   };
 
   return (
-    <div className="relative group my-4 rounded-xl overflow-hidden border border-white/10 bg-black/40">
+    <div className="relative group my-4 rounded-xl overflow-hidden border border-rail bg-bg-soft">
       {/* Header bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-white/[0.02] border-b border-white/10">
+      <div className="flex items-center justify-between px-4 py-2 bg-bg-raise border-b border-rail">
         <div className="flex items-center gap-2">
-          <Terminal className="h-4 w-4 text-gray-500" />
-          <span className="text-xs text-gray-500 font-mono">
+          <Terminal className="h-4 w-4 text-ink-label" />
+          <span className="text-xs text-ink-label font-mono">
             {getLanguageDisplay(lang)}
           </span>
         </div>
         <button
           onClick={copyToClipboard}
-          className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 transition-colors"
+          className="p-1.5 rounded-md bg-bg-raise hover:bg-rail transition-colors"
           aria-label="Copy code"
         >
           {copied ? (
-            <Check className="h-4 w-4 text-green-400" />
+            <Check className="h-4 w-4 text-ink" />
           ) : (
-            <Copy className="h-4 w-4 text-gray-500 hover:text-gray-200" />
+            <Copy className="h-4 w-4 text-ink-label hover:text-ink" />
           )}
         </button>
       </div>
@@ -70,15 +70,14 @@ export function CodeBlock({ children, className, language }: CodeBlockProps) {
             style={{
               ...style,
               backgroundColor: "transparent",
-              fontFamily:
-                '"SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+              fontFamily: "var(--font-mono, ui-monospace, monospace)",
             }}
           >
             <code className="block">
               {tokens.map((line, i) => (
                 <div key={i} {...getLineProps({ line })} className="flex">
                   {/* Line number */}
-                  <span className="inline-block w-8 text-gray-600 text-right select-none flex-shrink-0 pr-4">
+                  <span className="inline-block w-8 text-ink-faint text-right select-none flex-shrink-0 pr-4">
                     {i + 1}
                   </span>
                   {/* Code content */}
