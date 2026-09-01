@@ -75,9 +75,8 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
 
     // Wait for server to be ready - with QUIET_MODE, we just wait and then try to connect
     // The server will respond to the first request once ready
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve, _reject) => {
       const timeout = setTimeout(() => {
-        // Don't reject - the server should be ready after this time
         resolve();
       }, 8000);
 
