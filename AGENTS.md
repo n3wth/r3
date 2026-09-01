@@ -11,12 +11,76 @@
 
 ```
 r3/
-├── src/              # Source code
-├── test/             # Test files
-├── docs/             # Documentation
-├── assets/           # Images and static assets
-├── website/          # Documentation website
-└── package.json      # Project metadata
+├── src/                          # Core TypeScript source
+│   ├── index.ts                  # Main entry point
+│   ├── core/
+│   │   └── memory-engine.ts      # Central memory logic
+│   ├── handlers/
+│   │   └── tool-handlers.ts      # MCP tool handler implementations
+│   ├── lib/
+│   │   ├── cache-manager.ts      # Redis cache layer
+│   │   ├── cache-manager-optimized.ts
+│   │   ├── redis-manager.ts      # Redis connection management
+│   │   ├── vectra-memory.ts      # Vectra vector store integration
+│   │   ├── enhanced-vectra-memory.ts
+│   │   ├── local-memory.ts       # Local (non-Redis) memory fallback
+│   │   ├── entity-extractor.ts   # NLP entity extraction
+│   │   ├── entity-extractor-spacy.ts
+│   │   ├── spacy_bridge.py       # Python/spaCy interop bridge
+│   │   ├── pubsub-manager.ts     # Redis pub/sub
+│   │   └── errors.ts             # Shared error types
+│   ├── cli-ui/                   # Interactive CLI UI components (Ink/React)
+│   │   └── source/
+│   │       ├── cli.tsx
+│   │       ├── app.tsx
+│   │       └── SimpleSpinner.tsx
+│   ├── types/
+│   │   ├── index.ts              # Shared type definitions
+│   │   ├── blessed.d.ts
+│   │   └── terminal.d.ts
+│   └── populate-demo-data.ts     # Seed script for demo data
+├── test/                         # Test suite (requires Redis + MEM0_API_KEY)
+│   ├── test-suite.js             # Primary integration tests
+│   ├── test-intelligence.js      # Intelligence/recall tests
+│   ├── test.js
+│   └── run-tests.js
+├── docs/                         # Documentation
+│   ├── CLI_USAGE.md
+│   ├── CONTRIBUTING.md
+│   ├── SECURITY.md
+│   ├── TODO.md
+│   └── validation-prompt.md
+├── mcp-server/                   # Standalone Python MCP server
+│   ├── server.py
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── docker-compose.yml
+├── r3call-cli/                   # Ink-based CLI sub-package
+│   └── source/
+│       ├── cli.tsx
+│       ├── app.tsx
+│       ├── api.ts
+│       └── SimpleSpinner.tsx
+├── mac-menubar-app/              # macOS menu bar app (Swift)
+│   └── main.swift
+├── website/                      # Docs site (Next.js, deployed to r3.n3wth.com)
+│   ├── app/                      # Next.js app router pages
+│   ├── components/               # Shared React components
+│   ├── content/docs/             # MDX documentation content
+│   ├── lib/                      # Utility modules
+│   └── public/                   # Static assets and fonts
+├── assets/                       # Brand assets (SVG logos)
+├── data/                         # Local runtime data (gitignored in prod)
+│   ├── memories.db               # SQLite memory store
+│   └── vectra-index/             # Vectra vector index
+├── .github/workflows/            # CI/CD workflows
+│   ├── ci.yml                    # Lint and test on PR
+│   ├── release.yml               # Bump version and publish to npm
+│   └── auto-release.yml
+├── Dockerfile                    # Container image for the MCP server
+├── index.d.ts                    # Public TypeScript declarations
+├── package.json                  # Root package (npm publish target)
+└── vercel.json                   # Vercel deployment config for website
 ```
 
 ## Development Workflow
