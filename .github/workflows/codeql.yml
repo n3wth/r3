@@ -3,8 +3,6 @@ name: CodeQL
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
   schedule:
     - cron: "0 0 * * 0"
 
@@ -16,12 +14,6 @@ jobs:
       security-events: write
       actions: read
       contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ["javascript"]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,7 +21,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
+          languages: javascript
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v3

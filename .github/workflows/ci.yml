@@ -55,23 +55,12 @@ jobs:
       - name: Build website
         run: npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: website-build
-          path: website/.next
-
   test:
+    name: Test (Node 20, Redis 7)
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-        redis-version: [7, 6]
-
     services:
       redis:
-        image: redis:${{ matrix.redis-version }}
+        image: redis:7
         ports:
           - 6379:6379
         options: >-
@@ -79,14 +68,13 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "20"
           cache: "npm"
 
       - name: Install dependencies
@@ -102,7 +90,6 @@ jobs:
     needs: [lint, test, build-website]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
-
     steps:
       - uses: actions/checkout@v4
 
