@@ -20,6 +20,9 @@ export class VectraMemory {
   private indexPath: string;
   private isInitialized: boolean = false;
   private quiet: boolean;
+  // vectra's insertItem does a read-modify-write of index.json;
+  // concurrent inserts lose writes. Serialize them.
+  private writeQueue: Promise<unknown> = Promise.resolve();
 
   constructor(dataDir: string = "./data/vectra-index", quiet: boolean = false) {
     this.indexPath = path.resolve(dataDir);
@@ -66,7 +69,10 @@ export class VectraMemory {
         },
       };
 
-      await this.index.insertItem(item);
+      const run = () => this.index.insertItem(item);
+      const queued = this.writeQueue.then(run, run);
+      this.writeQueue = queued.catch(() => {});
+      await queued;
       return memory.id;
     } catch (error) {
       this.log("Failed to add memory to Vectra:", error);
