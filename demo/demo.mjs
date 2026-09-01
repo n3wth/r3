@@ -21,7 +21,7 @@ function rpc(child, id, method, params) {
             child.stdout.off('data', onData)
             return resolve(msg)
           }
-        } catch {}
+        } catch { /* not JSON */ }
       }
     }
     child.stdout.on('data', onData)
@@ -60,7 +60,7 @@ async function session(label, actions) {
       } else if (j.success !== undefined) {
         out = `  ${green('✓')} ${note ?? 'stored'}`
       }
-    } catch {}
+    } catch { /* not JSON */ }
     console.log(out)
   }
   // Let async persistence (vectra flush, redis save) settle before exit
