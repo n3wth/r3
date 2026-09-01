@@ -101,6 +101,7 @@ export interface RecallConfig {
 
 export interface StorageBackend {
   add(params: AddMemoryParams): Promise<any>;
+  get(memoryId: string, userId?: string): Promise<Memory | null>;
   search(params: SearchMemoryParams): Promise<Memory[]>;
   getAll(params: GetAllMemoriesParams): Promise<Memory[]>;
   delete(memoryId: string, userId?: string): Promise<any>;
