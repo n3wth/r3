@@ -374,7 +374,7 @@ We value all contributions including:
 
 ### Resources
 
-- **Documentation**: [README.md](../README.md) and [website docs](https://r3.newth.ai/docs)
+- **Documentation**: [README.md](../README.md) and [website docs](https://r3.n3wth.com/docs)
 - **Issues**: [GitHub Issues](https://github.com/n3wth/r3/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/n3wth/r3/discussions)
 - **Security**: [Security Policy](SECURITY.md)

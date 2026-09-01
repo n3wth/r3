@@ -20,63 +20,46 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "r3 - Open Source Local Redis Memory MCP",
+  metadataBase: new URL("https://r3.n3wth.com"),
+  title: {
+    default: "n3wth/r3 - Persistent memory for AI assistants",
+    template: "%s - n3wth/r3",
+  },
   description:
-    "r3 is an open-source MCP server providing persistent memory for AI assistants. Run npx @n3wth/r3 for local Redis caching, vector search, and knowledge graphs with zero configuration.",
+    "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Local Redis, vector search, and knowledge graphs with zero configuration.",
   keywords: [
     "r3",
-    "r3 open source",
     "MCP server",
     "AI memory",
-    "Redis cache",
+    "Redis",
     "vector search",
-    "Claude memory",
-    "persistent context",
-    "local AI memory",
-    "npx r3",
+    "Claude",
+    "Gemini",
+    "GPT",
+    "persistent memory",
   ],
-  authors: [{ name: "n3wth" }],
-  creator: "n3wth",
-  publisher: "n3wth",
-  metadataBase: new URL("https://r3.n3wth.com"),
+  authors: [{ name: "Oliver Newth" }],
   alternates: {
-    canonical: "/",
+    canonical: "./",
   },
   openGraph: {
-    title: "r3 - Open Source Local Redis Memory MCP",
+    title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "r3 is an open-source MCP server for AI memory. Install with npx @n3wth/r3 for local Redis caching, vector search, and knowledge graphs.",
+      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
     url: "https://r3.n3wth.com",
-    siteName: "r3",
-    images: [
-      {
-        url: "https://r3.n3wth.com/og-image.png",
-        width: 1280,
-        height: 720,
-        alt: "r3 - Open Source Local Redis Memory MCP",
-      },
-    ],
-    locale: "en_US",
+    siteName: "n3wth/r3",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "r3 - Open Source Local Redis Memory MCP",
+    title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "r3 is an open-source MCP server for persistent AI memory. Run npx @n3wth/r3 for local Redis caching and vector search.",
-    images: ["https://r3.n3wth.com/og-image.png"],
-    creator: "@n3wth",
+      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 

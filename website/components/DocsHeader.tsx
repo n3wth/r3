@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Command, ChevronDown } from "lucide-react";
+import { Search, ChevronDown } from "lucide-react";
 import { versionConfig } from "@/lib/docs-config";
 
 export function DocsHeader() {
@@ -9,19 +9,14 @@ export function DocsHeader() {
   const [showVersionDropdown, setShowVersionDropdown] = useState(false);
 
   return (
-    <div className="sticky top-20 z-40 bg-bg/80 backdrop-blur-xl border-b border-rail">
-      <div className="mx-auto max-w-[1600px] px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          {/* Left: Breadcrumb */}
+    <div className="sticky top-14 z-40 bg-bg/80 backdrop-blur-xl border-b border-rail">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="flex items-center justify-between h-12">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-ink-dim">Docs</span>
-            <span className="text-ink-dim">/</span>
-            <span className="text-ink font-medium">Getting Started</span>
           </div>
 
-          {/* Right: Actions */}
           <div className="flex items-center gap-4">
-            {/* Search */}
             <button
               onClick={() => setShowSearch(true)}
               className="flex items-center gap-2 px-3 py-1.5 bg-bg-soft hover:bg-bg-raise border border-rail rounded-lg transition-colors sm:w-48"
@@ -30,17 +25,13 @@ export function DocsHeader() {
               <span className="hidden sm:inline text-sm text-ink-dim">
                 Search
               </span>
-              <div className="hidden sm:flex items-center gap-1 ml-4 sm:ml-8">
+              <div className="hidden sm:flex items-center gap-1 ml-auto">
                 <kbd className="px-1.5 py-0.5 text-xs bg-bg-raise rounded border border-rail-strong">
-                  ⌘
-                </kbd>
-                <kbd className="px-1.5 py-0.5 text-xs bg-bg-raise rounded border border-rail-strong">
-                  K
+                  /
                 </kbd>
               </div>
             </button>
 
-            {/* Version Selector */}
             <div className="relative">
               <button
                 onClick={() => setShowVersionDropdown(!showVersionDropdown)}
@@ -66,19 +57,10 @@ export function DocsHeader() {
                 </div>
               )}
             </div>
-
-            {/* API Reference */}
-            <a
-              href="/docs/api-reference"
-              className="hidden sm:inline-flex px-3 py-1.5 bg-bg-soft hover:bg-bg-raise border border-rail-strong text-ink text-sm font-medium rounded-lg transition-colors"
-            >
-              API Reference
-            </a>
           </div>
         </div>
       </div>
 
-      {/* Search Modal */}
       {showSearch && (
         <div
           className="fixed inset-0 z-50 bg-bg/80"
@@ -108,39 +90,36 @@ export function DocsHeader() {
               </div>
 
               <div className="max-h-96 overflow-y-auto p-2">
-                {/* Search Results */}
                 <div className="space-y-1">
                   <a
-                    href="/docs/getting-started/quickstart"
+                    href="/docs/quickstart"
                     className="block px-3 py-2 rounded-lg hover:bg-rail transition-colors"
                   >
                     <div className="text-sm font-medium text-ink">
-                      Quick Start
+                      Quickstart
                     </div>
                     <div className="text-xs text-ink-dim">
                       Get up and running in 5 minutes
                     </div>
                   </a>
                   <a
-                    href="/docs/api/client"
+                    href="/docs/api-reference"
                     className="block px-3 py-2 rounded-lg hover:bg-rail transition-colors"
                   >
                     <div className="text-sm font-medium text-ink">
-                      Client API
+                      API Reference
                     </div>
                     <div className="text-xs text-ink-dim">
-                      Complete API reference for the r3 client
+                      Complete API reference for r3
                     </div>
                   </a>
                   <a
-                    href="/docs/examples/chatbot-memory"
+                    href="/docs/examples"
                     className="block px-3 py-2 rounded-lg hover:bg-rail transition-colors"
                   >
-                    <div className="text-sm font-medium text-ink">
-                      Chatbot with Memory
-                    </div>
+                    <div className="text-sm font-medium text-ink">Examples</div>
                     <div className="text-xs text-ink-dim">
-                      Build an intelligent chatbot
+                      Example integrations
                     </div>
                   </a>
                 </div>
@@ -150,19 +129,7 @@ export function DocsHeader() {
                 <div className="flex items-center gap-4 text-xs text-ink-dim">
                   <span className="flex items-center gap-1">
                     <kbd className="px-1 py-0.5 bg-bg-raise rounded border border-rail-strong">
-                      ↑↓
-                    </kbd>
-                    Navigate
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1 py-0.5 bg-bg-raise rounded border border-rail-strong">
-                      ↵
-                    </kbd>
-                    Select
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <kbd className="px-1 py-0.5 bg-bg-raise rounded border border-rail-strong">
-                      ESC
+                      esc
                     </kbd>
                     Close
                   </span>

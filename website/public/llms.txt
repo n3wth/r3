@@ -1,10 +1,8 @@
-# r3 - Open Source Local Redis Memory MCP
+# n3wth/r3
 
-> r3 is an open-source MCP server that provides persistent memory for AI assistants using local Redis caching, vector search, and knowledge graphs.
+> Persistent memory for AI assistants. An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions.
 
 ## Quick Start
-
-Install and run with a single command:
 
 ```bash
 npx @n3wth/r3
@@ -14,9 +12,9 @@ No configuration required. r3 starts an embedded Redis server automatically.
 
 ## What is r3?
 
-r3 is a Model Context Protocol (MCP) server that gives AI assistants like Claude, GPT, and Gemini persistent memory across sessions. It runs 100% locally with:
+r3 is a Model Context Protocol (MCP) server that gives AI assistants persistent memory across sessions. It runs locally with:
 
-- Embedded Redis for sub-5ms memory retrieval
+- Embedded Redis for sub-10ms memory retrieval
 - 384-dimensional vector embeddings for semantic search
 - Automatic entity extraction and knowledge graph construction
 - Zero external API calls required
@@ -41,22 +39,28 @@ Add to `~/.claude/claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-claude mcp add @n3wth/r3 "npx @n3wth/r3"
+claude mcp add r3 "npx @n3wth/r3"
+```
+
+### Gemini CLI
+
+```bash
+export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'
 ```
 
 ### Programmatic Usage
 
 ```typescript
-import { Recall } from 'r3';
+import { R3 } from '@n3wth/r3';
 
-const recall = new Recall();
+const r3 = new R3();
 
-await recall.add({
+await r3.add({
   content: 'User prefers TypeScript',
   userId: 'user_123'
 });
 
-const memories = await recall.search({
+const memories = await r3.search({
   query: 'programming preferences',
   userId: 'user_123'
 });
@@ -64,21 +68,19 @@ const memories = await recall.search({
 
 ## Documentation
 
-- Introduction: https://r3.n3wth.com/docs/getting-started/introduction
-- Quick Start: https://r3.n3wth.com/docs/quickstart
-- AI Intelligence: https://r3.n3wth.com/docs/ai-intelligence
+- Introduction: https://r3.n3wth.com/docs/introduction
+- Quickstart: https://r3.n3wth.com/docs/quickstart
 - API Reference: https://r3.n3wth.com/docs/api-reference
 - Examples: https://r3.n3wth.com/docs/examples
 - Troubleshooting: https://r3.n3wth.com/docs/troubleshooting
 
 ## Key Features
 
-- **Open Source**: MIT licensed, fully transparent
-- **Local-First**: All data stays on your machine
-- **Zero Config**: Just run `npx @n3wth/r3`
-- **Fast**: Sub-5ms responses with embedded Redis
-- **Smart**: Vector search and knowledge graphs built-in
-- **Private**: No external API calls required
+- Local-first: All data stays on your machine
+- Zero config: Just run `npx @n3wth/r3`
+- Fast: Sub-10ms responses with embedded Redis
+- Smart: Vector search and knowledge graphs built-in
+- Private: No external API calls required
 
 ## Links
 
