@@ -1,5 +1,6 @@
 # r3 (by n3wth)
 
+<!-- mcp-name: io.github.n3wth/r3 -->
 [![npm version](https://badge.fury.io/js/%40n3wth%2Fr3.svg)](https://www.npmjs.com/package/@n3wth/r3)
 [![npm downloads](https://img.shields.io/npm/dt/@n3wth/r3.svg)](https://www.npmjs.com/package/@n3wth/r3)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
