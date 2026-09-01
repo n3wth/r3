@@ -26,7 +26,7 @@ MCP server for persistent AI memory. Local Redis storage with optional cloud syn
 r3 is an MCP server that gives AI applications persistent memory. By default, it uses an embedded Redis server for local storage. No setup required. Optionally add cloud sync with Mem0.
 
 ```json
-// ~/.claude/claude_desktop_config.json
+// MCP client config (e.g. claude_desktop_config.json)
 {
   "mcpServers": {
     "r3": {
@@ -37,15 +37,15 @@ r3 is an MCP server that gives AI applications persistent memory. By default, it
 }
 ```
 
-Once configured, Claude can remember context across conversations:
+Once configured, your AI assistant can remember context across conversations:
 
 ```
 You: Remember that I prefer TypeScript over JavaScript
-Claude: I'll remember your preference for TypeScript.
+AI: I'll remember your preference for TypeScript.
 
 [New conversation]
 You: What language should I use for this project?
-Claude: Based on your preferences, I'd recommend TypeScript.
+AI: Based on your preferences, I'd recommend TypeScript.
 ```
 
 ## Architecture
@@ -72,7 +72,7 @@ Each memory contains:
 
 ### MCP tools
 
-r3 provides these tools to Claude:
+r3 provides these tools to MCP clients:
 
 - `add_memory`: Store new information
 - `search_memory`: Find relevant context

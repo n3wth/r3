@@ -1,9 +1,9 @@
-# Claude Instructions for r3 Project
+# Agent Instructions for r3 Project
 
 ## Key Rules
 
 1. **NO EMOJIS** - Never use emojis in any context within this project
-2. **Brand Name** - Always use "r3"
+2. **Brand Name** - Always use "r3" (lowercase)
 3. **Current Year** - Use 2025 in copyright notices
 4. **Professional Tone** - Maintain technical, clear communication
 
@@ -90,7 +90,6 @@ When updating documentation:
 ## Common Mistakes to Avoid
 
 - Adding emojis to documentation
-- Using "Newth" instead of "Newth.ai"
 - Publishing directly to npm (use GitHub Actions)
 - Adding decorative elements to professional documentation
 

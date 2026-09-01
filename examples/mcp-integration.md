@@ -1,6 +1,6 @@
-# Claude Integration Examples
+# MCP Integration Examples
 
-## Setting up r3 with Claude Desktop
+## Setting up r3 with MCP Clients
 
 ### 1. Install the package
 
@@ -8,9 +8,9 @@
 npm install -g r3
 ```
 
-### 2. Configure Claude Desktop
+### 2. Configure your MCP client
 
-Add to your `~/.claude/claude_desktop_config.json`:
+Add to your MCP client configuration file:
 
 ```json
 {
@@ -28,9 +28,9 @@ Add to your `~/.claude/claude_desktop_config.json`:
 }
 ```
 
-### 3. Using in Claude
+### 3. Using r3 tools
 
-Once configured, you can use these commands in Claude:
+Once configured, you can use these MCP tools:
 
 ```javascript
 // Add a memory
@@ -119,7 +119,3 @@ Be mindful of the number of memories you store. You can use the `get_all_memorie
 2. **Implement regular cleanup**: Periodically review and remove old or irrelevant memories.
 3. **Monitor performance**: Use the `cache_stats` tool to monitor performance and identify bottlenecks.
 4. **Handle errors gracefully**: Implement fallback strategies in case of errors.
-
-```
-
-```
