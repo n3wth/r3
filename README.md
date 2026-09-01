@@ -3,7 +3,9 @@
 [![npm version](https://badge.fury.io/js/%40n3wth%2Fr3.svg)](https://www.npmjs.com/package/@n3wth/r3)
 [![npm downloads](https://img.shields.io/npm/dt/@n3wth/r3.svg)](https://www.npmjs.com/package/@n3wth/r3)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Documentation](https://img.shields.io/badge/docs-r3.newth.ai-blue)](https://r3.newth.ai)
+[![Documentation](https://img.shields.io/badge/docs-r3.n3wth.com-blue)](https://r3.n3wth.com)
+[![r3 MCP server](https://glama.ai/mcp/servers/n3wth/r3/badges/card.svg)](https://glama.ai/mcp/servers/n3wth/r3)
+[![r3 MCP server](https://glama.ai/mcp/servers/n3wth/r3/badges/score.svg)](https://glama.ai/mcp/servers/n3wth/r3)
 
 Intelligent memory MCP for AI apps
 
@@ -131,7 +133,7 @@ Add to `~/.claude/claude_desktop_config.json`:
   "mcpServers": {
     "r3": {
       "command": "npx",
-      "args": ["r3"],
+      "args": ["@n3wth/r3"],
       "env": {
         "MEM0_API_KEY": "your_mem0_api_key",
         "REDIS_URL": "redis://localhost:6379"
@@ -145,9 +147,9 @@ Add to `~/.claude/claude_desktop_config.json`:
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://r3.newth.ai/architecture-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://r3.newth.ai/architecture-light.svg">
-    <img src="https://r3.newth.ai/architecture-dark.svg" alt="r3 Architecture" width="100%" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://r3.n3wth.com/architecture-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://r3.n3wth.com/architecture-light.svg">
+    <img src="https://r3.n3wth.com/architecture-dark.svg" alt="r3 Architecture" width="100%" />
   </picture>
 </div>
 
@@ -551,7 +553,7 @@ gh pr create
 
 ## Support
 
-- **Documentation**: [r3.newth.ai](https://r3.newth.ai)
+- **Documentation**: [r3.n3wth.com](https://r3.n3wth.com)
 - **Issue Tracker**: [GitHub Issues](https://github.com/n3wth/r3/issues)
 
 ## License
