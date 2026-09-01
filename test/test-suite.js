@@ -75,9 +75,8 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
 
     // Wait for server to be ready - with QUIET_MODE, we just wait and then try to connect
     // The server will respond to the first request once ready
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve, _reject) => {
       const timeout = setTimeout(() => {
-        // Don't reject - the server should be ready after this time
         resolve();
       }, 8000);
 
@@ -133,7 +132,11 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       for (const tool of expectedTools) {
         assert.ok(toolNames.includes(tool), `Missing tool: ${tool}`);
       }
-      assert.equal(response.result.tools.length, 14, "Should have exactly 14 tools");
+      assert.equal(
+        response.result.tools.length,
+        14,
+        "Should have exactly 14 tools",
+      );
     });
 
     it("should have descriptions longer than 50 characters for all tools", async () => {
@@ -142,7 +145,7 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       for (const tool of response.result.tools) {
         assert.ok(
           tool.description && tool.description.length >= 50,
-          `Tool ${tool.name} description too short: ${tool.description?.length || 0} chars`
+          `Tool ${tool.name} description too short: ${tool.description?.length || 0} chars`,
         );
       }
     });
@@ -151,17 +154,14 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       const response = await sendRequest(server, "tools/list");
 
       for (const tool of response.result.tools) {
-        assert.ok(
-          tool.annotations,
-          `Tool ${tool.name} missing annotations`
-        );
+        assert.ok(tool.annotations, `Tool ${tool.name} missing annotations`);
         assert.ok(
           typeof tool.annotations.readOnlyHint === "boolean",
-          `Tool ${tool.name} missing readOnlyHint annotation`
+          `Tool ${tool.name} missing readOnlyHint annotation`,
         );
         assert.ok(
           typeof tool.annotations.destructiveHint === "boolean",
-          `Tool ${tool.name} missing destructiveHint annotation`
+          `Tool ${tool.name} missing destructiveHint annotation`,
         );
       }
     });
@@ -186,7 +186,7 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
         const tool = tools.find((t) => t.name === toolName);
         assert.ok(
           tool.annotations.destructiveHint === true,
-          `Tool ${toolName} should have destructiveHint: true`
+          `Tool ${toolName} should have destructiveHint: true`,
         );
       }
 
@@ -194,7 +194,7 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
         const tool = tools.find((t) => t.name === toolName);
         assert.ok(
           tool.annotations.readOnlyHint === true,
-          `Tool ${toolName} should have readOnlyHint: true`
+          `Tool ${toolName} should have readOnlyHint: true`,
         );
       }
     });
@@ -209,7 +209,7 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
             const prop = schema.properties[reqParam];
             assert.ok(
               prop && prop.description,
-              `Tool ${tool.name} required param ${reqParam} missing description`
+              `Tool ${tool.name} required param ${reqParam} missing description`,
             );
           }
         }
@@ -277,54 +277,76 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       assert.ok(typeof text === "string");
     });
 
-    it("should handle cache operations", { skip: "Skipped: requires stable Redis, not relevant to tool definition quality" }, async () => {
-      const response = await sendRequest(server, "tools/call", {
-        name: "cache_stats",
-        arguments: {},
-      });
+    it(
+      "should handle cache operations",
+      {
+        skip: "Skipped: requires stable Redis, not relevant to tool definition quality",
+      },
+      async () => {
+        const response = await sendRequest(server, "tools/call", {
+          name: "cache_stats",
+          arguments: {},
+        });
 
-      assert.ok(response.result);
-      assert.ok(response.result.content[0]);
-      const text = response.result.content[0].text;
-      assert.ok(
-        text.includes("memories cached") ||
-          text.includes("Cache not available"),
-      );
-    });
+        assert.ok(response.result);
+        assert.ok(response.result.content[0]);
+        const text = response.result.content[0].text;
+        assert.ok(
+          text.includes("memories cached") ||
+            text.includes("Cache not available"),
+        );
+      },
+    );
   });
 
   describe("Get and Update Memory Operations", () => {
-    it("should call get_memory tool", { skip: "Skipped: requires stable storage, not relevant to tool definition quality" }, async () => {
-      const response = await sendRequest(server, "tools/call", {
-        name: "get_memory",
-        arguments: {
-          memory_id: "non-existent-id-12345",
-        },
-      });
+    it(
+      "should call get_memory tool",
+      {
+        skip: "Skipped: requires stable storage, not relevant to tool definition quality",
+      },
+      async () => {
+        const response = await sendRequest(server, "tools/call", {
+          name: "get_memory",
+          arguments: {
+            memory_id: "non-existent-id-12345",
+          },
+        });
 
-      assert.ok(response.result);
-      const text = response.result.content[0].text;
-      // Should return a JSON response indicating not found
-      assert.ok(text.includes("not found") || text.includes("error") || text.includes("Memory"));
-    });
+        assert.ok(response.result);
+        const text = response.result.content[0].text;
+        // Should return a JSON response indicating not found
+        assert.ok(
+          text.includes("not found") ||
+            text.includes("error") ||
+            text.includes("Memory"),
+        );
+      },
+    );
 
-    it("should call update_memory tool with error for non-existent memory", { skip: "Skipped: requires stable storage, not relevant to tool definition quality" }, async () => {
-      const response = await sendRequest(server, "tools/call", {
-        name: "update_memory",
-        arguments: {
-          memory_id: "non-existent-memory-update",
-          content: "New content",
-        },
-      });
+    it(
+      "should call update_memory tool with error for non-existent memory",
+      {
+        skip: "Skipped: requires stable storage, not relevant to tool definition quality",
+      },
+      async () => {
+        const response = await sendRequest(server, "tools/call", {
+          name: "update_memory",
+          arguments: {
+            memory_id: "non-existent-memory-update",
+            content: "New content",
+          },
+        });
 
-      assert.ok(response.result);
-      const text = response.result.content[0].text;
-      assert.ok(
-        text.includes("not found") || 
-        text.includes("Error") ||
-        response.result.isError
-      );
-    });
+        assert.ok(response.result);
+        const text = response.result.content[0].text;
+        assert.ok(
+          text.includes("not found") ||
+            text.includes("Error") ||
+            response.result.isError,
+        );
+      },
+    );
   });
 
   describe("Error Handling", () => {
@@ -355,26 +377,30 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       assert.ok(response.result || response.error);
     });
 
-    it("should handle Redis connection failures gracefully", { skip: "Skipped: requires network operations" }, async () => {
-      // Start server with invalid Redis URL
-      const failServer = startServer({
-        REDIS_URL: "redis://invalid:6379",
-      });
+    it(
+      "should handle Redis connection failures gracefully",
+      { skip: "Skipped: requires network operations" },
+      async () => {
+        // Start server with invalid Redis URL
+        const failServer = startServer({
+          REDIS_URL: "redis://invalid:6379",
+        });
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      const response = await sendRequest(failServer, "tools/call", {
-        name: "add_memory",
-        arguments: {
-          content: "Test without Redis",
-        },
-      });
+        const response = await sendRequest(failServer, "tools/call", {
+          name: "add_memory",
+          arguments: {
+            content: "Test without Redis",
+          },
+        });
 
-      // Should fall back to mem0-only mode
-      assert.ok(response.result);
+        // Should fall back to mem0-only mode
+        assert.ok(response.result);
 
-      failServer.kill();
-    });
+        failServer.kill();
+      },
+    );
   });
 
   describe("Performance", () => {
@@ -399,9 +425,13 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       assert.ok(successful.length >= 8); // Allow some failures
     });
 
-    it("should respect cache TTL", { skip: "Skipped: cache stats returns plain text, not JSON" }, async () => {
-      // This test expects JSON responses but server returns plain text summaries
-    });
+    it(
+      "should respect cache TTL",
+      { skip: "Skipped: cache stats returns plain text, not JSON" },
+      async () => {
+        // This test expects JSON responses but server returns plain text summaries
+      },
+    );
   });
 
   describe("Batch Operations", () => {
@@ -432,12 +462,12 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       const text = response.result.content[0].text;
       assert.ok(
         text.includes("optimized") ||
-        text.includes("ready") ||
-        text.includes("memories") ||
-        text.includes("Cache") ||
-        text.includes("cache") ||
-        text.includes("not available") ||
-        typeof text === "string",
+          text.includes("ready") ||
+          text.includes("memories") ||
+          text.includes("Cache") ||
+          text.includes("cache") ||
+          text.includes("not available") ||
+          typeof text === "string",
         `Unexpected response: ${text}`,
       );
     });

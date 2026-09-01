@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
+
+      - name: Install npm with OIDC support
+        run: npm install -g npm@11.5.1
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
@@ -25,18 +28,15 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Publish to npm
-        run: npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to npm (Trusted Publishing)
+        run: npm publish --provenance --access public
 
       - name: Verify npm package
         run: |
-          echo "Package: r3call"
+          echo "Package: @n3wth/r3"
           echo "Registry: https://registry.npmjs.org"
-          echo "Repository: https://github.com/n3wth/r3call"
+          echo "Repository: https://github.com/n3wth/r3"
 
-      # This helps GitHub detect the npm package
       - name: Package metadata
         run: |
-          echo "::notice title=NPM Package::r3call is published to npm"
+          echo "::notice title=NPM Package::@n3wth/r3 is published to npm"

@@ -345,7 +345,10 @@ export class LocalMemory extends EventEmitter implements StorageBackend {
     return { id: memoryId, status: "deleted" };
   }
 
-  async get(memoryId: string, userId: string = "default"): Promise<Memory | null> {
+  async get(
+    memoryId: string,
+    userId: string = "default",
+  ): Promise<Memory | null> {
     if (!this.isReady) await this.start();
     if (!this.client) throw new Error("Redis client not initialized");
 

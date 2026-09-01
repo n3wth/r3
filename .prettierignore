@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Sub-projects with their own prettier config
+r3call-cli/
+r3call-swift-app/
+
+# Generated files
+*.min.js
+package-lock.json

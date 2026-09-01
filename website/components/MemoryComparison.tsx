@@ -127,9 +127,7 @@ export function MemoryComparison() {
                 {isWithMemory ? (
                   <>
                     <Brain className="h-4 w-4 text-ink" />
-                    <span className="text-xs text-ink">
-                      Memory active
-                    </span>
+                    <span className="text-xs text-ink">Memory active</span>
                   </>
                 ) : (
                   <>
@@ -173,7 +171,9 @@ export function MemoryComparison() {
                           {currentConversations[currentDay].ai}
                         </p>
                       </div>
-                      <p className="text-xs text-ink-label mt-1">AI Assistant</p>
+                      <p className="text-xs text-ink-label mt-1">
+                        AI Assistant
+                      </p>
                     </div>
                   </div>
                 </motion.div>
