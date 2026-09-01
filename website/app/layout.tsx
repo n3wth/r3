@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
-  preload: false, // Only preload if needed
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
       "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
+    creator: "@n3wth",
   },
   robots: {
     index: true,

@@ -1,11 +1,9 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "r3 - Intelligent Memory for AI (by n3wth)";
-export const size = {
-  width: 1200,
-  height: 630,
-};
+
+export const alt = "n3wth/r3 - Open-source persistent memory for AI assistants";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
@@ -13,61 +11,82 @@ export default async function Image() {
     (
       <div
         style={{
-          fontSize: 128,
-          /* source of truth: @n3wth/ui/theme */
-          background: "#08090b",
-          width: "100%",
           height: "100%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          color: "#f2f3f5",
+          backgroundColor: "#08090b",
+          padding: "80px",
         }}
       >
         <div
           style={{
-            fontSize: 72,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            marginBottom: 30,
-            textAlign: "center",
-          }}
-        >
-          r3
-        </div>
-        <div
-          style={{
-            fontSize: 36,
-            fontWeight: 300,
-            opacity: 0.9,
-            textAlign: "center",
-            maxWidth: 800,
-            lineHeight: 1.4,
-          }}
-        >
-          Intelligent Memory Layer for AI Applications
-        </div>
-        <div
-          style={{
-            fontSize: 24,
-            fontWeight: 400,
-            marginTop: 40,
-            opacity: 0.8,
             display: "flex",
-            gap: 30,
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "24px",
           }}
         >
-          <span>Sub-5ms response</span>
-          <span>•</span>
-          <span>Automatic failover</span>
-          <span>•</span>
-          <span>Built for scale</span>
+          <div
+            style={{
+              fontSize: "24px",
+              fontFamily: "monospace",
+              color: "#787c83",
+              fontWeight: 600,
+            }}
+          >
+            n3wth/r3
+          </div>
+          <div
+            style={{
+              fontSize: "56px",
+              fontWeight: 700,
+              color: "#f2f3f5",
+              textAlign: "center",
+              lineHeight: 1.1,
+              maxWidth: "900px",
+            }}
+          >
+            Persistent memory for AI assistants
+          </div>
+          <div
+            style={{
+              fontSize: "22px",
+              color: "#9aa0a8",
+              textAlign: "center",
+              maxWidth: "700px",
+              lineHeight: 1.5,
+            }}
+          >
+            Open-source MCP server with local Redis caching and vector search.
+          </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              marginTop: "16px",
+            }}
+          >
+            {["Claude Code", "Gemini CLI", "MCP"].map((tool) => (
+              <div
+                key={tool}
+                style={{
+                  border: "1px solid rgba(255,255,255,0.17)",
+                  borderRadius: "999px",
+                  padding: "8px 20px",
+                  fontSize: "16px",
+                  color: "#62666d",
+                }}
+              >
+                {tool}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     ),
-    {
-      ...size,
-    },
+    { ...size },
   );
 }
