@@ -77,6 +77,7 @@ export class EnhancedVectraMemory {
           dtype: "q8",
           progress_callback: (progress: any) => {
             if (progress.status === "download" && !this.quiet) {
+              if (!progress.total) return; // some events lack byte counts
               const percent = Math.round(
                 (progress.loaded / progress.total) * 100,
               );

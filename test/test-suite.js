@@ -3,24 +3,19 @@ import assert from "node:assert/strict";
 import { spawn } from "child_process";
 // import fetch from "node-fetch";
 
-// Test configuration
-const TEST_MEM0_API_KEY =
-  process.env.MEM0_API_KEY || process.env.TEST_MEM0_API_KEY || "test-key";
+// Test configuration: force LOCAL mode — tests must not hit the Mem0 cloud
+// API (a fake key put the server in cloud mode and every call timed out).
 const TEST_USER_ID = "test-user-" + Date.now();
-const TEST_REDIS_URL =
-  process.env.REDIS_URL ||
-  process.env.TEST_REDIS_URL ||
-  "redis://localhost:6379";
-const _SKIP_TESTS = process.env.SKIP_TESTS === "true";
 
 // Helper to start MCP server
 function startServer(env = {}) {
+  const cleanEnv = { ...process.env };
+  delete cleanEnv.MEM0_API_KEY;
+  delete cleanEnv.REDIS_URL;
   return spawn("node", ["dist/index.js"], {
     env: {
-      ...process.env,
-      MEM0_API_KEY: TEST_MEM0_API_KEY,
+      ...cleanEnv,
       MEM0_USER_ID: TEST_USER_ID,
-      REDIS_URL: TEST_REDIS_URL,
       INTELLIGENCE_MODE: "basic", // Disable enhanced mode for tests to avoid mutex errors
       QUIET_MODE: "true",
       ...env,
@@ -62,7 +57,7 @@ async function sendRequest(server, method, params = {}) {
     setTimeout(() => {
       server.stdout.off("data", responseHandler);
       reject(new Error("Request timeout"));
-    }, 10000);
+    }, 30000); // first calls wait for background Redis/embedding init
   });
 }
 
@@ -99,8 +94,8 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
 
   after(async () => {
     if (server) {
-      server.kill();
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      server.kill("SIGKILL");
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
   });
 
@@ -477,8 +472,10 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
 // Run tests
 console.log("Running Mem0-Redis Hybrid MCP Server Tests...\n");
 
-// Set a global timeout to prevent hanging
-setTimeout(() => {
+// Watchdog: fail (not pass) if tests hang; unref so it never keeps the
+// process alive after tests finish.
+const watchdog = setTimeout(() => {
   console.error("Test timeout - exiting");
-  process.exit(0);
-}, 30000);
+  process.exit(1);
+}, 120000);
+watchdog.unref();
