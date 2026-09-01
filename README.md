@@ -53,14 +53,14 @@ claude mcp add r3 "npx @n3wth/r3"
 
 r3 exposes these tools to MCP clients:
 
-| Tool | Description |
-|------|-------------|
-| `add_memory` | Store content with optional metadata and priority |
-| `search_memory` | Query memories using semantic or keyword search |
-| `get_all_memories` | List stored memories with pagination |
-| `get_memory` | Retrieve a specific memory by ID |
-| `update_memory` | Modify existing memory content or metadata |
-| `delete_memory` | Remove a memory |
+| Tool               | Description                                       |
+| ------------------ | ------------------------------------------------- |
+| `add_memory`       | Store content with optional metadata and priority |
+| `search_memory`    | Query memories using semantic or keyword search   |
+| `get_all_memories` | List stored memories with pagination              |
+| `get_memory`       | Retrieve a specific memory by ID                  |
+| `update_memory`    | Modify existing memory content or metadata        |
+| `delete_memory`    | Remove a memory                                   |
 
 Additional tools for diagnostics: `cache_stats`, `sync_status`, `optimize_cache`, `deduplicate_memories`.
 
@@ -70,12 +70,12 @@ Enhanced mode (default) adds: `extract_entities`, `get_knowledge_graph`, `find_c
 
 Environment variables:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `REDIS_URL` | External Redis connection | Embedded server |
-| `MEM0_API_KEY` | Mem0 API key for cloud sync | None (local only) |
-| `MEM0_USER_ID` | Default user namespace | `default` |
-| `INTELLIGENCE_MODE` | `enhanced` or `basic` | `enhanced` |
+| Variable            | Description                 | Default           |
+| ------------------- | --------------------------- | ----------------- |
+| `REDIS_URL`         | External Redis connection   | Embedded server   |
+| `MEM0_API_KEY`      | Mem0 API key for cloud sync | None (local only) |
+| `MEM0_USER_ID`      | Default user namespace      | `default`         |
+| `INTELLIGENCE_MODE` | `enhanced` or `basic`       | `enhanced`        |
 
 Example with cloud sync:
 

@@ -199,8 +199,8 @@ A: Open an issue on GitHub! We're responsive and grateful for feedback.
   <h1>Your AI shouldn't forget everything overnight</h1>
 
   <p className="subtitle">
-    r3 gives Claude and Gemini persistent memory. Zero configuration,
-    works offline, starts instantly. Built by developers tired of repeating
+    r3 gives Claude and Gemini persistent memory. Zero configuration, works
+    offline, starts instantly. Built by developers tired of repeating
     themselves.
   </p>
 
