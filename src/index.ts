@@ -1814,7 +1814,8 @@ server.setRequestHandler(
                 id: localResult.id,
                 memory: localResult.content,
                 metadata: localResult.metadata,
-                created_at: localResult.metadata?.created_at || new Date().toISOString(),
+                created_at:
+                  localResult.metadata?.created_at || new Date().toISOString(),
                 user_id: localResult.user_id,
               };
             }
@@ -1848,7 +1849,10 @@ server.setRequestHandler(
               content: [
                 {
                   type: "text",
-                  text: JSON.stringify({ error: "Memory not found", memory_id: memoryId }),
+                  text: JSON.stringify({
+                    error: "Memory not found",
+                    memory_id: memoryId,
+                  }),
                 },
               ],
             };
@@ -1889,15 +1893,20 @@ server.setRequestHandler(
           // Update in local storage if available
           if (localMemory) {
             try {
-              const result = await localMemory.update(memoryId, {
-                content: args.content,
-                metadata: args.metadata,
-              }, userId);
+              const result = await localMemory.update(
+                memoryId,
+                {
+                  content: args.content,
+                  metadata: args.metadata,
+                },
+                userId,
+              );
               updatedMemory = {
                 id: result.id,
                 memory: result.content,
                 metadata: result.metadata,
-                created_at: result.metadata?.created_at || new Date().toISOString(),
+                created_at:
+                  result.metadata?.created_at || new Date().toISOString(),
                 updated_at: result.metadata?.updated_at,
                 user_id: result.user_id,
               };

@@ -132,10 +132,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className="antialiased min-h-screen"
-        suppressHydrationWarning
-      >
+      <body className="antialiased min-h-screen" suppressHydrationWarning>
         <PostHogProvider>
           {children}
           <Analytics />

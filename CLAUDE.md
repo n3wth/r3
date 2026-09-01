@@ -66,6 +66,7 @@ Web Vitals (LCP, CLS, INP, FCP, TTFB) are collected via [Axiom](https://app.axio
 ### Dependencies
 
 The website uses `@n3wth/ui` for shared design components. Update with:
+
 ```bash
 cd website && npm install @n3wth/ui@latest
 ```

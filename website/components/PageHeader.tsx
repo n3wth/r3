@@ -21,7 +21,9 @@ export function PageHeader({ title, subtitle, children }: PageHeaderProps) {
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-relaxed sm:leading-8 text-gray-600">{subtitle}</p>
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-relaxed sm:leading-8 text-gray-600">
+              {subtitle}
+            </p>
           )}
           {children}
         </div>

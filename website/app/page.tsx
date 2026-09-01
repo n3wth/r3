@@ -1,23 +1,10 @@
 "use client";
 
-import {
-  Zap,
-  ArrowRight,
-  Code,
-  Lock,
-  Globe,
-  Cpu,
-  Layers,
-} from "lucide-react";
+import { Zap, ArrowRight, Code, Lock, Globe, Cpu, Layers } from "lucide-react";
 import Link from "next/link";
 import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import {
-  Button,
-  Section,
-  SectionHeader,
-  CommandBox,
-} from "@n3wth/ui";
+import { Button, Section, SectionHeader, CommandBox } from "@n3wth/ui";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Container } from "@/components/Grid";
@@ -127,22 +114,18 @@ const context = await recall.search({
               {/* Mobile-first subtitle */}
               <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-ink-dim mb-6 sm:mb-8 md:mb-10 font-light leading-relaxed px-0">
                 <span className="sm:hidden">
-                  Open-source local Redis memory MCP for Claude, GPT, and Gemini. Run npx @n3wth/r3 to start.
+                  Open-source local Redis memory MCP for Claude, GPT, and
+                  Gemini. Run npx @n3wth/r3 to start.
                 </span>
                 <span className="hidden sm:inline">
                   r3 is an{" "}
-                  <span className="text-ink font-medium">
-                    open-source
-                  </span>{" "}
-                  MCP server with local{" "}
-                  <span className="text-ink font-medium">
-                    Redis caching
-                  </span>{" "}
+                  <span className="text-ink font-medium">open-source</span> MCP
+                  server with local{" "}
+                  <span className="text-ink font-medium">Redis caching</span>{" "}
                   and{" "}
-                  <span className="text-ink font-medium">
-                    vector search
-                  </span>
-                  . Persistent memory for Claude, GPT, and Gemini with zero configuration.
+                  <span className="text-ink font-medium">vector search</span>.
+                  Persistent memory for Claude, GPT, and Gemini with zero
+                  configuration.
                 </span>
               </p>
 
@@ -248,7 +231,10 @@ const context = await recall.search({
         <MemoryComparison />
 
         {/* Interactive Terminal Demo */}
-        <Section spacing="lg" className="border-t border-rail relative overflow-hidden">
+        <Section
+          spacing="lg"
+          className="border-t border-rail relative overflow-hidden"
+        >
           <Container size="lg">
             <ScrollReveal className="max-w-4xl mx-auto relative z-10">
               <SectionHeader
@@ -295,7 +281,11 @@ const context = await recall.search({
                         }
                       `}
                       >
-                        {lang === "node" ? "Node.js" : lang === "mcp" ? "MCP Config" : lang}
+                        {lang === "node"
+                          ? "Node.js"
+                          : lang === "mcp"
+                            ? "MCP Config"
+                            : lang}
                       </button>
                     ))}
                   </nav>
@@ -320,59 +310,53 @@ const context = await recall.search({
         <Section spacing="lg" className="border-t border-rail relative">
           <Container size="lg">
             <ScrollReveal>
-            <SectionHeader
-              title="Open-source local memory layer"
-              description="r3 runs entirely on your machine. Embedded Redis, vector search, and knowledge graphs with zero external services or API keys."
-              align="center"
-              className="mb-12"
-            />
-
-            <BentoGrid>
-              <BentoCard
-                title="Semantic Search"
-                description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
-                icon={
-                  <Cpu className="h-5 w-5 text-ink-dim" />
-                }
-                span="lg:col-span-2"
+              <SectionHeader
+                title="Open-source local memory layer"
+                description="r3 runs entirely on your machine. Embedded Redis, vector search, and knowledge graphs with zero external services or API keys."
+                align="center"
+                className="mb-12"
               />
 
-              <BentoCard
-                title="Knowledge Graph"
-                description="Automatic entity extraction links memories into a traversable graph of relationships."
-                icon={
-                  <Layers className="h-5 w-5 text-ink-dim" />
-                }
-              />
+              <BentoGrid>
+                <BentoCard
+                  title="Semantic Search"
+                  description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
+                  icon={<Cpu className="h-5 w-5 text-ink-dim" />}
+                  span="lg:col-span-2"
+                />
 
-              <BentoCard
-                title="Sub-10ms responses"
-                description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
-                icon={
-                  <Zap className="h-5 w-5 text-ink-dim" />
-                }
-              />
+                <BentoCard
+                  title="Knowledge Graph"
+                  description="Automatic entity extraction links memories into a traversable graph of relationships."
+                  icon={<Layers className="h-5 w-5 text-ink-dim" />}
+                />
 
-              <BentoCard
-                title="MCP compatible"
-                description="Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP client out of the box."
-                icon={<Globe className="h-5 w-5 text-ink-dim" />}
-                span="lg:col-span-2"
-              />
+                <BentoCard
+                  title="Sub-10ms responses"
+                  description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
+                  icon={<Zap className="h-5 w-5 text-ink-dim" />}
+                />
 
-              <BentoCard
-                title="TypeScript SDK"
-                description="Typed memory operations, search results, and configuration. Ships its own type declarations."
-                icon={<Code className="h-5 w-5 text-ink-dim" />}
-                span="lg:col-span-2"
-              />
+                <BentoCard
+                  title="MCP compatible"
+                  description="Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP client out of the box."
+                  icon={<Globe className="h-5 w-5 text-ink-dim" />}
+                  span="lg:col-span-2"
+                />
 
-              <BentoCard
-                title="Zero dependencies"
-                description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
-                icon={<Lock className="h-5 w-5 text-ink-dim" />}
-              />
-            </BentoGrid>
+                <BentoCard
+                  title="TypeScript SDK"
+                  description="Typed memory operations, search results, and configuration. Ships its own type declarations."
+                  icon={<Code className="h-5 w-5 text-ink-dim" />}
+                  span="lg:col-span-2"
+                />
+
+                <BentoCard
+                  title="Zero dependencies"
+                  description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
+                  icon={<Lock className="h-5 w-5 text-ink-dim" />}
+                />
+              </BentoGrid>
             </ScrollReveal>
           </Container>
         </Section>
