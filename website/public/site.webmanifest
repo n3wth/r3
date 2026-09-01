@@ -1,7 +1,7 @@
 {
-  "name": "Recall - Intelligent Memory API",
-  "short_name": "Recall",
-  "description": "Hybrid memory system combining Redis caching with cloud persistence. Sub-5ms response times with 99.9% uptime SLA.",
+  "name": "r3 - Persistent Memory for AI Assistants",
+  "short_name": "r3",
+  "description": "Open-source MCP server with local Redis caching and vector search for Claude, GPT, and Gemini.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -19,8 +19,8 @@
       "type": "image/svg+xml"
     }
   ],
-  "theme_color": "#4F46E5",
-  "background_color": "#000000",
+  "theme_color": "#08090b",
+  "background_color": "#08090b",
   "display": "standalone",
   "start_url": "/",
   "orientation": "portrait"

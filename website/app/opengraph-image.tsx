@@ -1,11 +1,9 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "r3 - Intelligent Memory for AI (by n3wth)";
-export const size = {
-  width: 1200,
-  height: 630,
-};
+
+export const alt = "r3 - Persistent memory for AI assistants";
+export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
@@ -13,61 +11,41 @@ export default async function Image() {
     (
       <div
         style={{
-          fontSize: 128,
-          /* source of truth: @n3wth/ui/theme */
-          background: "#08090b",
-          width: "100%",
           height: "100%",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          color: "#f2f3f5",
+          backgroundColor: "#08090b",
+          gap: "48px",
         }}
       >
+        <svg
+          width="80"
+          height="80"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9.4 6.6 25.2 14a1.5 1.5 0 0 1-.15 2.78l-6.1 1.78a2 2 0 0 0-1.32 1.24l-2.2 6.1c-.5 1.36-2.42 1.27-2.78-.15L8.0 8.2A1.6 1.6 0 0 1 9.4 6.6Z"
+            fill="#ffffff"
+          />
+        </svg>
         <div
           style={{
-            fontSize: 72,
-            fontWeight: 900,
-            letterSpacing: "-0.05em",
-            marginBottom: 30,
+            fontSize: "72px",
+            fontWeight: 700,
+            color: "#ffffff",
             textAlign: "center",
+            lineHeight: 1,
           }}
         >
           r3
         </div>
-        <div
-          style={{
-            fontSize: 36,
-            fontWeight: 300,
-            opacity: 0.9,
-            textAlign: "center",
-            maxWidth: 800,
-            lineHeight: 1.4,
-          }}
-        >
-          Intelligent Memory Layer for AI Applications
-        </div>
-        <div
-          style={{
-            fontSize: 24,
-            fontWeight: 400,
-            marginTop: 40,
-            opacity: 0.8,
-            display: "flex",
-            gap: 30,
-          }}
-        >
-          <span>Sub-5ms response</span>
-          <span>•</span>
-          <span>Automatic failover</span>
-          <span>•</span>
-          <span>Built for scale</span>
-        </div>
       </div>
     ),
-    {
-      ...size,
-    },
+    { ...size },
   );
 }
