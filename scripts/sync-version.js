@@ -37,3 +37,16 @@ export function getLatestVersion(): string {
 fs.writeFileSync(versionFilePath, versionFileContent);
 
 console.log(`✅ Synced version ${version} to website/lib/version.ts`);
+
+// Update server.json for MCP Registry
+const serverJsonPath = path.join(__dirname, "..", "server.json");
+const serverJson = JSON.parse(fs.readFileSync(serverJsonPath, "utf8"));
+
+serverJson.version = version;
+if (serverJson.packages && serverJson.packages.length > 0) {
+  serverJson.packages[0].version = version;
+}
+
+fs.writeFileSync(serverJsonPath, JSON.stringify(serverJson, null, 2) + "\n");
+
+console.log(`✅ Synced version ${version} to server.json`);
