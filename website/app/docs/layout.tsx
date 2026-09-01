@@ -1,7 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { DocsSidebar } from "@/components/DocsSidebar";
-import { DocsHeader } from "@/components/DocsHeader";
 import { TableOfContents } from "@/components/TableOfContents";
 
 export default function DocsLayout({
@@ -10,15 +9,14 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-bg">
+    <div className="min-h-screen bg-bg flex flex-col">
       <Navigation />
-      <DocsHeader />
 
-      <div className="mx-auto max-w-[1600px] px-6 py-8 lg:px-8">
+      <div className="mx-auto max-w-[1600px] w-full px-6 pt-20 pb-8 lg:px-8 flex-1">
         <div className="flex gap-8">
           {/* Sidebar */}
           <aside className="hidden lg:block w-[260px] flex-shrink-0">
-            <div className="sticky top-[140px]">
+            <div className="sticky top-20">
               <DocsSidebar />
             </div>
           </aside>
@@ -28,7 +26,7 @@ export default function DocsLayout({
 
           {/* Table of Contents */}
           <aside className="hidden xl:block w-[240px] flex-shrink-0">
-            <div className="sticky top-[140px]">
+            <div className="sticky top-20">
               <TableOfContents />
             </div>
           </aside>

@@ -89,9 +89,9 @@ export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
     <div className="flex flex-col min-h-screen bg-bg">
       <Navigation />
 
-      <main className="flex-1">
+      <main className="flex-1 pt-20">
         {/* Hero */}
-        <section className="mx-auto max-w-5xl px-6 pt-16 pb-14">
+        <section className="mx-auto max-w-5xl px-6 pt-8 pb-14">
           <div className="grid items-center gap-12 sm:grid-cols-2">
             <div>
               <h1
