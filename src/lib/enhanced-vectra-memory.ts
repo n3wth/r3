@@ -69,6 +69,9 @@ export class EnhancedVectraMemory {
         this.embeddingModel,
         {
           device: "cpu",
+          // q8 quantized model: 4x smaller download, avoids truncated fp32
+          // downloads that fail with "Protobuf parsing failed" on some networks
+          dtype: "q8",
           progress_callback: (progress: any) => {
             if (progress.status === "download" && !this.quiet) {
               const percent = Math.round(
