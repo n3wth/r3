@@ -1158,7 +1158,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     {
       name: "add_memory",
       description:
-        "Add memory with async processing and intelligent caching. Returns immediately while processing in background.",
+        "Store a new memory with automatic deduplication and indexing. Use for persisting facts, preferences, or conversation context. Checks for duplicates by default (85% similarity threshold). Returns immediately; background processing handles indexing. Prefer over update_memory for new content. Returns: confirmation text. Side effects: creates memory record, updates search index, may skip if duplicate detected.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true,
+      },
       inputSchema: {
         type: "object",
         properties: {
@@ -1172,63 +1178,135 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               },
               required: ["role", "content"],
             },
-            description: "Array of message objects (alternative to content)",
+            description:
+              "Conversation messages to store. Use instead of content for multi-turn context. Each message needs role and content fields.",
           },
           content: {
             type: "string",
-            description: "Direct memory content (alternative to messages)",
+            description:
+              "Plain text content to store. Use instead of messages for simple facts. Either content or messages required, not both.",
           },
           user_id: {
             type: "string",
-            default: MEM0_USER_ID,
+            description: `User namespace for memory isolation. Default: "${MEM0_USER_ID}". Use consistent IDs to retrieve related memories.`,
           },
           metadata: {
             type: "object",
-            description: "Additional metadata",
+            description:
+              "Key-value pairs for categorization (e.g., {category: 'preferences', source: 'onboarding'}). Searchable via search_memory.",
           },
           priority: {
             type: "string",
             enum: ["high", "medium", "low"],
-            default: "medium",
-            description: "Processing priority (high = immediate cache)",
+            description:
+              "Cache priority. high: immediate L1 cache (24h TTL). medium: standard processing. low: L2 cache (7d TTL). Default: medium.",
           },
           async: {
             type: "boolean",
-            default: true,
-            description: "Process asynchronously for better performance",
+            description:
+              "Enable background processing. true: returns immediately, indexes async. false: blocks until complete. Default: true.",
           },
           skip_duplicate_check: {
             type: "boolean",
-            default: false,
-            description: "Skip duplicate detection (use with caution)",
+            description:
+              "Bypass duplicate detection. Use only when intentionally storing similar content. Default: false.",
           },
         },
       },
     },
     {
+      name: "get_memory",
+      description:
+        "Retrieve a single memory by its unique ID. Use when you have a specific memory_id from prior search/list results. Returns null if not found. Prefer search_memory for content-based lookup. Read-only operation. Returns: Memory object {id, content, user_id, metadata} or null.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
+      inputSchema: {
+        type: "object",
+        properties: {
+          memory_id: {
+            type: "string",
+            description:
+              "Unique identifier of the memory to retrieve. Obtained from add_memory response, search_memory results, or get_all_memories.",
+          },
+          user_id: {
+            type: "string",
+            description: `User namespace. Must match the user_id used when memory was created. Default: "${MEM0_USER_ID}".`,
+          },
+        },
+        required: ["memory_id"],
+      },
+    },
+    {
+      name: "update_memory",
+      description:
+        "Modify an existing memory's content or metadata. Use for corrections or adding context to existing memories. Fails if memory_id not found. Prefer add_memory for new content. Invalidates search cache. Returns: updated Memory object. Side effects: modifies memory record, invalidates cached search results.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
+      inputSchema: {
+        type: "object",
+        properties: {
+          memory_id: {
+            type: "string",
+            description:
+              "Unique identifier of the memory to update. Must exist or operation fails with error.",
+          },
+          content: {
+            type: "string",
+            description:
+              "New content to replace existing. Omit to keep current content unchanged.",
+          },
+          metadata: {
+            type: "object",
+            description:
+              "Metadata fields to merge. Existing fields not specified are preserved. Pass null value to remove a field.",
+          },
+          user_id: {
+            type: "string",
+            description: `User namespace. Must match original. Default: "${MEM0_USER_ID}".`,
+          },
+        },
+        required: ["memory_id"],
+      },
+    },
+    {
       name: "search_memory",
       description:
-        "Hybrid search with intelligent cache/cloud routing and relevance scoring",
+        "Find memories matching a natural language query using hybrid semantic + keyword search. Primary retrieval tool for content-based lookup. Uses vector similarity (enhanced mode) or keyword matching (basic mode). Cache-first by default for speed. Returns ranked results with relevance scores. Read-only. Returns: array of Memory objects or 'No memories found' text.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           query: {
             type: "string",
-            description: "Search query",
+            description:
+              "Natural language search query. Supports keywords, phrases, or questions. More specific queries yield better relevance ranking.",
           },
           user_id: {
             type: "string",
-            default: MEM0_USER_ID,
+            description: `User namespace to search within. Default: "${MEM0_USER_ID}".`,
           },
           limit: {
             type: "number",
-            default: 10,
+            description:
+              "Maximum results to return. Range: 1-100. Higher values increase latency. Default: 10.",
           },
           prefer_cache: {
             type: "boolean",
-            default: true,
             description:
-              "true = cache-first with fallback, false = cloud-first with caching",
+              "true: check cache first, fall back to storage. false: query storage directly, then cache results. Default: true.",
           },
         },
         required: ["query"],
@@ -1237,46 +1315,60 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     {
       name: "get_all_memories",
       description:
-        "Get all memories with hybrid cloud/cache intelligence and pagination support",
+        "List all memories for a user with pagination. Use for browsing or bulk operations. For content search, use search_memory instead. Cache-first by default. Large result sets are automatically truncated. Read-only. Returns: {total, limit, offset, returned, hasMore, source, memories[]}.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           user_id: {
             type: "string",
-            default: MEM0_USER_ID,
+            description: `User namespace to list. Default: "${MEM0_USER_ID}".`,
           },
           limit: {
             type: "number",
-            default: 100,
-            description: "Number of memories to return (max 500)",
+            description:
+              "Maximum memories per page. Range: 1-500. Default: 100. Use with offset for pagination.",
           },
           offset: {
             type: "number",
-            default: 0,
-            description: "Number of memories to skip for pagination",
+            description:
+              "Number of memories to skip. Use for pagination: page N = offset (N-1)*limit. Default: 0.",
           },
           include_cache_stats: {
             type: "boolean",
-            default: true,
-            description: "Include Redis cache statistics",
+            description:
+              "Append cache statistics to response. Useful for monitoring. Default: true.",
           },
           prefer_cache: {
             type: "boolean",
-            default: true,
-            description: "Use cached memories first to avoid slow API calls",
+            description:
+              "true: return cached memories (faster). false: fetch from storage (fresher). Default: true.",
           },
         },
       },
     },
     {
       name: "delete_memory",
-      description: "Delete memory with automatic cache invalidation",
+      description:
+        "Permanently remove a memory by ID. Irreversible operation. Removes from storage, cache, and search index. Use deduplicate_memories with dry_run first to preview bulk deletions. Returns: confirmation text. Side effects: deletes memory record, removes from all indexes, invalidates cache.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           memory_id: {
             type: "string",
-            description: "ID of memory to delete",
+            description:
+              "Unique identifier of memory to delete. Obtain from search_memory or get_all_memories. Operation succeeds even if ID not found.",
           },
         },
         required: ["memory_id"],
@@ -1284,23 +1376,30 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     },
     {
       name: "deduplicate_memories",
-      description: "Find and merge duplicate memories",
+      description:
+        "Detect and optionally remove duplicate memories using content similarity. Run with dry_run=true first to preview. Compares all memories pairwise using Jaccard similarity. Groups duplicates with a primary (oldest) and candidates for removal. Returns: summary with duplicate groups. Side effects (when dry_run=false): deletes duplicate memories, invalidates cache.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+        idempotentHint: false,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           user_id: {
             type: "string",
-            default: MEM0_USER_ID,
+            description: `User namespace to deduplicate. Default: "${MEM0_USER_ID}".`,
           },
           similarity_threshold: {
             type: "number",
-            default: 0.85,
-            description: "Similarity threshold for duplicate detection (0-1)",
+            description:
+              "Minimum similarity (0-1) to consider as duplicate. 0.85 = 85% similar. Higher = stricter. Range: 0.5-1.0. Default: 0.85.",
           },
           dry_run: {
             type: "boolean",
-            default: true,
-            description: "Preview duplicates without deleting",
+            description:
+              "true: preview duplicates without deletion (safe). false: actually delete duplicates (destructive). Default: true.",
           },
         },
       },
@@ -1308,19 +1407,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     {
       name: "optimize_cache",
       description:
-        "Optimize cache with intelligent memory promotion and cleanup",
+        "Reorganize cache for optimal hit rates. Promotes frequently accessed memories to L1 (24h TTL), demotes cold data to L2 (7d TTL). Use periodically for large memory stores. May temporarily increase latency during optimization. Returns: summary of cached memories. Side effects: modifies cache TTLs, may evict old entries.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+      },
       inputSchema: {
         type: "object",
         properties: {
           force_refresh: {
             type: "boolean",
-            default: false,
-            description: "Force refresh all memories from cloud",
+            description:
+              "true: clear cache and reload all from storage. false: optimize existing cache. Default: false.",
           },
           max_memories: {
             type: "number",
-            default: 1000,
-            description: "Maximum memories to cache",
+            description:
+              "Maximum memories to keep in cache. Range: 100-10000. Older/colder items evicted first. Default: 1000.",
           },
         },
       },
@@ -1328,7 +1433,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     {
       name: "cache_stats",
       description:
-        "Get detailed cache performance statistics and health metrics",
+        "View cache performance metrics and health status. Use for monitoring and debugging. Shows memory count, access patterns, and hit rates. Read-only. Returns: summary text with cached memory count. No side effects.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {},
@@ -1336,7 +1447,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     },
     {
       name: "sync_status",
-      description: "Check background sync and job queue status",
+      description:
+        "Check background job queue and sync status. Shows pending async operations from add_memory calls. Use to verify all writes completed. Read-only. Returns: count of pending operations or 'All operations complete'. No side effects.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {},
@@ -1344,13 +1462,21 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     },
     {
       name: "extract_entities",
-      description: "Extract entities and relationships from text using NLP",
+      description:
+        "Extract named entities and relationships from text using NLP. Identifies people, organizations, technologies, and projects. Also extracts relationships (WORKS_FOR, USES, etc.) and keywords. Requires enhanced intelligence mode. Read-only, stateless. Returns: {people[], organizations[], technologies[], projects[], relationships[], keywords[]}.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           text: {
             type: "string",
-            description: "Text to extract entities from",
+            description:
+              "Input text to analyze. Longer text yields more entities. Supports natural language, code comments, or structured text.",
           },
         },
         required: ["text"],
@@ -1359,51 +1485,66 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     {
       name: "get_knowledge_graph",
       description:
-        "Get memories organized as a knowledge graph with entities and relationships",
+        "Build a knowledge graph from stored memories. Returns entities as nodes and relationships as edges. Use for visualizing connections between concepts. Requires enhanced intelligence mode with prior entity extraction. Read-only. Returns: {nodes[], edges[]} where nodes have {id, type, name, memories[]} and edges have {from, to, type, confidence}.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           entity_type: {
             type: "string",
             description:
-              "Filter by entity type (people, organizations, technologies, projects)",
+              "Filter nodes by type: 'people', 'organizations', 'technologies', or 'projects'. Omit for all types.",
           },
           entity_name: {
             type: "string",
-            description: "Filter by specific entity name",
+            description:
+              "Filter nodes containing this name (case-insensitive substring match). Omit for all entities.",
           },
           relationship_type: {
             type: "string",
             description:
-              "Filter by relationship type (WORKS_FOR, USES, BUILT_WITH, etc.)",
+              "Filter edges by relationship: 'WORKS_FOR', 'USES', 'BUILT_WITH', 'KNOWS', etc. Omit for all relationships.",
           },
           limit: {
             type: "number",
-            default: 20,
-            description: "Maximum number of nodes to return",
+            description:
+              "Maximum nodes to return. Range: 1-100. Default: 20. Edges limited proportionally.",
           },
         },
       },
     },
     {
       name: "find_connections",
-      description: "Find connections between entities in the knowledge graph",
+      description:
+        "Discover relationship paths between entities in the knowledge graph. Uses BFS traversal to find how entities connect. Useful for answering 'how is X related to Y?' questions. Requires enhanced mode. Read-only. Returns: {from, to, max_depth, paths_found, paths[]} where each path is array of {from, to, type} edges.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
       inputSchema: {
         type: "object",
         properties: {
           from_entity: {
             type: "string",
-            description: "Starting entity name",
+            description:
+              "Starting entity name for path search. Must match an entity in the knowledge graph exactly.",
           },
           to_entity: {
             type: "string",
             description:
-              "Target entity name (optional - finds all if not specified)",
+              "Target entity name. If omitted, returns all reachable entities up to max_depth.",
           },
           max_depth: {
             type: "number",
-            default: 2,
-            description: "Maximum relationship depth to traverse",
+            description:
+              "Maximum relationship hops to traverse. Range: 1-5. Higher values exponentially increase results. Default: 2.",
           },
         },
         required: ["from_entity"],
@@ -1411,43 +1552,52 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     },
     {
       name: "import_memories",
-      description: "Bulk import memories from mem0 API or JSON file",
+      description:
+        "Bulk import memories from external sources. Supports Mem0 API export or local JSON files. Processes in batches with duplicate detection. Use for migration or backup restoration. Returns: summary with imported/skipped/failed counts. Side effects: creates multiple memory records, updates search index.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: true,
+      },
       inputSchema: {
         type: "object",
         properties: {
           source: {
             type: "string",
             enum: ["mem0_api", "json_file"],
-            description: "Source of memories to import",
+            description:
+              "Import source. 'mem0_api': fetch from Mem0 cloud (requires api_key). 'json_file': read local file (requires file_path).",
           },
           api_key: {
             type: "string",
-            description: "Mem0 API key (required for mem0_api source)",
+            description:
+              "Mem0 API token for authentication. Required when source='mem0_api'. Get from https://mem0.ai dashboard.",
           },
           user_id: {
             type: "string",
-            default: MEM0_USER_ID,
-            description: "User ID for mem0 API",
+            description: `User namespace for imported memories. Default: "${MEM0_USER_ID}".`,
           },
           file_path: {
             type: "string",
-            description: "Path to JSON file (required for json_file source)",
+            description:
+              "Absolute path to JSON file. Required when source='json_file'. Must be array of memory objects or {memories: [...]}.",
           },
           batch_size: {
             type: "number",
-            default: 50,
-            description: "Number of memories to import per batch",
+            description:
+              "Memories per batch. Lower values are safer but slower. Range: 10-200. Default: 50.",
           },
           priority: {
             type: "string",
             enum: ["high", "medium", "low"],
-            default: "high",
-            description: "Cache priority for imported memories",
+            description:
+              "Cache priority for all imported memories. Default: high (L1 cache).",
           },
           skip_duplicates: {
             type: "boolean",
-            default: true,
-            description: "Skip duplicate memories during import",
+            description:
+              "Check each memory for duplicates before import. Slower but prevents bloat. Default: true.",
           },
         },
         required: ["source"],
@@ -1643,6 +1793,154 @@ server.setRequestHandler(
               ],
             };
           }
+        }
+
+        case "get_memory": {
+          const memoryId = args.memory_id;
+          const userId = args.user_id || MEM0_USER_ID;
+
+          let memory: Memory | null = null;
+
+          // Try cache first
+          if (redisClient) {
+            memory = await getCachedMemory(memoryId);
+          }
+
+          // Try local storage
+          if (!memory && localMemory) {
+            const localResult = await localMemory.get(memoryId, userId);
+            if (localResult) {
+              memory = {
+                id: localResult.id,
+                memory: localResult.content,
+                metadata: localResult.metadata,
+                created_at: localResult.metadata?.created_at || new Date().toISOString(),
+                user_id: localResult.user_id,
+              };
+            }
+          }
+
+          // Try mem0 API in hybrid mode
+          if (!memory && MODE === "hybrid") {
+            try {
+              const endpoint = `/v1/memories/${memoryId}/?user_id=${userId}`;
+              const result = await callMem0API(endpoint, "GET");
+              if (result && result.id) {
+                memory = {
+                  id: result.id,
+                  memory: result.memory || result.content,
+                  metadata: result.metadata || {},
+                  created_at: result.created_at || new Date().toISOString(),
+                  user_id: userId,
+                };
+                // Cache for next time
+                if (redisClient) {
+                  await setCachedMemory(memoryId, memory);
+                }
+              }
+            } catch (error) {
+              // Memory not found in cloud
+            }
+          }
+
+          if (!memory) {
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: JSON.stringify({ error: "Memory not found", memory_id: memoryId }),
+                },
+              ],
+            };
+          }
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: JSON.stringify({
+                  id: memory.id,
+                  content: memory.memory || (memory as any).content,
+                  user_id: memory.user_id,
+                  metadata: memory.metadata,
+                  created_at: memory.created_at,
+                  updated_at: memory.updated_at,
+                }),
+              },
+            ],
+          };
+        }
+
+        case "update_memory": {
+          const memoryId = args.memory_id;
+          const userId = args.user_id || MEM0_USER_ID;
+
+          // Build updates object
+          const updates: Partial<Memory> = {};
+          if (args.content !== undefined) {
+            updates.memory = args.content;
+          }
+          if (args.metadata !== undefined) {
+            updates.metadata = args.metadata;
+          }
+
+          let updatedMemory: Memory | null = null;
+
+          // Update in local storage if available
+          if (localMemory) {
+            try {
+              const result = await localMemory.update(memoryId, {
+                content: args.content,
+                metadata: args.metadata,
+              }, userId);
+              updatedMemory = {
+                id: result.id,
+                memory: result.content,
+                metadata: result.metadata,
+                created_at: result.metadata?.created_at || new Date().toISOString(),
+                updated_at: result.metadata?.updated_at,
+                user_id: result.user_id,
+              };
+            } catch (error: any) {
+              return {
+                content: [
+                  {
+                    type: "text",
+                    text: `Error: ${error.message}`,
+                  },
+                ],
+                isError: true,
+              };
+            }
+          }
+
+          // Update cache
+          if (redisClient && updatedMemory) {
+            await setCachedMemory(memoryId, updatedMemory);
+          }
+
+          // Invalidate search cache
+          await invalidateSearchCache();
+
+          // Publish cache invalidation
+          await invalidateCache(memoryId, "update");
+
+          return {
+            content: [
+              {
+                type: "text",
+                text: updatedMemory
+                  ? JSON.stringify({
+                      id: updatedMemory.id,
+                      content: updatedMemory.memory,
+                      user_id: updatedMemory.user_id,
+                      metadata: updatedMemory.metadata,
+                      updated_at: updatedMemory.updated_at,
+                    })
+                  : "Updated",
+              },
+            ],
+          };
         }
 
         case "search_memory": {
