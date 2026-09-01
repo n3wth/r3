@@ -214,10 +214,10 @@ A: Open an issue on GitHub! We're responsive and grateful for feedback.
   </div>
 
   <div className="proof-points">
-    <div>⚡ <5ms response</div>
-    <div>🔒 Local-first</div>
-    <div>📦 Zero config</div>
-    <div>🛠 MIT License</div>
+    <div>Response under 5ms</div>
+    <div>Local-first</div>
+    <div>Zero config</div>
+    <div>MIT License</div>
   </div>
 </div>
 ```

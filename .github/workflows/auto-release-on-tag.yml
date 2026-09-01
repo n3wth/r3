@@ -38,22 +38,19 @@ jobs:
         with:
           generate_release_notes: true
           body: |
-            ## R3call v${{ steps.version.outputs.version }}
+            ## r3 v${{ steps.version.outputs.version }}
 
-            Lightning-fast memory layer for AI applications with sub-5ms response times.
-
-            ### Installation
+            ### Install
             ```bash
-            npm install r3call@${{ steps.version.outputs.version }}
+            npm install @n3wth/r3@${{ steps.version.outputs.version }}
             ```
 
-            ### Claude Desktop Setup
+            ### Run
             ```bash
-            npx r3call
+            npx @n3wth/r3
             ```
 
-            ### Documentation
-            - [Getting Started](https://r3call.newth.ai/docs/quickstart)
-            - [API Reference](https://r3call.newth.ai/docs/api-reference)
+            ### Docs
+            [r3.n3wth.com](https://r3.n3wth.com)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

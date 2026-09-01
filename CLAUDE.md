@@ -46,7 +46,7 @@ The `.github/workflows/release.yml` bumps version, runs tests, and publishes to 
 
 ### Documentation Website (Vercel)
 
-The docs site at https://r3.newth.ai deploys automatically from the `main` branch via Vercel.
+The docs site at https://r3.n3wth.com deploys automatically from the `main` branch via Vercel.
 
 - **Framework:** Next.js (in `website/` directory)
 - **Build command:** `cd website && npm run build`

@@ -4,7 +4,7 @@ A native macOS menu bar application for managing your personal memory system. Bu
 
 ## Features
 
-### 🧠 Memory Management
+### Memory Management
 
 - **View all memories** in a clean, organized interface
 - **Add new memories** with rich metadata support
@@ -12,7 +12,7 @@ A native macOS menu bar application for managing your personal memory system. Bu
 - **Delete memories** with confirmation
 - **Search and filter** memories by content, project, tags, and more
 
-### 📊 Smart Organization
+### Smart Organization
 
 - **Project-based organization** - group memories by project
 - **Tag system** - add multiple tags to categorize memories
@@ -20,7 +20,7 @@ A native macOS menu bar application for managing your personal memory system. Bu
 - **Custom metadata** - add your own key-value pairs
 - **Usage statistics** - track how often memories are used
 
-### 🔍 Advanced Search & Filtering
+### Advanced Search and Filtering
 
 - **Real-time search** across memory content, tags, and metadata
 - **Project filtering** - view memories by specific projects
@@ -28,14 +28,14 @@ A native macOS menu bar application for managing your personal memory system. Bu
 - **Multiple sort options** - by relevance, date, usage count, etc.
 - **Smart suggestions** - see available projects and tags
 
-### 📈 Analytics & Insights
+### Analytics and Insights
 
 - **Memory statistics** - total count, projects, tags
 - **Usage tracking** - see most frequently used memories
 - **Recent activity** - quick access to recently added memories
 - **Project breakdown** - understand your memory distribution
 
-### 🎨 Native macOS Experience
+### Native macOS Experience
 
 - **Menu bar integration** - always accessible from the menu bar
 - **Native SwiftUI interface** - follows macOS design guidelines
@@ -223,7 +223,7 @@ The app includes comprehensive error handling and validation:
 Enable debug logging by setting the environment variable:
 
 ```bash
-export R3CALL_DEBUG=1
+export R3_DEBUG=1
 ```
 
 ## Contributing
@@ -248,4 +248,4 @@ For issues and questions:
 
 ---
 
-Built with ❤️ using SwiftUI and SQLite
+Built with SwiftUI and SQLite
