@@ -11,7 +11,7 @@ import { CodeBlock } from "@/components/CodeBlock";
 const TerminalDemo = lazy(() =>
   import("@/components/TerminalDemo").then((module) => ({
     default: module.TerminalDemo,
-  }))
+  })),
 );
 
 function InstallCommand({ command }: { command: string }) {
