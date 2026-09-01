@@ -96,14 +96,21 @@ export function Navigation() {
         style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
       >
         <div className="nav-island pointer-events-auto flex h-12 w-full items-center gap-1 pl-4 pr-2 md:w-auto md:pl-5">
-          <Link href="/" className="brand shrink-0" aria-label="n3wth/r3 - home">
+          <Link
+            href="/"
+            className="brand shrink-0"
+            aria-label="n3wth/r3 - home"
+          >
             <span className="brand-mark shrink-0" aria-hidden="true">
               <DartMark size={18} />
             </span>
             <span>n3wth/r3</span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden md:flex items-center gap-0.5 ml-3">
+          <nav
+            aria-label="Primary"
+            className="hidden md:flex items-center gap-0.5 ml-3"
+          >
             {navigation.map((item) =>
               item.external ? (
                 <a
@@ -123,7 +130,7 @@ export function Navigation() {
                 >
                   {item.name}
                 </Link>
-              )
+              ),
             )}
           </nav>
 
@@ -181,7 +188,7 @@ export function Navigation() {
                 >
                   <span className="mobile-nav-link-label">{item.name}</span>
                 </Link>
-              )
+              ),
             )}
           </nav>
         </div>

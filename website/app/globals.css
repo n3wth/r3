@@ -121,7 +121,9 @@
   inset: 0;
   z-index: -1;
   border-radius: 9999px;
-  transition: background 0.15s var(--ease), transform 0.15s var(--ease);
+  transition:
+    background 0.15s var(--ease),
+    transform 0.15s var(--ease);
 }
 
 .nav-link:hover {

@@ -18,7 +18,7 @@ r3 starts an embedded Redis server automatically. No configuration required.
 
 ## MCP Desktop Clients
 
-Add to your MCP client configuration (e.g. `claude_desktop_config.json`):
+Add to your MCP client configuration:
 
 ```json
 {
