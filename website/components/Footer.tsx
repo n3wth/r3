@@ -30,6 +30,7 @@ const columns = [
       { label: "skills", href: "https://skills.n3wth.com", external: true },
       { label: "garden", href: "https://garden.n3wth.com", external: true },
       { label: "ui", href: "https://ui.n3wth.com", external: true },
+      { label: "hop.flights", href: "https://hop.flights", external: true },
     ],
   },
 ];

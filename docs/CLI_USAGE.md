@@ -496,9 +496,7 @@ npx r3 monitor --interval 5s
 
 ## Additional Resources
 
-- [API Documentation](https://r3.newth.ai/docs/api)
+- [API Documentation](https://r3.n3wth.com/docs/api-reference)
 - [GitHub Repository](https://github.com/n3wth/r3)
-- [Discord Community](https://discord.gg/r3)
-- [Video Tutorials](https://r3.newth.ai/tutorials)
 
-For more examples and use cases, visit the [r3 website](https://r3.newth.ai).
+For more examples and use cases, visit the [r3 website](https://r3.n3wth.com).
