@@ -22,21 +22,24 @@ export default async function Image() {
         }}
       >
         <svg
-          width="64"
-          height="64"
-          viewBox="0 0 32 32"
+          width="80"
+          height="80"
+          viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M16 4L28 26H4L16 4Z" fill="#30d158" />
+          <path
+            d="M36 24 L36 68 L47 57 L54 74 L61 71 L54 54 L70 54 Z"
+            fill="#f2f3f5"
+          />
         </svg>
         <div
           style={{
-            fontSize: "72px",
+            fontSize: "96px",
             fontWeight: 700,
             color: "#f2f3f5",
             textAlign: "center",
-            lineHeight: 1.1,
+            lineHeight: 1,
           }}
         >
           r3
