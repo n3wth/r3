@@ -44,7 +44,7 @@ async function testDefaultMode() {
       } else {
         reject(new Error("Enhanced mode not default"));
       }
-    }, 2000);
+    }, 15000); // banner prints after embedding model load
   });
 }
 
