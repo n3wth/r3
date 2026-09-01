@@ -1,0 +1,87 @@
+# r3 - Open Source Local Redis Memory MCP
+
+> r3 is an open-source MCP server that provides persistent memory for AI assistants using local Redis caching, vector search, and knowledge graphs.
+
+## Quick Start
+
+Install and run with a single command:
+
+```bash
+npx @n3wth/r3
+```
+
+No configuration required. r3 starts an embedded Redis server automatically.
+
+## What is r3?
+
+r3 is a Model Context Protocol (MCP) server that gives AI assistants like Claude, GPT, and Gemini persistent memory across sessions. It runs 100% locally with:
+
+- Embedded Redis for sub-5ms memory retrieval
+- 384-dimensional vector embeddings for semantic search
+- Automatic entity extraction and knowledge graph construction
+- Zero external API calls required
+
+## Integration
+
+### Claude Desktop
+
+Add to `~/.claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "r3": {
+      "command": "npx",
+      "args": ["@n3wth/r3"]
+    }
+  }
+}
+```
+
+### Claude Code
+
+```bash
+claude mcp add @n3wth/r3 "npx @n3wth/r3"
+```
+
+### Programmatic Usage
+
+```typescript
+import { Recall } from 'r3';
+
+const recall = new Recall();
+
+await recall.add({
+  content: 'User prefers TypeScript',
+  userId: 'user_123'
+});
+
+const memories = await recall.search({
+  query: 'programming preferences',
+  userId: 'user_123'
+});
+```
+
+## Documentation
+
+- Introduction: https://r3.n3wth.com/docs/getting-started/introduction
+- Quick Start: https://r3.n3wth.com/docs/quickstart
+- AI Intelligence: https://r3.n3wth.com/docs/ai-intelligence
+- API Reference: https://r3.n3wth.com/docs/api-reference
+- Examples: https://r3.n3wth.com/docs/examples
+- Troubleshooting: https://r3.n3wth.com/docs/troubleshooting
+
+## Key Features
+
+- **Open Source**: MIT licensed, fully transparent
+- **Local-First**: All data stays on your machine
+- **Zero Config**: Just run `npx @n3wth/r3`
+- **Fast**: Sub-5ms responses with embedded Redis
+- **Smart**: Vector search and knowledge graphs built-in
+- **Private**: No external API calls required
+
+## Links
+
+- Website: https://r3.n3wth.com
+- GitHub: https://github.com/n3wth/r3
+- npm: https://www.npmjs.com/package/@n3wth/r3

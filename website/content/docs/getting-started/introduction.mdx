@@ -1,42 +1,42 @@
 ---
-title: Introduction
-description: Recall is a hybrid memory system for AI applications that intelligently combines fast local caching with cloud persistence.
+title: Introduction to r3
+description: r3 is an open-source local Redis memory MCP server for AI assistants. Install with npx @n3wth/r3 for persistent memory with vector search and knowledge graphs.
 order: 1
 category: Getting Started
 ---
 
-# Introduction to Recall
+# Introduction to r3
 
-Build AI applications with persistent, intelligent memory that scales from development to production.
+r3 is an open-source local Redis memory MCP server that gives AI assistants persistent memory. Install with `npx @n3wth/r3` to add context that survives across sessions.
 
-## What is Recall?
+## What is r3?
 
-Recall is a hybrid memory system designed specifically for AI applications, particularly Large Language Models (LLMs) and agents. It provides a sophisticated memory layer that combines:
+r3 is an open-source MCP server designed specifically for AI applications, particularly Large Language Models (LLMs) and agents. It provides a local memory layer that combines:
 
-- **Redis Cache** for lightning-fast memory retrieval (sub-millisecond response times)
-- **Mem0 Cloud** for persistent, searchable long-term memory
-- **Intelligent synchronization** between cache and cloud storage
-- **Priority-based caching** to keep important memories instantly accessible
+- **Embedded Redis** for lightning-fast memory retrieval (sub-millisecond response times)
+- **Local vector search** for semantic memory queries
+- **Knowledge graphs** for automatic entity extraction and relationship mapping
+- **Optional cloud sync** via Mem0 for persistence across machines
 
 ## Key Features
 
-### Hybrid Architecture
+### Open Source and Local-First
 
-Seamlessly combines local Redis caching with cloud persistence, giving you the best of both worlds - speed and reliability.
+r3 runs entirely on your machine with zero external dependencies. No API keys required to get started.
 
-### Intelligent Caching
+### Embedded Redis
 
-Automatically manages cache based on usage patterns, priority levels, and access frequency to optimize performance.
+Automatically starts an embedded Redis server for fast local caching. No separate Redis installation needed.
 
 ### Simple Integration
 
-Drop-in replacement for existing memory systems with a clean, intuitive API that works with any AI framework.
+Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP-compatible client. One command to install: `npx @n3wth/r3`.
 
-### Production Ready
+### AI Intelligence Built-In
 
-Built for scale with automatic failover, health monitoring, and comprehensive error handling.
+Real vector embeddings, entity extraction, and knowledge graphs all running locally.
 
-## Why Recall?
+## Why r3?
 
 ### The Problem
 
@@ -44,15 +44,15 @@ Traditional AI memory systems force you to choose between:
 
 - **Speed**: Local storage is fast but volatile and doesn't scale
 - **Persistence**: Cloud storage is reliable but adds latency
-- **Complexity**: Managing both systems manually is error-prone
+- **Privacy**: Cloud solutions require sending your data to third parties
 
 ### The Solution
 
-Recall automatically manages a hybrid memory system that:
+r3 provides an open-source, local-first memory layer that:
 
-- Serves frequently accessed memories from cache in under 1ms
-- Persists all memories to the cloud for reliability
-- Synchronizes changes automatically
+- Serves memories from embedded Redis in under 5ms
+- Runs 100% locally with no external API calls required
+- Optionally syncs to cloud for cross-machine persistence
 - Handles failures gracefully with automatic fallback
 
 ## Core Concepts

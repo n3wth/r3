@@ -5,12 +5,54 @@ import { getDocBySlug, getAllDocs } from "@/lib/mdx";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { MDXComponents } from "@/components/MDXComponents";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const docs = await getAllDocs();
   return docs.map((doc) => ({
     slug: doc.slug.split("/"),
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug?: string[] }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slugPath = resolvedParams.slug
+    ? resolvedParams.slug.join("/")
+    : "introduction";
+  const doc = await getDocBySlug(slugPath);
+
+  if (!doc) {
+    return {
+      title: "Page Not Found | r3 Documentation",
+    };
+  }
+
+  const title = doc.meta.title
+    ? `${doc.meta.title} | r3 Documentation`
+    : "r3 Documentation";
+  const description =
+    doc.meta.description ||
+    "r3 is an open-source local Redis memory MCP server for AI assistants. Install with npx @n3wth/r3.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `https://r3.n3wth.com/docs/${slugPath}`,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 const components = {

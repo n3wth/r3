@@ -92,12 +92,12 @@ const context = await recall.search({
               {/* Professional value prop badge - mobile-optimized */}
               <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-bg-soft px-2.5 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium border border-rail">
                 <span className="text-ink sm:hidden whitespace-nowrap">
-                  AI Memory
+                  Open Source
                 </span>
                 <span className="hidden sm:inline-flex sm:items-center sm:gap-3">
-                  <span className="text-ink">Memory MCP server</span>
+                  <span className="text-ink">Open source MCP</span>
                   <span className="text-ink-faint">×</span>
-                  <span className="text-ink">Open source</span>
+                  <span className="text-ink">Local Redis memory</span>
                 </span>
               </div>
 
@@ -127,25 +127,29 @@ const context = await recall.search({
               {/* Mobile-first subtitle */}
               <p className="mx-auto max-w-2xl text-sm sm:text-base lg:text-lg text-ink-dim mb-6 sm:mb-8 md:mb-10 font-light leading-relaxed px-0">
                 <span className="sm:hidden">
-                  Context that persists across every AI conversation. Works with Claude, GPT, and Gemini.
+                  Open-source local Redis memory MCP for Claude, GPT, and Gemini. Run npx @n3wth/r3 to start.
                 </span>
                 <span className="hidden sm:inline">
-                  Your AI assistant remembers what you talked about last session.{" "}
+                  r3 is an{" "}
+                  <span className="text-ink font-medium">
+                    open-source
+                  </span>{" "}
+                  MCP server with local{" "}
                   <span className="text-ink font-medium">
                     Redis caching
                   </span>{" "}
                   and{" "}
                   <span className="text-ink font-medium">
                     vector search
-                  </span>{" "}
-                  keep context fast and relevant. Works with Claude, GPT, and Gemini via MCP.
+                  </span>
+                  . Persistent memory for Claude, GPT, and Gemini with zero configuration.
                 </span>
               </p>
 
               {/* CTAs - mobile-optimized full width on small screens */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
                 <CommandBox
-                  command="npx r3"
+                  command="npx @n3wth/r3"
                   variant="primary"
                   showCopyButton
                   className="w-full sm:w-auto"
@@ -317,8 +321,8 @@ const context = await recall.search({
           <Container size="lg">
             <ScrollReveal>
             <SectionHeader
-              title="Open source memory layer"
-              description="Local-first. Embedded Redis, vector search, and knowledge graphs with zero external services."
+              title="Open-source local memory layer"
+              description="r3 runs entirely on your machine. Embedded Redis, vector search, and knowledge graphs with zero external services or API keys."
               align="center"
               className="mb-12"
             />
@@ -381,11 +385,11 @@ const context = await recall.search({
                 Your AI forgets everything between sessions.
               </p>
               <p className="text-xl sm:text-2xl text-ink font-medium mb-8">
-                One command fixes that.
+                One command adds open-source local memory.
               </p>
               <div className="flex justify-center">
                 <CommandBox
-                  command="npx r3"
+                  command="npx @n3wth/r3"
                   variant="primary"
                   showCopyButton
                 />
