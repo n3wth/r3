@@ -13,12 +13,12 @@ on:
           - minor
           - major
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,8 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: "20"
 
       - name: Configure Git
         run: |
@@ -67,11 +66,6 @@ jobs:
           git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
           git push origin "v${{ steps.version.outputs.new_version }}"
 
-      - name: Publish to npm
-        run: npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -79,26 +73,29 @@ jobs:
           name: v${{ steps.version.outputs.new_version }}
           generate_release_notes: true
           body: |
-            ## 🚀 R3call v${{ steps.version.outputs.new_version }}
+            ## R3 v${{ steps.version.outputs.new_version }}
 
             Lightning-fast memory layer for AI applications with sub-5ms response times.
 
-            ### 📦 Installation
+            ### Installation
             ```bash
-            npm install r3call@${{ steps.version.outputs.new_version }}
+            npm install @n3wth/r3@${{ steps.version.outputs.new_version }}
             ```
 
-            ### 🔧 Claude Desktop Setup
+            ### Claude Desktop Setup
             ```bash
-            npx r3call
+            npx @n3wth/r3
             ```
 
-            ### 📚 Documentation
-            - [Getting Started](https://r3call.newth.ai/docs/quickstart)
-            - [API Reference](https://r3call.newth.ai/docs/api-reference)
-            - [Examples](https://r3call.newth.ai/docs/examples)
+            ### Documentation
+            - [Getting Started](https://r3.newth.ai/docs/quickstart)
+            - [API Reference](https://r3.newth.ai/docs/api-reference)
+            - [Examples](https://r3.newth.ai/docs/examples)
 
             ### What's Changed
             See below for auto-generated changelog.
+
+            ---
+            *npm publish is handled by the NPM Package workflow on release creation.*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
