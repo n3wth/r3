@@ -69,7 +69,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("mcp");
 
   const codeExamples = {
-    mcp: `// claude_desktop_config.json
+    mcp: `// MCP client config (e.g. claude_desktop_config.json)
 {
   "mcpServers": {
     "r3": {
@@ -78,10 +78,10 @@ export default function Home() {
     }
   }
 }`,
-    cli: `# Claude Code
+    cli: `# MCP CLI tools
 claude mcp add r3 "npx @n3wth/r3"
 
-# Gemini CLI
+# Or via environment variable
 export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
   };
 
@@ -106,9 +106,9 @@ export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
                 for AI assistants
               </h1>
               <p className="mt-5 text-base leading-relaxed text-ink-dim">
-                An MCP server that gives Claude, Gemini, and GPT memory that
-                survives between sessions. Local Redis, vector search, and
-                knowledge graphs with zero configuration.
+                An MCP server that gives AI assistants memory that survives
+                between sessions. Local Redis, vector search, and knowledge
+                graphs with zero configuration.
               </p>
               <div className="mt-8">
                 <InstallCommand command="npx @n3wth/r3" />
@@ -185,8 +185,7 @@ Postgres with Drizzle ORM.`}
               See it in action
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-dim">
-              Watch r3 remember context across sessions in Gemini CLI and Claude
-              Code.
+              Watch r3 remember context across sessions in MCP-compatible tools.
             </p>
             <div className="mt-10">
               <Suspense
@@ -210,7 +209,7 @@ Postgres with Drizzle ORM.`}
             <div className="mt-8 grid gap-8 sm:grid-cols-2">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wide text-ink-label">
-                  Claude Desktop
+                  MCP Desktop Clients
                 </p>
                 <p className="mt-2 text-sm text-ink-dim">
                   Add r3 to your MCP config file.
@@ -222,7 +221,7 @@ Postgres with Drizzle ORM.`}
 
               <div>
                 <p className="text-xs font-medium uppercase tracking-wide text-ink-label">
-                  Claude Code / Gemini CLI
+                  MCP CLI Tools
                 </p>
                 <p className="mt-2 text-sm text-ink-dim">
                   Add with a single command.
@@ -278,7 +277,7 @@ Postgres with Drizzle ORM.`}
 
                 <BentoCard
                   title="MCP compatible"
-                  description="Works with Claude Desktop, Claude Code, Gemini CLI, and any MCP client out of the box."
+                  description="Works with any MCP-compatible client out of the box. Desktop apps, CLI tools, and custom integrations."
                   icon={<Globe className="h-5 w-5 text-ink-dim" />}
                   span="lg:col-span-2"
                 />

@@ -16,9 +16,9 @@ npx @n3wth/r3
 
 r3 starts an embedded Redis server automatically. No configuration required.
 
-## Claude Desktop
+## MCP Desktop Clients
 
-Add to `~/.claude/claude_desktop_config.json`:
+Add to your MCP client configuration (e.g. `claude_desktop_config.json`):
 
 ```json
 {
@@ -31,23 +31,26 @@ Add to `~/.claude/claude_desktop_config.json`:
 }
 ```
 
-Restart Claude Desktop. In a new conversation:
+Restart your MCP client. In a new conversation:
 
 ```
 You: Remember that I prefer TypeScript and dark mode.
-Claude: I'll remember that.
+AI: I'll remember that.
 
 [New conversation]
 
 You: What are my preferences?
-Claude: You prefer TypeScript and dark mode.
+AI: You prefer TypeScript and dark mode.
 ```
 
-## Claude Code
+## CLI Integration
 
 ```bash
+# Add r3 to your MCP CLI
 claude mcp add r3 "npx @n3wth/r3"
 ```
+
+Works with any MCP-compatible CLI tool.
 
 ## MCP Tools
 
