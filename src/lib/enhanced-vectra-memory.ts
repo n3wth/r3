@@ -26,6 +26,9 @@ export class EnhancedVectraMemory {
   private embedder: any = null;
   private embeddingModel: string = "Xenova/all-MiniLM-L6-v2";
   private embeddingDimension: number = 384; // all-MiniLM-L6-v2 produces 384-dim vectors
+  // vectra's insertItem does a read-modify-write of index.json;
+  // concurrent inserts lose writes. Serialize them.
+  private writeQueue: Promise<unknown> = Promise.resolve();
 
   constructor(dataDir: string = "./data/vectra-index", quiet: boolean = false) {
     this.indexPath = path.resolve(dataDir);
@@ -126,7 +129,10 @@ export class EnhancedVectraMemory {
         },
       };
 
-      await this.index.insertItem(item);
+      const run = () => this.index.insertItem(item);
+      const queued = this.writeQueue.then(run, run);
+      this.writeQueue = queued.catch(() => {});
+      await queued;
       this.log(`✓ Added memory ${memory.id} with real embedding`);
       return memory.id;
     } catch (error) {
