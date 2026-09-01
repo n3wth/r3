@@ -5,15 +5,15 @@ title: Quick Start
 
 # Quick Start
 
-Get r3 running in 30 seconds - zero configuration required.
+Get r3 running in 30 seconds.
 
 ## Step 1: Run r3
 
 ```bash
-npx r3
+npx @n3wth/r3
 ```
 
-That's it! r3 automatically starts with an embedded Redis server. No setup needed.
+r3 starts an embedded Redis server automatically. No setup required.
 
 ## Step 2: Configure Claude Desktop
 
@@ -27,15 +27,14 @@ nano ~/.claude/claude_desktop_config.json
 notepad %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-Add this simple configuration:
+Add this configuration:
 
 ```json
 {
   "mcpServers": {
-    "recall": {
+    "r3": {
       "command": "npx",
-      "args": ["r3"]
-      // No environment variables needed!
+      "args": ["@n3wth/r3"]
     }
   }
 }
@@ -63,45 +62,44 @@ What's my name and preferred programming language?
 
 Claude should recall your information from the previous conversation.
 
-## What's happening
+## What happens
 
 When you ask Claude to remember something:
 
-1. **Local Storage**: Memory is instantly stored in the embedded Redis server
+1. **Local Storage**: Memory is stored in the embedded Redis server
 2. **Persistence**: Data persists between sessions on your local machine
-3. **Fast Retrieval**: Memories are retrieved in under 5ms
-4. **Zero Dependencies**: Everything runs locally, no external services needed
+3. **Retrieval**: Memories are retrieved using semantic or keyword search
 
-## Optional: Advanced Configuration
+## Optional: Cloud Sync
 
-### Enable Cloud Sync
-
-Want to backup memories to the cloud? Add a Mem0 API key:
+To backup memories to the cloud, add a Mem0 API key:
 
 ```json
 {
   "mcpServers": {
-    "recall": {
+    "r3": {
       "command": "npx",
-      "args": ["r3"],
+      "args": ["@n3wth/r3"],
       "env": {
-        "MEM0_API_KEY": "mem0_..." // Get free at mem0.ai
+        "MEM0_API_KEY": "mem0_..."
       }
     }
   }
 }
 ```
 
-### Use External Redis
+Get a free API key at [mem0.ai](https://mem0.ai).
+
+## Optional: External Redis
 
 For production or shared Redis:
 
 ```json
 {
   "mcpServers": {
-    "recall": {
+    "r3": {
       "command": "npx",
-      "args": ["r3"],
+      "args": ["@n3wth/r3"],
       "env": {
         "REDIS_URL": "redis://your-redis-server:6379"
       }
@@ -110,53 +108,25 @@ For production or shared Redis:
 }
 ```
 
-### Set a user ID
+## Optional: User ID
 
 To separate memories by user:
 
 ```json
 {
   "env": {
-    "MEM0_API_KEY": "mem0_...",
-    "REDIS_URL": "redis://localhost:6379",
     "MEM0_USER_ID": "sarah_chen"
-  }
-}
-```
-
-### Enable debug logging
-
-To see what's happening:
-
-```json
-{
-  "env": {
-    "MEM0_API_KEY": "mem0_...",
-    "REDIS_URL": "redis://localhost:6379",
-    "DEBUG": "recall:*"
   }
 }
 ```
 
 ## Common issues
 
-### "Redis connection failed"
+### Redis connection failed
 
-Redis isn't running. Start it with:
+Redis is not running. r3 starts an embedded Redis server by default, but if you specified `REDIS_URL`, check that server is accessible.
 
-```bash
-redis-server
-```
-
-### "Invalid API key"
-
-Check your Mem0 API key:
-
-1. Starts with `mem0_`
-2. No extra spaces
-3. Copied correctly
-
-### "MCP server not found"
+### MCP server not found
 
 Claude Desktop needs a restart:
 
@@ -166,13 +136,5 @@ Claude Desktop needs a restart:
 
 ## Next steps
 
-Now that Recall is working:
-
 - [Explore the API](/docs/api-reference) to see all available tools
-- [Learn patterns](/docs/examples/chatbot-memory) for different use cases
 - [View troubleshooting guide](/docs/troubleshooting) for production tips
-
-## Get help
-
-- [GitHub Issues](https://github.com/n3wth/recall/issues) - Report bugs
-- Email: support@newth.ai

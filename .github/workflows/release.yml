@@ -53,11 +53,6 @@ jobs:
           git add package.json package-lock.json website/lib/version.ts
           git commit -m "chore(release): ${NEW_VERSION}
 
-          - Intelligent memory layer for AI applications
-          - Sub-5ms response times with Redis caching
-          - Automatic failover to cloud storage
-          - MCP server for Claude Desktop
-
           Co-Authored-By: GitHub Actions <actions@github.com>"
 
       - name: Push changes
@@ -73,29 +68,19 @@ jobs:
           name: v${{ steps.version.outputs.new_version }}
           generate_release_notes: true
           body: |
-            ## R3 v${{ steps.version.outputs.new_version }}
+            ## r3 v${{ steps.version.outputs.new_version }}
 
-            Lightning-fast memory layer for AI applications with sub-5ms response times.
-
-            ### Installation
+            ### Install
             ```bash
             npm install @n3wth/r3@${{ steps.version.outputs.new_version }}
             ```
 
-            ### Claude Desktop Setup
+            ### Run
             ```bash
             npx @n3wth/r3
             ```
 
-            ### Documentation
-            - [Getting Started](https://r3.newth.ai/docs/quickstart)
-            - [API Reference](https://r3.newth.ai/docs/api-reference)
-            - [Examples](https://r3.newth.ai/docs/examples)
-
-            ### What's Changed
-            See below for auto-generated changelog.
-
-            ---
-            *npm publish is handled by the NPM Package workflow on release creation.*
+            ### Docs
+            [r3.n3wth.com](https://r3.n3wth.com)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

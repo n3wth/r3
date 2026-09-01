@@ -3,59 +3,35 @@ order: 1
 title: Introduction
 ---
 
-# Recall Documentation
+# r3 Documentation
 
-Zero-configuration memory for AI. Works instantly with embedded Redis, optional cloud sync.
-
-## What's New in v1.3.0
-
-- **AI Intelligence** - Real vector embeddings, entity extraction, knowledge graphs (NEW!)
-- **Semantic Search** - Find memories by meaning, not just keywords
-- **Local-First Mode** - No setup required, embedded Redis starts automatically
-- **100% TypeScript** - Full type safety and IntelliSense support
-- **Zero Config** - Just run `npx r3` and it works
+MCP server for persistent AI memory. Local Redis storage with optional cloud sync.
 
 ## Start building
 
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
   <a href="/docs/quickstart" className="block p-6 rounded-lg border border-rail hover:border-rail-strong transition-colors">
-    <h3 className="text-lg font-medium text-ink mb-2">Quickstart →</h3>
-    <div className="text-ink-dim text-sm">Get started in 30 seconds - zero configuration</div>
+    <h3 className="text-lg font-medium text-ink mb-2">Quickstart</h3>
+    <div className="text-ink-dim text-sm">Get started in 30 seconds</div>
   </a>
 
-<a
-  href="/docs/ai-intelligence"
-  className="block p-6 rounded-lg border border-rail hover:border-rail-strong bg-bg-soft transition-colors"
->
-  <div className="flex items-center">
-    <h3 className="text-lg font-medium text-ink mt-0 mb-0">AI Intelligence</h3>
-    <span className="ml-2 px-2 py-0.5 text-xs font-semibold text-ink bg-bg-raise border border-rail rounded-full">
-      NEW
-    </span>
-  </div>
-  <div className="text-sm text-ink-dim mt-2">
-    Semantic search, entities, knowledge graphs
-  </div>
-</a>
-
   <a href="/docs/api-reference" className="block p-6 rounded-lg border border-rail hover:border-rail-strong transition-colors">
-    <h3 className="text-lg font-medium text-ink mb-2">API Reference →</h3>
+    <h3 className="text-lg font-medium text-ink mb-2">API Reference</h3>
     <div className="text-ink-dim text-sm">Complete reference for all MCP tools</div>
   </a>
 </div>
 
-## How Recall works
+## How r3 works
 
-Recall is an MCP server that gives AI applications persistent memory. By default, it uses an embedded Redis server for local storage - no setup needed. Optionally add cloud sync with Mem0.
+r3 is an MCP server that gives AI applications persistent memory. By default, it uses an embedded Redis server for local storage. No setup required. Optionally add cloud sync with Mem0.
 
 ```json
 // ~/.claude/claude_desktop_config.json
 {
   "mcpServers": {
-    "recall": {
+    "r3": {
       "command": "npx",
-      "args": ["r3"]
-      // No environment variables needed!
+      "args": ["@n3wth/r3"]
     }
   }
 }
@@ -96,7 +72,7 @@ Each memory contains:
 
 ### MCP tools
 
-Recall provides these tools to Claude:
+r3 provides these tools to Claude:
 
 - `add_memory`: Store new information
 - `search_memory`: Find relevant context
@@ -104,7 +80,7 @@ Recall provides these tools to Claude:
 - `delete_memory`: Remove specific memory
 - `cache_stats`: Monitor performance
 
-## When to use Recall
+## When to use r3
 
 **Good for:**
 
@@ -119,14 +95,6 @@ Recall provides these tools to Claude:
 - Large files (use object storage)
 - Real-time data (use streaming)
 
-## Pricing
-
-Recall itself is free and open source. You'll need:
-
-- **Redis**: Free locally, ~$15/mo for Redis Cloud
-- **Mem0**: Free tier includes 10,000 memories
-
 ## Get help
 
-- [GitHub Issues](https://github.com/n3wth/recall/issues)
-- [API Status](https://status.mem0.ai)
+- [GitHub Issues](https://github.com/n3wth/r3/issues)

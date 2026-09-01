@@ -1,6 +1,6 @@
-# Style Guide for r3call
+# Style Guide for r3
 
-This document outlines the style and formatting guidelines for all documentation, code, and communications in the r3call project.
+This document outlines the style and formatting guidelines for all documentation, code, and communications in the r3 project.
 
 ## Writing Style
 
@@ -25,9 +25,8 @@ This document outlines the style and formatting guidelines for all documentation
 
 ### Brand Guidelines
 
-- Always use "r3call" as the product name
-- Always use "Newth.ai" (not "Newth") for company references
-- Use current year (2025) in all copyright notices
+- Use "r3" as the product name. Package is @n3wth/r3. Site is r3.n3wth.com.
+- Use current year in copyright notices
 
 ## Documentation Standards
 
@@ -46,12 +45,9 @@ Use plain bullet points or numbers:
 ### Code Examples
 
 Keep code examples clean and professional:
-```javascript
-// Good: Clear, descriptive comment
-const recall = new Recall({ apiKey: 'mem0_...' });
-
-// Bad: Comment with emoji
-// 🎯 Initialize r3call
+```bash
+# Good: Clear, descriptive comment
+npx @n3wth/r3
 ```
 
 ## Commit Messages

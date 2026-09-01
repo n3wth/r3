@@ -61,25 +61,19 @@ jobs:
           name: v${{ steps.version-check.outputs.current_version }}
           generate_release_notes: true
           body: |
-            ## R3 v${{ steps.version-check.outputs.current_version }}
+            ## r3 v${{ steps.version-check.outputs.current_version }}
 
-            Intelligent memory layer for AI applications with sub-5ms response times.
-
-            ### Installation
+            ### Install
             ```bash
             npm install @n3wth/r3@${{ steps.version-check.outputs.current_version }}
             ```
 
-            ### Claude Desktop Setup
+            ### Run
             ```bash
             npx @n3wth/r3
             ```
 
-            ### Documentation
-            - [Getting Started](https://r3.newth.ai/docs/quickstart)
-            - [API Reference](https://r3.newth.ai/docs/api-reference)
-
-            ---
-            *npm publish is handled by the NPM Package workflow on release creation.*
+            ### Docs
+            [r3.n3wth.com](https://r3.n3wth.com)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

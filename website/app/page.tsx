@@ -21,44 +21,23 @@ const TerminalDemo = lazy(() =>
   })),
 );
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("node");
+  const [activeTab, setActiveTab] = useState("mcp");
 
   const codeExamples = {
-    node: `import { Recall } from 'r3';
-
-// Zero configuration - works immediately
-const recall = new Recall();
-
-// Remember work context
-await recall.add({
-  content: 'Dashboard uses Next.js 14, TypeScript, and Tailwind CSS',
-  userId: 'work'
-});
-
-// Remember personal context
-await recall.add({
-  content: 'Kids: Emma (8, loves robotics), Josh (5, into dinosaurs)',
-  userId: 'personal'
-});
-
-// AI remembers across sessions
-const context = await recall.search({
-  query: 'What framework am I using?',
-  userId: 'work'
-});`,
     mcp: `// claude_desktop_config.json
 {
   "mcpServers": {
     "r3": {
       "command": "npx",
-      "args": ["-y", "r3"]
+      "args": ["@n3wth/r3"]
     }
   }
-}
+}`,
+    cli: `# Claude Code
+claude mcp add r3 "npx @n3wth/r3"
 
-// That's it. Your AI assistant now has
-// persistent memory across every session.
-// No API keys, no database setup, no config.`,
+# Gemini CLI
+export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
   };
 
   return (
@@ -281,10 +260,10 @@ const context = await recall.search({
                         }
                       `}
                       >
-                        {lang === "node"
-                          ? "Node.js"
-                          : lang === "mcp"
-                            ? "MCP Config"
+                        {lang === "mcp"
+                          ? "Claude Desktop"
+                          : lang === "cli"
+                            ? "CLI"
                             : lang}
                       </button>
                     ))}
@@ -292,10 +271,10 @@ const context = await recall.search({
                 </div>
                 <CodeBlock
                   language={
-                    activeTab === "node"
-                      ? "javascript"
-                      : activeTab === "mcp"
-                        ? "json"
+                    activeTab === "mcp"
+                      ? "json"
+                      : activeTab === "cli"
+                        ? "bash"
                         : activeTab
                   }
                 >
