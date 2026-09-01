@@ -8,6 +8,8 @@
 
 Persistent memory for MCP clients (Claude Desktop, Claude Code, Cursor) that runs entirely on your machine, with no accounts, no API keys, and no cloud service required to start.
 
+![Memory persisting across two separate server processes](demo/demo.gif)
+
 ## Quick start
 
 ```bash
