@@ -1,12 +1,13 @@
 "use client";
 
 const products = [
-  { label: "hop.flights", href: "https://hop.flights" },
-  { label: "r3", href: "https://r3.n3wth.com" },
-  { label: "kit", href: "https://kit.n3wth.com" },
-  { label: "garden", href: "https://garden.n3wth.com" },
-  { label: "skills", href: "https://skills.n3wth.com" },
-  { label: "n3wth.com", href: "https://n3wth.com" },
+  { label: "hop.flights", href: "https://hop.flights", external: true },
+  { label: "r3", href: "https://r3.n3wth.com", external: true },
+  { label: "kit", href: "https://kit.n3wth.com", external: true },
+  { label: "garden", href: "https://garden.n3wth.com", external: true },
+  { label: "skills", href: "https://skills.n3wth.com", external: true },
+  { label: "n3wth.com", href: "https://n3wth.com", external: true },
+  { label: "Email", href: "mailto:hey@n3wth.com", external: false },
 ];
 
 export function Footer() {
@@ -27,8 +28,9 @@ export function Footer() {
                   <a
                     href={link.href}
                     className="footer-link text-sm"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(link.external
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
                   >
                     {link.label}
                   </a>
