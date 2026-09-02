@@ -108,3 +108,16 @@ node test/test-suite.js
 - `README.md` - Main documentation (keep professional)
 - `.github/workflows/release.yml` - Unified release process
 - `package.json` - Version and dependencies
+
+## README voice: don'ts
+
+1. No LLM adjectives: robust, seamless, powerful, effortless, delightful, blazing, intuitive, elegant, supercharge, leverage.
+2. No "getting started journey", "let's dive in", "you're all set". The install section is commands and one sentence per command.
+3. No claim without a file, command or URL behind it. If it is not in the repo, it is not in the README.
+4. No "intelligent", "hybrid caching", "sub-5ms" as headline claims. Describe the storage path and the flags that select it.
+5. No emojis, no `---` dividers, no badges beyond npm and license.
+6. No problem/solution story. Say what it does, what it does not do, and how to run it.
+7. No comparison tables against other projects unless every cell is verified against that project's current docs, with the date.
+8. No "coming soon", roadmap, or registry listings that return 404. Describe the present tense only.
+9. No inventing support channels. Issues exist. Discord and Discussions do not.
+10. No version bumps or release notes in README edits. The version on npm is the version.
