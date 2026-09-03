@@ -93,38 +93,38 @@ AI: You prefer TypeScript and dark mode.
 
 ## Tools
 
-| Tool                  | Description                                        |
-| --------------------- | --------------------------------------------------- |
-| `add_memory`          | Store content with optional metadata and priority   |
-| `search_memory`       | Query memories using semantic or keyword search     |
-| `get_all_memories`    | List stored memories with pagination                |
-| `get_memory`          | Retrieve a specific memory by ID                    |
-| `update_memory`       | Modify existing memory content or metadata          |
-| `delete_memory`       | Remove a memory                                     |
-| `deduplicate_memories`| Find and merge duplicate memories                   |
-| `cache_stats`         | Report cache hit rate and storage stats             |
-| `sync_status`         | Report Mem0 cloud sync status                       |
-| `optimize_cache`      | Run cache maintenance                               |
-| `import_memories`     | Bulk import memories                                |
+| Tool                   | Description                                       |
+| ---------------------- | ------------------------------------------------- |
+| `add_memory`           | Store content with optional metadata and priority |
+| `search_memory`        | Query memories using semantic or keyword search   |
+| `get_all_memories`     | List stored memories with pagination              |
+| `get_memory`           | Retrieve a specific memory by ID                  |
+| `update_memory`        | Modify existing memory content or metadata        |
+| `delete_memory`        | Remove a memory                                   |
+| `deduplicate_memories` | Find and merge duplicate memories                 |
+| `cache_stats`          | Report cache hit rate and storage stats           |
+| `sync_status`          | Report Mem0 cloud sync status                     |
+| `optimize_cache`       | Run cache maintenance                             |
+| `import_memories`      | Bulk import memories                              |
 
 Enhanced mode (default, `INTELLIGENCE_MODE=enhanced`) adds:
 
-| Tool                  | Description                                        |
-| --------------------- | --------------------------------------------------- |
-| `extract_entities`    | Extract named entities from text                    |
-| `get_knowledge_graph` | Return the entity/relationship graph                |
-| `find_connections`    | Find entities connected to a given entity           |
+| Tool                  | Description                               |
+| --------------------- | ----------------------------------------- |
+| `extract_entities`    | Extract named entities from text          |
+| `get_knowledge_graph` | Return the entity/relationship graph      |
+| `find_connections`    | Find entities connected to a given entity |
 
 ## Configuration
 
 Environment variables, all optional:
 
-| Variable            | Description                  | Default            |
-| ------------------- | ----------------------------- | ------------------- |
-| `REDIS_URL`         | Use an external Redis instead of the embedded one | embedded server |
-| `MEM0_API_KEY`      | Enables Mem0 cloud sync       | unset (local only) |
-| `MEM0_USER_ID`      | Namespace for memories        | `default`          |
-| `INTELLIGENCE_MODE` | `enhanced` or `basic`         | `enhanced`         |
+| Variable            | Description                                       | Default            |
+| ------------------- | ------------------------------------------------- | ------------------ |
+| `REDIS_URL`         | Use an external Redis instead of the embedded one | embedded server    |
+| `MEM0_API_KEY`      | Enables Mem0 cloud sync                           | unset (local only) |
+| `MEM0_USER_ID`      | Namespace for memories                            | `default`          |
+| `INTELLIGENCE_MODE` | `enhanced` or `basic`                             | `enhanced`         |
 
 Example with cloud sync enabled:
 
@@ -144,11 +144,11 @@ Example with cloud sync enabled:
 
 ## Comparison
 
-| | r3 | mem0 (OSS) | zep |
-| --- | --- | --- | --- |
+|                                   | r3                            | mem0 (OSS)                                  | zep                                        |
+| --------------------------------- | ----------------------------- | ------------------------------------------- | ------------------------------------------ |
 | Runs fully local with zero config | yes (embedded Redis + vectra) | requires a Postgres/vector DB you configure | requires a Postgres instance you configure |
-| Needs an API key to try it | no | no (self-hosted) / yes (cloud) | yes (cloud), or self-hosted setup |
-| Optional cloud sync | yes, via Mem0 | n/a (is the cloud option) | yes |
+| Needs an API key to try it        | no                            | no (self-hosted) / yes (cloud)              | yes (cloud), or self-hosted setup          |
+| Optional cloud sync               | yes, via Mem0                 | n/a (is the cloud option)                   | yes                                        |
 
 This table only reflects setup requirements observed in each project's own documentation, not benchmark performance or feature completeness. Verify against current upstream docs before relying on it.
 

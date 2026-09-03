@@ -6,13 +6,13 @@
 
 @source "../node_modules/@n3wth/ui/dist";
 
-/* Geist for display AND body (canonical). Loaded via next/font in layout.tsx.
+/* Satoshi for display headings, Geist Sans for body. Loaded via next/font in layout.tsx.
    Unlayered so it wins over @n3wth/ui's compiled :root declarations. */
 :root {
   --font-sans: var(--font-geist-sans), "Geist Sans", system-ui, sans-serif;
-  --font-display: var(--font-geist-sans), "Geist Sans", system-ui, sans-serif;
+  --font-display: var(--font-satoshi), "Satoshi", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
-  --font-brand: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  --font-brand: var(--font-satoshi), "Satoshi", system-ui, sans-serif;
 }
 
 :root {
@@ -39,6 +39,12 @@
     color: var(--color-ink, #f2f3f5);
     overflow-x: hidden;
     min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display, system-ui, sans-serif);
   }
 
   code {
@@ -305,6 +311,30 @@
 :focus-visible {
   outline: 2px solid var(--color-accent, #3b82f6);
   outline-offset: 3px;
+}
+
+/* Skip link - visible only on focus, doesn't steal snippets */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--color-bg, #08090b);
+  color: var(--color-ink, #f2f3f5);
+  border: 1px solid var(--color-rail, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: top 0.15s var(--ease);
+}
+
+.skip-link:focus {
+  top: calc(0.75rem + env(safe-area-inset-top));
+  outline: 2px solid var(--color-accent, #3b82f6);
+  outline-offset: 2px;
 }
 
 /* Touch targets */
