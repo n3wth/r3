@@ -15,19 +15,9 @@ npx @n3wth/r3
 
 r3 starts an embedded Redis server automatically. No setup required.
 
-## Step 2: Configure Claude Desktop
+## Step 2: Add to your MCP client
 
-Open your Claude Desktop configuration:
-
-```bash
-# macOS/Linux
-nano ~/.claude/claude_desktop_config.json
-
-# Windows
-notepad %APPDATA%\Claude\claude_desktop_config.json
-```
-
-Add this configuration:
+r3 works with any MCP-compatible client. Add it to your client's config:
 
 ```json
 {
@@ -40,15 +30,28 @@ Add this configuration:
 }
 ```
 
-## Step 3: Restart Claude Desktop
+### Client-specific paths
 
-1. Quit Claude Desktop completely
-2. Start Claude Desktop again
+**Claude Desktop:**
+- macOS/Linux: `~/.claude/claude_desktop_config.json`
+- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+
+**Claude Code CLI:**
+```bash
+claude mcp add r3 "npx @n3wth/r3"
+```
+
+**Other MCP clients:** Check your client's documentation for the config file location.
+
+## Step 3: Restart your client
+
+1. Quit the application completely
+2. Start it again
 3. Open a new conversation
 
 ## Step 4: Test it works
 
-In Claude Desktop, type:
+In your MCP client, type:
 
 ```
 Remember that my name is Sarah and I prefer Python for data science projects.

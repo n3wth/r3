@@ -5,7 +5,7 @@ export async function GET() {
 
   const content = `# n3wth/r3
 
-> Persistent memory for AI assistants. An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions.
+> Persistent memory for AI assistants. An MCP server with local Redis, vector search, and knowledge graphs.
 
 ## Quick Start
 
@@ -19,10 +19,10 @@ No configuration required. r3 starts an embedded Redis server automatically.
 
 r3 is a Model Context Protocol (MCP) server that gives AI assistants persistent memory across sessions. It runs locally with:
 
-- Embedded Redis for sub-10ms memory retrieval
+- Embedded Redis for memory storage and retrieval
 - 384-dimensional vector embeddings for semantic search
 - Automatic entity extraction and knowledge graph construction
-- Zero external API calls required
+- No external API calls required
 
 ## Integration
 
@@ -99,8 +99,7 @@ r3 provides these tools to MCP clients:
 
 - Local-first: All data stays on your machine
 - Zero config: Just run \`npx @n3wth/r3\`
-- Fast: Sub-10ms responses with embedded Redis
-- Smart: Vector search and knowledge graphs built-in
+- Fast: Embedded Redis for storage and retrieval
 - Private: No external API calls required
 
 ## Version

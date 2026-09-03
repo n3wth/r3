@@ -184,7 +184,7 @@ Postgres with Drizzle ORM.`}
               See it in action
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-dim">
-              Watch r3 remember context across sessions in MCP-compatible tools.
+              r3 storing and retrieving memories across sessions.
             </p>
             <div className="mt-10">
               <Suspense
@@ -257,7 +257,7 @@ Postgres with Drizzle ORM.`}
               <BentoGrid>
                 <BentoCard
                   title="Semantic Search"
-                  description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
+                  description="Cosine similarity ranking across 384-dimension vectors. Query by meaning, not keywords."
                   icon={<Cpu className="h-5 w-5 text-ink-dim" />}
                   span="lg:col-span-2"
                 />

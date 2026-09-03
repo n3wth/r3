@@ -36,16 +36,13 @@ export const metadata: Metadata = {
     template: "%s - n3wth/r3",
   },
   description:
-    "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Local Redis, vector search, and knowledge graphs with zero configuration.",
+    "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, and knowledge graphs.",
   keywords: [
     "r3",
     "MCP server",
     "AI memory",
     "Redis",
     "vector search",
-    "Claude",
-    "Gemini",
-    "GPT",
     "persistent memory",
   ],
   authors: [{ name: "Oliver Newth" }],
@@ -55,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
+      "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, knowledge graphs. Install with npx @n3wth/r3.",
     url: "https://r3.n3wth.com",
     siteName: "n3wth/r3",
     type: "website",
@@ -65,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
+      "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, knowledge graphs. Install with npx @n3wth/r3.",
     creator: "@n3wth",
   },
   robots: {
