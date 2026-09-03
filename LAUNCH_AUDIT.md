@@ -19,6 +19,7 @@ Root cause: `redis-memory-server` (a dependency used for the embedded Redis back
 Impact: `npx @n3wth/r3` and `npm install @n3wth/r3` will fail for a meaningful fraction of macOS users on first run, exactly the audience most likely to try the tool the day it's posted. This is the single biggest launch risk.
 
 Fix options, roughly in order of effort:
+
 - Pin/vendor a `redis-memory-server` version with a matching prebuilt binary for macOS arm64, or document the exact known-good version.
 - Document the workaround prominently in the README ("if npx fails, `brew install make` and re-run" or similar), with a troubleshooting section.
 - Longer term: reduce dependence on compiling Redis from source per-install, e.g. ship a fallback pure-JS/in-memory store as the default and treat embedded Redis as an optional upgrade.
@@ -26,6 +27,7 @@ Fix options, roughly in order of effort:
 ### 2. Tests do not actually gate anything
 
 `test/run-tests.js`:
+
 - Exits `0` immediately if `MEM0_API_KEY` is not set: "Skipping tests during npm publish (no MEM0_API_KEY)".
 - Even when it does run, the process always calls `process.exit(0)` on the child test process's exit or error, regardless of pass/fail ("Always exit successfully for prepublish").
 - CI additionally sets `SKIP_TESTS=true`.
