@@ -13,7 +13,7 @@ export async function GET() {
       url: `${baseUrl}/docs/${item.slug}`,
       changefreq: "weekly",
       priority: "0.8",
-    }))
+    })),
   );
 
   const allPages = [...staticPages, ...docsPages];
@@ -27,7 +27,7 @@ ${allPages
     <lastmod>${now}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
-  </url>`
+  </url>`,
   )
   .join("\n")}
 </urlset>`;

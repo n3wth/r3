@@ -11,9 +11,9 @@ interface JsonLdProps {
 
 export function JsonLd({ type, data }: JsonLdProps) {
   const version = getPackageVersion();
-  
+
   const baseUrl = "https://r3.n3wth.com";
-  
+
   const schemas: Record<string, object> = {
     WebSite: {
       "@context": "https://schema.org",
@@ -21,7 +21,8 @@ export function JsonLd({ type, data }: JsonLdProps) {
       name: "r3",
       alternateName: "n3wth/r3",
       url: baseUrl,
-      description: "Persistent memory for AI assistants. An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions.",
+      description:
+        "Persistent memory for AI assistants. An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions.",
       publisher: {
         "@type": "Person",
         name: "Oliver Newth",
@@ -41,7 +42,8 @@ export function JsonLd({ type, data }: JsonLdProps) {
       "@type": "SoftwareApplication",
       name: "r3",
       alternateName: "n3wth/r3",
-      description: "An MCP server that gives AI assistants persistent memory across sessions. Local Redis, vector search, and knowledge graphs with zero configuration.",
+      description:
+        "An MCP server that gives AI assistants persistent memory across sessions. Local Redis, vector search, and knowledge graphs with zero configuration.",
       url: baseUrl,
       applicationCategory: "DeveloperApplication",
       operatingSystem: "macOS, Windows, Linux",
@@ -61,13 +63,24 @@ export function JsonLd({ type, data }: JsonLdProps) {
       installUrl: "https://www.npmjs.com/package/@n3wth/r3",
       downloadUrl: "https://www.npmjs.com/package/@n3wth/r3",
       codeRepository: "https://github.com/n3wth/r3",
-      keywords: ["MCP", "AI memory", "Claude", "Gemini", "GPT", "Redis", "vector search", "knowledge graph"],
+      keywords: [
+        "MCP",
+        "AI memory",
+        "Claude",
+        "Gemini",
+        "GPT",
+        "Redis",
+        "vector search",
+        "knowledge graph",
+      ],
     },
     WebPage: {
       "@context": "https://schema.org",
       "@type": "WebPage",
       name: data?.name || "r3 Documentation",
-      description: data?.description || "Documentation for r3, the persistent memory MCP server for AI assistants.",
+      description:
+        data?.description ||
+        "Documentation for r3, the persistent memory MCP server for AI assistants.",
       url: data?.url || `${baseUrl}/docs`,
       isPartOf: {
         "@type": "WebSite",

@@ -3,9 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navigation = [
-  { name: "Docs", href: "/docs/introduction" },
-];
+const navigation = [{ name: "Docs", href: "/docs/introduction" }];
 
 function DartMark({ size = 18 }: { size?: number }) {
   return (
@@ -49,21 +47,14 @@ export function Navigation() {
       style={{ top: "calc(0.75rem + env(safe-area-inset-top))" }}
     >
       <div className="nav-island pointer-events-auto flex h-12 w-full items-center gap-1 pl-4 pr-2 md:w-auto md:pl-5 md:pr-3">
-        <Link
-          href="/"
-          className="brand shrink-0"
-          aria-label="n3wth/r3 - home"
-        >
+        <Link href="/" className="brand shrink-0" aria-label="n3wth/r3 - home">
           <span className="brand-mark shrink-0" aria-hidden="true">
             <DartMark size={18} />
           </span>
           <span>n3wth/r3</span>
         </Link>
 
-        <nav
-          aria-label="Primary"
-          className="flex items-center gap-0.5 ml-3"
-        >
+        <nav aria-label="Primary" className="flex items-center gap-0.5 ml-3">
           {navigation.map((item) => (
             <Link
               key={item.href}
