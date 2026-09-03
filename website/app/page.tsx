@@ -171,10 +171,7 @@ Postgres with Drizzle ORM.`}
                 Knowledge graphs
               </span>
               <span className="inline-flex items-center rounded-md border border-rail px-3 py-1.5 text-xs font-medium text-ink-dim">
-                Sub-10ms latency
-              </span>
-              <span className="inline-flex items-center rounded-md border border-rail px-3 py-1.5 text-xs font-medium text-ink-dim">
-                Zero cloud dependencies
+                Local-only
               </span>
             </div>
           </div>
@@ -272,14 +269,14 @@ Postgres with Drizzle ORM.`}
                 />
 
                 <BentoCard
-                  title="Sub-10ms responses"
+                  title="Fast local reads"
                   description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
                   icon={<Zap className="h-5 w-5 text-ink-dim" />}
                 />
 
                 <BentoCard
                   title="MCP compatible"
-                  description="Works with any MCP-compatible client out of the box. Desktop apps, CLI tools, and custom integrations."
+                  description="Works with any MCP-compatible client. Desktop apps, CLI tools, and custom integrations."
                   icon={<Globe className="h-5 w-5 text-ink-dim" />}
                   span="lg:col-span-2"
                 />
@@ -292,8 +289,8 @@ Postgres with Drizzle ORM.`}
                 />
 
                 <BentoCard
-                  title="Zero dependencies"
-                  description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
+                  title="Fully local"
+                  description="Embedded Redis server, local vector store. No cloud services, no API keys required."
                   icon={<Lock className="h-5 w-5 text-ink-dim" />}
                 />
               </BentoGrid>

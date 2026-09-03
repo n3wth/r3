@@ -40,7 +40,7 @@ const demos = [
       },
       {
         type: "animated",
-        text: "[Memory stored: 3ms • Priority: high • TTL: persistent]",
+        text: "[Memory stored]",
         className: "text-ink-faint text-xs",
         delay: 5000,
       },
@@ -60,7 +60,7 @@ const demos = [
       },
       {
         type: "animated",
-        text: "[Memory retrieved: 2ms from L1 cache]",
+        text: "[Memory retrieved from cache]",
         className: "text-ink-faint text-xs",
         delay: 7500,
       },
@@ -111,7 +111,7 @@ const demos = [
       },
       {
         type: "animated",
-        text: "• L1 Cache: Redis (sub-5ms responses)",
+        text: "• L1 Cache: Redis",
         className: "text-ink-dim",
         delay: 7000,
       },
