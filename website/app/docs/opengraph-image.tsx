@@ -4,7 +4,7 @@ import { join } from "path";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "r3 - Persistent memory for AI assistants";
+export const alt = "r3 Documentation";
 
 export default async function Image() {
   const [satoshiBold, satoshiRegular] = await Promise.all([
@@ -28,8 +28,8 @@ export default async function Image() {
         }}
       >
         <svg
-          width="64"
-          height="64"
+          width="56"
+          height="56"
           viewBox="0 0 32 32"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -49,16 +49,15 @@ export default async function Image() {
         >
           <div
             style={{
-              fontSize: "56px",
+              fontSize: "52px",
               fontWeight: 700,
               fontFamily: "Satoshi",
               color: "#ffffff",
               textAlign: "center",
               lineHeight: 1.1,
-              maxWidth: "900px",
             }}
           >
-            r3
+            r3 Documentation
           </div>
           <div
             style={{
@@ -67,7 +66,6 @@ export default async function Image() {
               fontFamily: "Satoshi",
               color: "#a1a1aa",
               textAlign: "center",
-              maxWidth: "800px",
             }}
           >
             Persistent memory for AI assistants

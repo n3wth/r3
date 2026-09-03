@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { AxiomWebVitals } from "next-axiom";
 import { PostHogProvider } from "../components/PostHogProvider";
+import { JsonLd } from "../components/JsonLd";
+import { SkipLink } from "../components/SkipLink";
 import "./globals.css";
+
+const satoshi = localFont({
+  src: "../fonts/Satoshi-Variable.ttf",
+  variable: "--font-satoshi",
+  display: "swap",
+  preload: true,
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,11 +82,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${satoshi.variable} ${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <AxiomWebVitals />
       <head>
+        <JsonLd type="WebSite" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
@@ -117,6 +128,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen" suppressHydrationWarning>
+        <SkipLink />
         <PostHogProvider>
           {children}
           <Analytics />

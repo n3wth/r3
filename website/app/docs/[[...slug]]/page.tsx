@@ -5,6 +5,7 @@ import { getDocBySlug, getAllDocs } from "@/lib/mdx";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { MDXComponents } from "@/components/MDXComponents";
+import { JsonLd } from "@/components/JsonLd";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -37,20 +38,26 @@ export async function generateMetadata({
   const description =
     doc.meta.description ||
     "r3 is an open-source local Redis memory MCP server for AI assistants. Install with npx @n3wth/r3.";
+  const url = `https://r3.n3wth.com/docs/${slugPath}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title,
       description,
       type: "article",
-      url: `https://r3.n3wth.com/docs/${slugPath}`,
+      url,
+      siteName: "r3",
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      creator: "@n3wth",
     },
   };
 }
@@ -145,8 +152,22 @@ export default async function DocPage({
   const nextDoc =
     currentIndex < allDocs.length - 1 ? allDocs[currentIndex + 1] : null;
 
+  const pageUrl = `https://r3.n3wth.com/docs/${slugPath}`;
+  const pageTitle = doc.meta.title || "Documentation";
+  const pageDescription =
+    doc.meta.description ||
+    "r3 is an open-source local Redis memory MCP server for AI assistants.";
+
   return (
     <>
+      <JsonLd
+        type="WebPage"
+        data={{
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        }}
+      />
       <article className="prose prose-invert max-w-none">
         <MDXRemote
           source={doc.content}

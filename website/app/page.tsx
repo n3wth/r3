@@ -7,6 +7,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
 import { CodeBlock } from "@/components/CodeBlock";
+import { JsonLd } from "@/components/JsonLd";
 
 const TerminalDemo = lazy(() =>
   import("@/components/TerminalDemo").then((module) => ({
@@ -87,9 +88,10 @@ export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
 
   return (
     <div className="flex flex-col min-h-screen bg-bg">
+      <JsonLd type="SoftwareApplication" />
       <Navigation />
 
-      <main className="flex-1 pt-20">
+      <main id="main-content" className="flex-1 pt-20">
         {/* Hero */}
         <section className="mx-auto max-w-5xl px-6 pt-8 pb-14">
           <div className="grid items-center gap-12 sm:grid-cols-2">
