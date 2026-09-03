@@ -10,5 +10,6 @@
   "buildCommand": "cd website && npm run build",
   "outputDirectory": "website/.next",
   "installCommand": "cd website && npm install",
-  "devCommand": "cd website && npm run dev"
+  "devCommand": "cd website && npm run dev",
+  "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ]"
 }
