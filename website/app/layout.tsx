@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { AxiomWebVitals } from "next-axiom";
 import { PostHogProvider } from "../components/PostHogProvider";
 import { JsonLd } from "../components/JsonLd";
@@ -133,6 +134,7 @@ export default function RootLayout({
           {children}
           <Analytics />
         </PostHogProvider>
+        <GoogleAnalytics gaId="G-4QRMSG5HXK" />
       </body>
     </html>
   );
