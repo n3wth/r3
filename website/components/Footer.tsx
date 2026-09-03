@@ -2,7 +2,7 @@
 
 const products = [
   { label: "hop.flights", href: "https://hop.flights", external: true },
-  { label: "r3", href: "https://r3.n3wth.com", external: true },
+  { label: "ui", href: "https://ui.n3wth.com", external: true },
   { label: "kit", href: "https://kit.n3wth.com", external: true },
   { label: "garden", href: "https://garden.n3wth.com", external: true },
   { label: "skills", href: "https://skills.n3wth.com", external: true },
