@@ -7,6 +7,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
 import { CodeBlock } from "@/components/CodeBlock";
+import { JsonLd } from "@/components/JsonLd";
 
 const TerminalDemo = lazy(() =>
   import("@/components/TerminalDemo").then((module) => ({
@@ -87,9 +88,10 @@ export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'`,
 
   return (
     <div className="flex flex-col min-h-screen bg-bg">
+      <JsonLd type="SoftwareApplication" />
       <Navigation />
 
-      <main className="flex-1 pt-20">
+      <main id="main-content" className="flex-1 pt-20">
         {/* Hero */}
         <section className="mx-auto max-w-5xl px-6 pt-8 pb-14">
           <div className="grid items-center gap-12 sm:grid-cols-2">
@@ -169,10 +171,7 @@ Postgres with Drizzle ORM.`}
                 Knowledge graphs
               </span>
               <span className="inline-flex items-center rounded-md border border-rail px-3 py-1.5 text-xs font-medium text-ink-dim">
-                Sub-10ms latency
-              </span>
-              <span className="inline-flex items-center rounded-md border border-rail px-3 py-1.5 text-xs font-medium text-ink-dim">
-                Zero cloud dependencies
+                Local-only
               </span>
             </div>
           </div>
@@ -185,7 +184,7 @@ Postgres with Drizzle ORM.`}
               See it in action
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-ink-dim">
-              Watch r3 remember context across sessions in MCP-compatible tools.
+              r3 storing and retrieving memories across sessions.
             </p>
             <div className="mt-10">
               <Suspense
@@ -258,7 +257,7 @@ Postgres with Drizzle ORM.`}
               <BentoGrid>
                 <BentoCard
                   title="Semantic Search"
-                  description="Query stored context using natural language. Cosine similarity ranking across 384-dimension vectors."
+                  description="Cosine similarity ranking across 384-dimension vectors. Query by meaning, not keywords."
                   icon={<Cpu className="h-5 w-5 text-ink-dim" />}
                   span="lg:col-span-2"
                 />
@@ -270,14 +269,14 @@ Postgres with Drizzle ORM.`}
                 />
 
                 <BentoCard
-                  title="Sub-10ms responses"
+                  title="Fast local reads"
                   description="Embedded Redis serves as both cache layer and vector store. Local embedding generation, no API calls."
                   icon={<Zap className="h-5 w-5 text-ink-dim" />}
                 />
 
                 <BentoCard
                   title="MCP compatible"
-                  description="Works with any MCP-compatible client out of the box. Desktop apps, CLI tools, and custom integrations."
+                  description="Works with any MCP-compatible client. Desktop apps, CLI tools, and custom integrations."
                   icon={<Globe className="h-5 w-5 text-ink-dim" />}
                   span="lg:col-span-2"
                 />
@@ -290,8 +289,8 @@ Postgres with Drizzle ORM.`}
                 />
 
                 <BentoCard
-                  title="Zero dependencies"
-                  description="Embedded Redis server, local vector store. No cloud services, no API keys, no configuration files."
+                  title="Fully local"
+                  description="Embedded Redis server, local vector store. No cloud services, no API keys required."
                   icon={<Lock className="h-5 w-5 text-ink-dim" />}
                 />
               </BentoGrid>

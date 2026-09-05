@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { AxiomWebVitals } from "next-axiom";
 import { PostHogProvider } from "../components/PostHogProvider";
+import { JsonLd } from "../components/JsonLd";
+import { SkipLink } from "../components/SkipLink";
 import "./globals.css";
+
+const satoshi = localFont({
+  src: "../fonts/Satoshi-Variable.ttf",
+  variable: "--font-satoshi",
+  display: "swap",
+  preload: true,
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +37,13 @@ export const metadata: Metadata = {
     template: "%s - n3wth/r3",
   },
   description:
-    "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Local Redis, vector search, and knowledge graphs with zero configuration.",
+    "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, and knowledge graphs.",
   keywords: [
     "r3",
     "MCP server",
     "AI memory",
     "Redis",
     "vector search",
-    "Claude",
-    "Gemini",
-    "GPT",
     "persistent memory",
   ],
   authors: [{ name: "Oliver Newth" }],
@@ -45,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
+      "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, knowledge graphs. Install with npx @n3wth/r3.",
     url: "https://r3.n3wth.com",
     siteName: "n3wth/r3",
     type: "website",
@@ -55,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "n3wth/r3 - Persistent memory for AI assistants",
     description:
-      "An MCP server that gives Claude, Gemini, and GPT memory that survives between sessions. Install with npx @n3wth/r3.",
+      "An MCP server that gives AI assistants persistent memory. Local Redis, vector search, knowledge graphs. Install with npx @n3wth/r3.",
     creator: "@n3wth",
   },
   robots: {
@@ -72,11 +80,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      className={`${satoshi.variable} ${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <AxiomWebVitals />
       <head>
+        <JsonLd type="WebSite" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link
@@ -117,10 +126,12 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased min-h-screen" suppressHydrationWarning>
+        <SkipLink />
         <PostHogProvider>
           {children}
           <Analytics />
         </PostHogProvider>
+        <GoogleAnalytics gaId="G-4QRMSG5HXK" />
       </body>
     </html>
   );

@@ -22,7 +22,9 @@ export default function DocsLayout({
           </aside>
 
           {/* Main Content */}
-          <main className="min-w-0 max-w-4xl flex-grow">{children}</main>
+          <main id="main-content" className="min-w-0 max-w-4xl flex-grow">
+            {children}
+          </main>
 
           {/* Table of Contents */}
           <aside className="hidden xl:block w-[240px] flex-shrink-0">

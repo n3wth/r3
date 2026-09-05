@@ -83,6 +83,10 @@ let redisClient: RedisClientType | null = null;
 let pubSubClient: RedisClientType | null = null;
 let subscriberClient: RedisClientType | null = null;
 let localMemory: LocalMemory | null = null;
+let resolveRedisInit: (ok: boolean) => void;
+const redisInitPromise: Promise<boolean> = new Promise((resolve) => {
+  resolveRedisInit = resolve;
+});
 let entityExtractor: EntityExtractor | null = null;
 let enhancedVectra: EnhancedVectraMemory | null = null;
 
@@ -913,6 +917,11 @@ async function simulateLocalAPI(
   body: any,
 ): Promise<any> {
   if (!localMemory) {
+    // Redis/LocalMemory boots in the background; wait for it instead of
+    // failing tool calls that arrive during the first seconds of a session.
+    await redisInitPromise;
+  }
+  if (!localMemory) {
     throw new Error("Local memory not initialized");
   }
 
@@ -920,9 +929,13 @@ async function simulateLocalAPI(
 
   // Handle different endpoints
   if (endpoint.includes("/memories/") && method === "POST") {
-    // Add memory
+    // Add memory. Only user-role content is the memory; assistant
+    // acknowledgements ("I'll remember that.") are Mem0 API filler.
     const content = body.messages
-      ? body.messages.map((m: any) => m.content).join(" ")
+      ? body.messages
+          .filter((m: any) => m.role !== "assistant")
+          .map((m: any) => m.content)
+          .join(" ")
       : body.content;
     const result = await localMemory.add({
       content,
@@ -2953,9 +2966,11 @@ export async function startServer() {
         if (redisSuccess) {
           log("  ✓ Redis cache ready");
         }
+        resolveRedisInit(redisSuccess);
       })
       .catch((error) => {
         debugLog("Redis initialization failed:", error);
+        resolveRedisInit(false);
       });
     log("✓ r3 MCP Server v2.0 running successfully");
     log(`  Mode: ${MODE.toUpperCase()}`);
