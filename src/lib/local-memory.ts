@@ -48,18 +48,29 @@ export class LocalMemory extends EventEmitter implements StorageBackend {
     }
 
     this.isStarting = true;
-    this.log("Starting embedded Redis server...");
 
     try {
-      // Start the embedded Redis server
-      this.redisServer = new RedisMemoryServer();
-      await this.redisServer.start();
+      // Reuse an already-configured Redis when one is available (a CI service
+      // or a shared instance) instead of launching the embedded server. This
+      // keeps local mode working where the redis-memory-server binary was not
+      // installed (for example CI runs `npm ci --ignore-scripts`).
+      const externalRedisUrl = process.env.REDIS_URL;
+      let redisUrl: string;
 
-      const host = await this.redisServer.getHost();
-      const port = await this.redisServer.getPort();
-      const redisUrl = `redis://${host}:${port}`;
+      if (externalRedisUrl) {
+        redisUrl = externalRedisUrl;
+        this.log(`Using existing Redis at ${redisUrl}`);
+      } else {
+        this.log("Starting embedded Redis server...");
+        this.redisServer = new RedisMemoryServer();
+        await this.redisServer.start();
 
-      this.log(`Embedded Redis server started at ${redisUrl}`);
+        const host = await this.redisServer.getHost();
+        const port = await this.redisServer.getPort();
+        redisUrl = `redis://${host}:${port}`;
+
+        this.log(`Embedded Redis server started at ${redisUrl}`);
+      }
 
       // Create Redis clients with proper typing
       this.client = createClient({ url: redisUrl }) as RedisClientType;
