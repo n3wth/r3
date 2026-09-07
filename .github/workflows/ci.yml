@@ -1,6 +1,7 @@
 name: CI/CD Pipeline
 
 on:
+  workflow_dispatch:
   push:
     branches: [main, develop]
     tags:
@@ -32,28 +33,12 @@ jobs:
 
   build-website:
     name: Build Website
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./website
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: website/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Type check
-        run: npx tsc --noEmit
-
-      - name: Build website
-        run: npm run build
+    uses: n3wth/ui/.github/workflows/site-check.yml@b581cab69af42366ebe8ac01448460bd57d0a8e4
+    permissions:
+      contents: read
+    with:
+      working-directory: website
+      check-command: npm run check
 
   test:
     name: Test (Node 20, Redis 7)
