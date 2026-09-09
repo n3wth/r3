@@ -2,10 +2,15 @@
   "name": "website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build",
     "analyze": "cross-env ANALYZE=true npm run build",
     "perf:test": "lighthouse http://localhost:3000 --output json --output-path ./lighthouse-report.json"
   },

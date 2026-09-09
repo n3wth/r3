@@ -9,7 +9,7 @@
   "framework": "nextjs",
   "buildCommand": "cd website && npm run build",
   "outputDirectory": "website/.next",
-  "installCommand": "cd website && npm install",
+  "installCommand": "cd website && npm ci",
   "devCommand": "cd website && npm run dev",
   "ignoreCommand": "[ \"$VERCEL_ENV\" != \"production\" ]"
 }
