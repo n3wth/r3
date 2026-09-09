@@ -47,7 +47,7 @@ Add to \`~/.claude/claude_desktop_config.json\`:
 claude mcp add r3 "npx @n3wth/r3"
 \`\`\`
 
-### Gemini CLI
+### Antigravity CLI
 
 \`\`\`bash
 export MCP_SERVERS='{"r3":{"command":"npx","args":["@n3wth/r3"]}}'

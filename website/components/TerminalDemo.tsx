@@ -67,22 +67,22 @@ const demos = [
     ],
   },
   {
-    title: "Gemini CLI + Personal Knowledge",
+    title: "Antigravity CLI + Personal Knowledge",
     commands: [
       {
         type: "typing",
-        text: '$ gemini --save "Oliver uses r3 for knowledge management"',
+        text: '$ agy --save "Oliver uses r3 for knowledge management"',
         delay: 0,
       },
       {
         type: "animated",
-        text: "Gemini CLI with r3 context • Model: Gemini 1.5 Pro",
+        text: "Antigravity CLI with r3 context - Model: Gemini 2.5 Pro",
         className: "text-ink-dim",
         delay: 1500,
       },
       {
         type: "animated",
-        text: "✓ Saved to r3 and GEMINI.md",
+        text: "✓ Saved to r3 and AGY.md",
         className: "text-ink",
         delay: 2500,
       },
@@ -94,7 +94,7 @@ const demos = [
       },
       {
         type: "typing",
-        text: '$ gemini -p "@./ explain my knowledge system"',
+        text: '$ agy -p "@./ explain my knowledge system"',
         delay: 4000,
       },
       {
@@ -203,9 +203,9 @@ const demos = [
     ],
   },
   {
-    title: "Gemini CLI + Cross-Project Analysis",
+    title: "Antigravity CLI + Cross-Project Analysis",
     commands: [
-      { type: "typing", text: "$ gemini check", delay: 0 },
+      { type: "typing", text: "$ agy check", delay: 0 },
       {
         type: "animated",
         text: "Running 4 parallel checks with r3 context...",
@@ -238,7 +238,7 @@ const demos = [
       },
       {
         type: "typing",
-        text: '$ gemini compare "auth implementation" project-a project-b',
+        text: '$ agy compare "auth implementation" project-a project-b',
         delay: 5000,
       },
       {
