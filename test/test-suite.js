@@ -35,15 +35,24 @@ async function sendRequest(server, method, params = {}) {
       params,
     };
 
+    // A JSON-RPC response is newline-terminated but can be split across
+    // several stdout chunks (the tools/list reply is ~13KB). Buffer the
+    // stream and parse only complete lines; per-chunk parsing drops any
+    // response that straddles a chunk boundary and the call times out.
+    let buffer = "";
     const responseHandler = (data) => {
-      const lines = data.toString().split("\n");
-      for (const line of lines) {
+      buffer += data.toString();
+      let newlineIndex;
+      while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
+        const line = buffer.slice(0, newlineIndex);
+        buffer = buffer.slice(newlineIndex + 1);
         if (!line.trim()) continue;
         try {
           const response = JSON.parse(line);
           if (response.id === id) {
             server.stdout.off("data", responseHandler);
             resolve(response);
+            return;
           }
         } catch (_e) {
           // Not JSON, probably a log message

@@ -30,7 +30,9 @@ export class LocalMemory extends EventEmitter implements StorageBackend {
 
   private log(message: string, ...args: any[]) {
     if (!this.quiet) {
-      console.log(message, ...args);
+      // stdout is the MCP JSON-RPC channel; log lines there corrupt framing
+      // and split responses across reads, so clients never see a whole reply.
+      console.error(message, ...args);
     }
   }
 

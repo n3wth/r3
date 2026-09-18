@@ -304,6 +304,14 @@ async function initializeRedis(): Promise<boolean> {
 
     console.error("✓ Redis connected successfully with pub/sub");
 
+    // Local mode still serves storage through LocalMemory even when an
+    // external REDIS_URL is configured; without this every storage-backed
+    // tool call throws "Local memory not initialized".
+    if (MODE === "local" && !localMemory) {
+      localMemory = new LocalMemory(QUIET_MODE);
+      await localMemory.start();
+    }
+
     // Start background sync worker
     startBackgroundSync();
 
