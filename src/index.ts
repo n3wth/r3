@@ -927,7 +927,25 @@ async function simulateLocalAPI(
 
   const userId = body?.user_id || MEM0_USER_ID;
 
-  // Handle different endpoints
+  // Handle different endpoints. Match the search path before the add path:
+  // both are POST and "/memories/search/" also contains "/memories/", so the
+  // add branch would otherwise shadow every search and store junk memories.
+  if (endpoint.includes("/memories/search/") && method === "POST") {
+    // Search memories
+    const results = await localMemory.search({
+      query: body.query,
+      user_id: userId,
+      limit: body.limit || 10,
+    });
+    return {
+      results: results.map((r) => ({
+        ...r,
+        memory: r.content,
+        score: Math.random(),
+      })),
+    };
+  }
+
   if (endpoint.includes("/memories/") && method === "POST") {
     // Add memory. Only user-role content is the memory; assistant
     // acknowledgements ("I'll remember that.") are Mem0 API filler.
@@ -952,22 +970,6 @@ async function simulateLocalAPI(
         created_at: new Date().toISOString(),
       },
     ];
-  }
-
-  if (endpoint.includes("/memories/search/") && method === "POST") {
-    // Search memories
-    const results = await localMemory.search({
-      query: body.query,
-      user_id: userId,
-      limit: body.limit || 10,
-    });
-    return {
-      results: results.map((r) => ({
-        ...r,
-        memory: r.content,
-        score: Math.random(),
-      })),
-    };
   }
 
   if (endpoint.includes("/memories/") && method === "GET") {
@@ -1016,7 +1018,22 @@ async function simulateLocalAPI(
 function simulateMem0API(endpoint: string, method: string, body: any): any {
   const userId = body?.user_id || MEM0_USER_ID;
 
-  // Handle different endpoints
+  // Handle different endpoints. Match the search path before the add path:
+  // both are POST and "/memories/search/" also contains "/memories/", so the
+  // add branch would otherwise shadow every search and store junk memories.
+  if (endpoint.includes("/memories/search/") && method === "POST") {
+    // Search memories
+    const query = body.query.toLowerCase();
+    const results = Array.from(demoStorage.memories.values())
+      .filter(
+        (m) => m.user_id === userId && m.memory.toLowerCase().includes(query),
+      )
+      .map((m) => ({ ...m, score: Math.random() }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, body.limit || 10);
+    return { results };
+  }
+
   if (endpoint.includes("/memories/") && method === "POST") {
     // Add memory
     const id = `demo-${demoStorage.idCounter++}`;
@@ -1032,19 +1049,6 @@ function simulateMem0API(endpoint: string, method: string, body: any): any {
     };
     demoStorage.memories.set(id, memory);
     return { id, message: "Memory added successfully (demo mode)" };
-  }
-
-  if (endpoint.includes("/memories/search/") && method === "POST") {
-    // Search memories
-    const query = body.query.toLowerCase();
-    const results = Array.from(demoStorage.memories.values())
-      .filter(
-        (m) => m.user_id === userId && m.memory.toLowerCase().includes(query),
-      )
-      .map((m) => ({ ...m, score: Math.random() }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, body.limit || 10);
-    return { results };
   }
 
   if (endpoint.includes("/memories/") && method === "GET") {

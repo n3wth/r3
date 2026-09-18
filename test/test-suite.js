@@ -35,9 +35,16 @@ async function sendRequest(server, method, params = {}) {
       params,
     };
 
+    // Buffer stdout across chunks: a single JSON-RPC reply can span multiple
+    // "data" events, so keep the trailing partial line until its newline
+    // arrives instead of trying to parse each raw chunk on its own.
+    let buffer = "";
     const responseHandler = (data) => {
-      const lines = data.toString().split("\n");
-      for (const line of lines) {
+      buffer += data.toString();
+      let newlineIndex;
+      while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
+        const line = buffer.slice(0, newlineIndex);
+        buffer = buffer.slice(newlineIndex + 1);
         if (!line.trim()) continue;
         try {
           const response = JSON.parse(line);
@@ -417,7 +424,10 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       const results = await Promise.allSettled(promises);
       const successful = results.filter((r) => r.status === "fulfilled");
 
-      assert.ok(successful.length >= 8); // Allow some failures
+      // Every add must return, whether it took the async (Redis pub/sub) or the
+      // synchronous fallback path — both reply "Saved". A dropped reply here
+      // means a lost response, not a tolerable failure.
+      assert.equal(successful.length, promises.length);
     });
 
     it(
