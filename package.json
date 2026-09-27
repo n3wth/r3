@@ -83,7 +83,7 @@
     "marked-terminal": "^7.2.1",
     "meow": "^13.2.0",
     "node-fetch": "^3.3.2",
-    "react": "^18.3.1",
+    "react": "^19.3.0",
     "redis": "^5.8.2",
     "redis-memory-server": "^0.17.1",
     "sqlite3": "^5.0.2",
@@ -128,7 +128,7 @@
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/node": "^26.6.1",
-    "@types/react": "^18.3.1",
+    "@types/react": "^19.3.0",
     "@types/sqlite3": "^5.1.0",
     "eslint": "^9.35.0",
     "prettier": "^3.6.2",
