@@ -1,6 +1,8 @@
 import { describe, it, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "child_process";
+import { once } from "node:events";
+import { createClient } from "redis";
 // import fetch from "node-fetch";
 
 // Test configuration: force LOCAL mode — tests must not hit the Mem0 cloud
@@ -18,6 +20,9 @@ function startServer(env = {}) {
       MEM0_USER_ID: TEST_USER_ID,
       INTELLIGENCE_MODE: "basic", // Disable enhanced mode for tests to avoid mutex errors
       QUIET_MODE: "true",
+      ...(process.env.TEST_REDIS_URL
+        ? { REDIS_URL: process.env.TEST_REDIS_URL }
+        : {}),
       ...env,
     },
     stdio: ["pipe", "pipe", "pipe"],
@@ -35,10 +40,9 @@ async function sendRequest(server, method, params = {}) {
       params,
     };
 
-    // A JSON-RPC response is newline-terminated but can be split across
-    // several stdout chunks (the tools/list reply is ~13KB). Buffer the
-    // stream and parse only complete lines; per-chunk parsing drops any
-    // response that straddles a chunk boundary and the call times out.
+    // Buffer stdout across chunks: a single JSON-RPC reply can span multiple
+    // "data" events, so keep the trailing partial line until its newline
+    // arrives instead of trying to parse each raw chunk on its own.
     let buffer = "";
     const responseHandler = (data) => {
       buffer += data.toString();
@@ -50,9 +54,9 @@ async function sendRequest(server, method, params = {}) {
         try {
           const response = JSON.parse(line);
           if (response.id === id) {
+            clearTimeout(timeout);
             server.stdout.off("data", responseHandler);
             resolve(response);
-            return;
           }
         } catch (_e) {
           // Not JSON, probably a log message
@@ -63,7 +67,7 @@ async function sendRequest(server, method, params = {}) {
     server.stdout.on("data", responseHandler);
     server.stdin.write(JSON.stringify(request) + "\n");
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       server.stdout.off("data", responseHandler);
       reject(new Error("Request timeout"));
     }, 30000); // first calls wait for background Redis/embedding init
@@ -426,7 +430,10 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
       const results = await Promise.allSettled(promises);
       const successful = results.filter((r) => r.status === "fulfilled");
 
-      assert.ok(successful.length >= 8); // Allow some failures
+      // Every add must return, whether it took the async (Redis pub/sub) or the
+      // synchronous fallback path — both reply "Saved". A dropped reply here
+      // means a lost response, not a tolerable failure.
+      assert.equal(successful.length, promises.length);
     });
 
     it(
@@ -477,6 +484,72 @@ describe("Mem0-Redis Hybrid MCP Server", () => {
     });
   });
 });
+
+it(
+  "initializes local storage with external Redis and keeps stdout JSON-RPC",
+  { skip: !process.env.TEST_REDIS_URL },
+  async () => {
+    const content = `External Redis startup ${Date.now()}`;
+    const userId = `${TEST_USER_ID}-external`;
+    const redis = createClient({ url: process.env.TEST_REDIS_URL });
+    const server = startServer({
+      QUIET_MODE: "false",
+      MEM0_USER_ID: userId,
+    });
+    let stdout = "";
+    let stderr = "";
+    server.stdout.on("data", (chunk) => (stdout += chunk.toString()));
+    server.stderr.on("data", (chunk) => (stderr += chunk.toString()));
+
+    try {
+      await redis.connect();
+      const initialized = await sendRequest(server, "initialize", {
+        protocolVersion: "2024-11-05",
+        capabilities: {},
+        clientInfo: { name: "r3-external-redis-test", version: "1.0.0" },
+      });
+      assert.ok(initialized.result);
+      server.stdin.write(
+        JSON.stringify({
+          jsonrpc: "2.0",
+          method: "notifications/initialized",
+        }) + "\n",
+      );
+
+      const added = await sendRequest(server, "tools/call", {
+        name: "add_memory",
+        arguments: { content, async: false, skip_duplicate_check: true },
+      });
+      assert.ok(!added.result?.isError, JSON.stringify(added));
+      assert.equal(added.result.content[0].text, "Saved");
+
+      const ids = await redis.zRange(`memories:${userId}`, 0, -1);
+      assert.equal(ids.length, 1);
+      const stored = JSON.parse(await redis.get(`memory:${userId}:${ids[0]}`));
+      assert.equal(stored.content, content);
+
+      const readback = await sendRequest(server, "tools/call", {
+        name: "get_memory",
+        arguments: { memory_id: ids[0] },
+      });
+      assert.ok(!readback.result?.isError, JSON.stringify(readback));
+      assert.equal(
+        JSON.parse(readback.result.content[0].text).content,
+        content,
+      );
+      assert.ok(stderr.includes("Using existing Redis at"));
+    } finally {
+      if (redis.isOpen) await redis.quit();
+      const closed = once(server, "close");
+      server.kill("SIGKILL");
+      await closed;
+    }
+
+    for (const line of stdout.trim().split("\n")) {
+      assert.equal(JSON.parse(line).jsonrpc, "2.0");
+    }
+  },
+);
 
 // Run tests
 console.log("Running Mem0-Redis Hybrid MCP Server Tests...\n");

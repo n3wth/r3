@@ -44,22 +44,22 @@ export MAX_CONNECTIONS=10               # Connection pool size
 export LOG_LEVEL="info"                   # Logging verbosity
 ```
 
-## Usage with Gemini CLI
+## Usage with Antigravity CLI
 
-Integrate r3 with Google's Gemini CLI for powerful memory-enhanced AI workflows:
+Integrate r3 with Google's Antigravity CLI (`agy`) for powerful memory-enhanced AI workflows:
 
 ```bash
 # Set environment variables
 export MEM0_API_KEY="your_mem0_api_key"
 export REDIS_URL="redis://localhost:6379"
 
-# Use with Gemini for context-aware responses
-gemini "Remember: User prefers Python over JavaScript" | npx r3 add
-gemini "What are my coding preferences?" | npx r3 search
+# Use with Antigravity for context-aware responses
+agy "Remember: User prefers Python over JavaScript" | npx r3 add
+agy "What are my coding preferences?" | npx r3 search
 
 # Advanced integration with piping
 echo "Project uses TypeScript and React" | npx r3 add --userId project-123
-gemini "Generate component based on project stack" --context "$(npx r3 get --userId project-123)"
+agy "Generate component based on project stack" --context "$(npx r3 get --userId project-123)"
 ```
 
 ## Usage with Claude

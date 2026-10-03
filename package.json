@@ -13,6 +13,7 @@
     "build": "tsc && cp src/lib/spacy_bridge.py dist/lib/ 2>/dev/null || true",
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts --debug",
+    "pretest": "npm run build",
     "test": "node test/run-tests.js",
     "test:intelligence": "node test/test-intelligence.js",
     "test:watch": "node --test --watch test/test-suite.js",
@@ -126,7 +127,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
-    "@types/node": "^24.3.3",
+    "@types/node": "^26.6.1",
     "@types/react": "^18.3.1",
     "@types/sqlite3": "^5.1.0",
     "eslint": "^9.35.0",

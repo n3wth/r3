@@ -1,34 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 3
-    groups:
-      npm-dependencies:
-        patterns: ["*"]
-  - package-ecosystem: npm
-    directory: "/website"
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 3
-    groups:
-      npm-dependencies:
-        patterns: ["*"]
-  - package-ecosystem: npm
-    directory: "/r3call-cli"
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 3
-    groups:
-      npm-dependencies:
-        patterns: ["*"]
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 3
-    groups:
-      github-actions:
-        patterns: ["*"]
+      interval: "weekly"
+    open-pull-requests-limit: 10
