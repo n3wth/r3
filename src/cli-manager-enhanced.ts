@@ -22,13 +22,13 @@ import { createClient, RedisClientType } from "redis";
 import chalk from "chalk";
 import Fuse from "fuse.js";
 import { marked } from "marked";
-import TerminalRenderer from "marked-terminal";
+import { markedTerminal } from "marked-terminal";
 import fetch from "node-fetch";
 import boxen from "boxen";
 
 // Configure marked for terminal rendering
-marked.setOptions({
-  renderer: new TerminalRenderer({
+marked.use(
+  markedTerminal({
     showSectionPrefix: false,
     width: 80,
     reflowText: true,
@@ -36,7 +36,7 @@ marked.setOptions({
       chars: { mid: "", "left-mid": "", "mid-mid": "", "right-mid": "" },
     },
   }),
-});
+);
 
 // Types
 interface Memory {
