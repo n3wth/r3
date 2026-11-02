@@ -86,7 +86,7 @@
     "react": "^19.3.0",
     "redis": "^6.2.1",
     "redis-memory-server": "^0.17.1",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^6.0.1",
     "terminal-kit": "^3.1.1",
     "vectra": "^0.12.3",
     "wink-eng-lite-web-model": "^1.8.1",
