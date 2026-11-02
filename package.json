@@ -65,7 +65,7 @@
     "axios": "^1.12.1",
     "blessed": "^0.1.81",
     "blessed-contrib": "^4.11.0",
-    "boxen": "^8.0.1",
+    "boxen": "^9.0.0",
     "chalk": "^6.0.1",
     "cli-spinners": "^3.4.0",
     "figures": "^6.1.0",
